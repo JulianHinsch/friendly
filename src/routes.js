@@ -4,7 +4,9 @@ const users = require('./controller/users');
 const posts = require('./controller/posts');
 const comments = require('./controller/comments');
 const likes = require('./controller/likes');
+const follows = require('./controller/follows');
 
+//TODO
 const requireAuthentication = (req, res, next) => {
     //if authenticated
     next()
@@ -12,43 +14,38 @@ const requireAuthentication = (req, res, next) => {
     return res.sendStatus(401);
 }
 
-router.all('/api/*', requireAuthentication);
+router.all('*', requireAuthentication);
 
 //users
 router.route('/api/users')
     .get(users.loadMany)
 router.route('/api/users/:id')
-    .get(users.findOne)
+    .get(users.loadOne)
     .put(users.addOne)
-    .delete(users.deleteOne)
+    .delete(users.deleteById)
 
 //posts
 router.route('/posts')
     .get(posts.loadMany)
 router.route('/api/posts/:id')
     .get(posts.loadOne)
-    .put()
-    .delete()
-
-/
-router.route('/api/users')
-    .get()
-    .put()
-    .delete()
-
-//posts
-router.get('/api/posts', authCheck, );
-router.put('/api/posts')
-router.delete('/api/posts');
+    .put(posts.addOne)
+    .delete(posts.deleteById)
 
 //comments
-router.get('/api/comments')
-router.put('/api/comments')
-router.delete('/api/comments')
+router.route('/api/comments')
+    .put(comments.addOne)
+    .delete(comments.deleteById)
 
 //likes
+router.route('/api/likes')
+    .put(likes.addOne)
+    .delete(likes.deleteById)
 
-//api/profile?userid=xxx?page=1
+//follows
+router.route('/api/follows')
+    .put(follows.addOne)
+    .delete(follows.deleteByUserIds)
 
 module.exports = {
     router

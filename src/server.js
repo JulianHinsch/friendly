@@ -2,16 +2,29 @@ require('dotenv').config();
 const Express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-const router = require('./routes');
+const router = require('./routes').router;
 
 const app = new Express();
 
-app.use(morgan);
+app.use(morgan('dev'));
 
-// define the folder that will be used for static assets
-app.use(Express.static(path.join(__dirname, 'src/client/build')));
+// serve static assets in production
+if(process.env.NODE_ENV !== 'development') {
+    app.use(Express.static(path.join(__dirname, 'src/client/build')));    
+}
 
 app.use(router);
+
+// general error handling
+const handleErrors = (err, req, res, next) => {
+    if(err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+    next();
+}
+
+app.use(handleErrors);
 
 // start the server
 const port = process.env.PORT || 3001;
