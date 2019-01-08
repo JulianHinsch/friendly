@@ -3,6 +3,7 @@ const Express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const router = require('./routes').router;
+const sync = require('./model/database').sync;
 
 const app = new Express();
 
@@ -28,6 +29,8 @@ app.use(handleErrors);
 
 // start the server
 const port = process.env.PORT || 3001;
+
+sync();
 
 app.listen(port, () => {
     console.log('Listening on', port);
