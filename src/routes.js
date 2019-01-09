@@ -6,15 +6,15 @@ const comments = require('./controller/comments');
 const likes = require('./controller/likes');
 const follows = require('./controller/follows');
 
-//TODO
-const requireAuthentication = (req, res, next) => {
-    //if authenticated
-    next()
-    //else
+// route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
     return res.sendStatus(401);
+        
 }
 
-router.all('*', requireAuthentication);
+router.all('/api/*', isLoggedIn);
 
 //users
 router.route('/api/users')
@@ -25,7 +25,7 @@ router.route('/api/users/:id')
     .delete(users.deleteById)
 
 //posts
-router.route('/posts')
+router.route('/api/posts')
     .get(posts.loadMany)
 router.route('/api/posts/:id')
     .get(posts.loadOne)

@@ -2,19 +2,37 @@ require('dotenv').config();
 const Express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const passport = require('passport');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
+
 const router = require('./routes').router;
 const sync = require('./model/database').sync;
 
 const app = new Express();
 
+require('./config/passport')(passport);
+
+app.use(cookieParser());
 app.use(morgan('dev'));
+
+app.use(session({
+    secret: 'ilovescotchscotchyscotchscotch', // session secret
+    resave: true,
+    saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+app.use(router);
 
 // serve static assets in production
 if(process.env.NODE_ENV !== 'development') {
     app.use(Express.static(path.join(__dirname, 'src/client/build')));    
 }
-
-app.use(router);
 
 // general error handling
 const handleErrors = (err, req, res, next) => {
