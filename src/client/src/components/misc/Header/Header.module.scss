@@ -1,0 +1,15 @@
+.header {
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 5%;
+    background-color: #4267b2;
+    & a {
+        color: white;
+    }
+}

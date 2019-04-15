@@ -1,0 +1,17 @@
+.comment_form {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    & input {
+        width: 100%;
+        height: 30px;
+        font-size: 14px;
+        border-radius: 15px;
+        border: 1px solid #ddd;
+        outline: none;
+        padding-left: 10px;
+        background-color: #eef2f7;
+    }
+}

@@ -1,30 +1,57 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import SinglePost from './pages/SinglePost/SinglePost';
-import Landing from './pages/Landing/Landing';
-import Newsfeed from './pages/Newsfeed/Newsfeed';
-import NotFound from './pages/NotFound/NotFound';
-import Profile from './pages/Profile/Profile';
-import SearchResults from './pages/SearchResults/SearchResults';
-import Login from './pages/Login/Login';
-import Signup from './pages/Signup/Signup';
+import Login from './auth/Login/Login';
+import Signup from './auth/Signup/Signup';
+import Post from './feed/Post/Post';
+import PostList from './feed/PostList/PostList';
+import SearchResults from './misc/SearchResults/SearchResults';
 
-const Routes = () => {
-    <Switch>
-        <Route path='/' component={Landing}/>
-        <Route path='/' component={Newsfeed}/>
-        <Route path='/profile' component={Profile}/>
-        <Route path='/search' component={SearchResults}/>
-        <Route path='/login' component={Login}/>
-        <Route path='/signup' component={Signup}/>
-        <Route component={NotFound}/>
-    </Switch>
-}
+//routes
 
-Routes.propTypes = {
+// / PostList or -> Login
+// /user?id=54265265 PostList
+// /post?id=5254325  Post
+// /search?1=fdagfagg SearchResults
+// /signup Signup
+// /login Login
 
+/**
+ * Redirect if the user is not logged in.
+ * This route is for authenticated users only.
+ * Note: Any use of auth.isAuthenticated is insecure as this can be manipulated by changing the 
+ * expires_at field of localStorage.
+ * However, api calls will be impossible without a valid access_token.
+ * Thus all secure data must not be stored in the client, as usual, and must instead be stored on the server.
+ */
+const ProtectedRoute = ({ auth, component: Component, ...rest }) => (
+    <Route {...rest} render={props => {
+        if(auth.isAuthenticated()) {
+            return <Component {...props}/>
+        } else {
+            return <Redirect to={{pathname: "/login", state: { from: props.location }}}/>
+        }}}/>
+);
+
+const Routes = () => {    
+
+    return (
+        <Switch>
+            <Route path='/' component={PostList}/>
+            <Route path='/login' component={Login}/>
+            <Route path='/signup' component={Signup}/>
+            <Route path='/search' component={SearchResults}/>
+            <Route path='/profile' component={PostList}/>
+            <Route path='/post' component={Post}/>
+
+            {/* <ProtectedRoute auth={auth} path='/' component={PostList}/>
+            <ProtectedRoute auth={auth} path='/profile' component={PostList}/>
+            <ProtectedRoute auth={auth} path='/post' component={Post}/> */}
+            {/* <Route component={NotFound}/>
+            <Route component={Forbidden}/> */}
+        </Switch>
+    )
 }
 
 export default Routes;

@@ -1,0 +1,37 @@
+.post {
+    display: block;
+    width: 90%;
+    max-width: 700px;
+    margin: 40px auto;
+    border: 1px solid #ddd;
+    background-color: white;
+}
+
+.post_header {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 10px 10px 25px 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.post_header * {
+    line-height: 30px;
+}
+
+.time {
+    position: absolute;
+    left: 50px;
+    font-size: 12px;
+    height: 15px;
+    line-height: 15px;
+    bottom: 5px;
+    color: #666;
+}
+
+.post_body {
+    border-bottom: 1px solid #ddd;
+    min-height: 100px;
+    padding: 10px;
+}
