@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import Login from './auth/Login/Login';
 import Signup from './auth/Signup/Signup';
 import Post from './feed/Post/Post';
-import PostList from './feed/PostList/PostList';
 import SearchResults from './misc/SearchResults/SearchResults';
 import Feed from './feed/Feed/Feed';
+import Profile from './profile/Profile/Profile';
 
 //routes
 
@@ -39,11 +39,11 @@ const Routes = () => {
 
     return (
         <Switch>
-            <Route path='/' component={Feed}/>
+            <Route exact path='/' component={Feed}/>
             <Route path='/login' component={Login}/>
             <Route path='/signup' component={Signup}/>
             <Route path='/search' component={SearchResults}/>
-            <Route path='/profile' component={Feed}/>
+            <Route path='/user' component={Profile}/>
             <Route path='/post' component={Post}/>
 
             {/* <ProtectedRoute auth={auth} path='/' component={PostList}/>
