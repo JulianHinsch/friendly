@@ -13,3 +13,13 @@ html, body {
     padding: 0;
     background-color: #eef2f7;
 }
+
+.app {
+    padding-top: calc(40px + 5%);
+}
+
+@media(min-width: 768px) {
+    .app {
+        padding-top: 80px;
+    }
+}

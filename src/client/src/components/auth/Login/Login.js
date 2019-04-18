@@ -10,6 +10,14 @@ class Login extends Component {
 
     }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+    }
+
+    handleChange = (event) => {
+        this.setState({[event.target.name]: event.target.value});
+    }
+
     render() {
         return (
             <main>

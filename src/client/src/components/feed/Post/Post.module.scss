@@ -2,9 +2,16 @@
     display: block;
     width: 90%;
     max-width: 700px;
-    margin: 40px auto;
+    margin: 5% auto;
     border: 1px solid #ddd;
+    border-radius: 5px;
     background-color: white;
+}
+
+@media(min-width: 768px) {
+    .post {
+        margin: 40px auto;
+    }
 }
 
 .post_header {
