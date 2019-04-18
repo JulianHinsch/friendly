@@ -4,7 +4,6 @@ import Header from '../misc/Header/Header';
 
 import styles from './App.module.scss';
 
-
 class App extends Component {
     render() {
         return (
