@@ -3,7 +3,6 @@ const Follow= require('../model/database').models.Follow;
 const _Comment = require('../model/database').models._Comment
 const Like = require('../model/database').models.Like
 
-
 const loadMany = async (req, res, next) => {
     const options = {};
     if(req.params.userid) {
@@ -38,7 +37,7 @@ const loadOne = async (req, res, next) => {
     }
 }
 
-const addOne = async (req, res) => {
+const addOne = async (req, res, next) => {
     try {
         let result = await Post.create(req.body);
         return res.status(201).send(result);

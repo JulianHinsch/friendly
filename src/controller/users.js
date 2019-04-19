@@ -43,12 +43,17 @@ const addOne = async (req, res, next) => {
 }
 
 const updateById = async (req, res) => {
-
+    try {
+        await User.update(req.body, {where: { id: req.params.id }, returning: true});
+        return res.sendStatus(204);
+    } catch (err) {
+        next(err);
+    }
 }
 
 const deleteById = async (req, res, next) => {
     try {
-        await Comment.destroy({where: { id: req.params.id }})
+        await User.destroy({where: { id: req.params.id }})
         return res.sendStatus(204);
     } catch (err) {
         next(err);
