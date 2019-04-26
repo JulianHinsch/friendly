@@ -21,9 +21,9 @@ class CommentList extends Component {
                         text={comment.text}
                         key={key++}/>
                 )) : (
-                    <span onClick={this.setState({expanded: true})}>
-                        {comments.length} comments
-                    </span>
+                    <div className={styles.comment_list_placeholder} onClick={() => this.setState({ expanded: true })}>
+                        {comments.length} comment{comments.length === 1 ? '' : 's'}
+                    </div>
                 )}
             </div>
         )

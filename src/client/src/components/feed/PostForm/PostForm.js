@@ -10,6 +10,9 @@ class PostForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        this.props.createPost({
+            
+        });
     }
 
     handleChange = (event) => {
