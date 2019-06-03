@@ -3,25 +3,14 @@ const router = require('express').Router();
 const users = require('./controller/users');
 const posts = require('./controller/posts');
 const comments = require('./controller/comments');
-const likes = require('./controller/likes');
+const reactions = require('./controller/reactions');
 const follows = require('./controller/follows');
+const auth = require('./controller/auth');
 
-// route middleware to ensure user is logged in
-// function isLoggedIn(req, res, next) {
-//     if (req.isAuthenticated()) {
-//         return next();        
-//     }
-//     return res.sendStatus(401);
-// }
-
-// router.all('/api/*', isLoggedIn);
-
-router.route('/api/users')
-    .get(users.loadMany)
 router.route('/api/users/:id')
     .get(users.loadOne)
     .put(users.addOne)
-    .delete(users.deleteById)
+    .delete(users._delete)
 router.route('/api/posts')
     .post(posts.addOne)
     .get(posts.loadMany)
@@ -32,13 +21,19 @@ router.route('/api/posts/:id')
 router.route('/api/comments')
     .put(comments.addOne)
     .delete(comments.deleteById)
-router.route('/api/likes')
-    .put(likes.addOne)
-    .delete(likes.deleteById)
+router.route('/api/reactions')
+    .put(reactions.addOne)
+    .delete(reactions.deleteById)
 router.route('/api/follows')
     .put(follows.addOne)
     .delete(follows.deleteByUserIds)
+router.route('/login')
+    .post(auth.login)
+router.route('/signup')
+    .post(auth.signup)
+router.route('/userinfo')
+    .post(auth.getUserInfo)
+router.route('/logout')
+    .post(auth.logout)
 
-module.exports = {
-    router
-}
+module.exports = router;

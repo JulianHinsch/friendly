@@ -42,7 +42,7 @@ const addOne = async (req, res, next) => {
     }
 }
 
-const updateById = async (req, res) => {
+const update = async (req, res) => {
     try {
         await User.update(req.body, {where: { id: req.params.id }, returning: true});
         return res.sendStatus(204);
@@ -51,7 +51,7 @@ const updateById = async (req, res) => {
     }
 }
 
-const deleteById = async (req, res, next) => {
+const _delete = async (req, res, next) => {
     try {
         await User.destroy({where: { id: req.params.id }})
         return res.sendStatus(204);
@@ -64,6 +64,6 @@ module.exports = {
     loadOne,
     loadMany,
     addOne,
-    updateById,
-    deleteById,
+    update,
+    _delete,
 }

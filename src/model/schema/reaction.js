@@ -18,6 +18,11 @@ module.exports = (database, DataTypes) => {
             unique: false,
             foreignKey: true,
         },
+        type: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: false,
+        }
     }, {
         timestamps: true,
     });

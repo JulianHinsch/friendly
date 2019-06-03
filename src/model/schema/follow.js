@@ -1,3 +1,5 @@
+//could this just be a join table?
+
 module.exports = (database, DataTypes) => {
     return database.define('follow', {
         id: {

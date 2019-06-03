@@ -2,31 +2,31 @@ require('dotenv').config();
 const Express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-// const passport = require('passport');
-// const cookieParser = require('cookie-parser');
-// const session = require('express-session');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 
-const router = require('./routes').router;
-const sync = require('./model/database').sync;
+const router = require('./routes');
+const database = require('./model/database');
 
 const app = new Express();
 
-// require('./config/passport')(passport);
+if(process.env.NODE_ENV === 'development') {
+    app.use(cors({
+        credentials: true,
+        origin: 'http://localhost:3000',
+    }));
+}
 
-// app.use(cookieParser());
 app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({
+    extended: true,
+}));
+app.use(bodyParser.json());
+app.use(cookieParser()); //you can provide a secret here to sign cookies if you wish
 
-// app.use(session({
-//     secret: 'ilovescotchscotchyscotchscotch', // session secret
-//     resave: true,
-//     saveUninitialized: true
-// }));
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-
+//routes
 app.use(router);
 
 // serve static assets in production
@@ -49,7 +49,11 @@ app.use(handleErrors);
 // start the server
 const port = process.env.PORT || 3001;
 
-sync();
+if(process.env.NODE_ENV === 'development') {
+    database.seed();
+} else {
+    database.sync();
+}
 
 app.listen(port, () => {
     console.log('Listening on', port);
