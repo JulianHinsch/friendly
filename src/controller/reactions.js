@@ -1,6 +1,5 @@
-const Like = require('../model/database').models.Like;
+const Reaction = require('../model/database').models.Reaction;
 
-const { _create, _read, _update, _delete } = require('./crud');
 
 // const addOne = async (req, res) => {
 //     try {
@@ -21,15 +20,15 @@ const { _create, _read, _update, _delete } = require('./crud');
 // }
 
 
-const addOne = (req, res, next) => {
-    return _create(Like, req, res, next, {})
-}
+// const addOne = (req, res, next) => {
+//     return _create(Like, req, res, next, {})
+// }
 
-const deleteById = (req, res, next) => {
-    return _delete(Like, req, res, next, {})
-}
+// const deleteById = (req, res, next) => {
+//     return _delete(Like, req, res, next, {})
+// }
 
-module.exports = {
-    addOne,
-    deleteById,
-}
+// module.exports = {
+//     addOne,
+//     deleteById,
+// }

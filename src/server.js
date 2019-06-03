@@ -5,9 +5,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-
-
-const router = require('./routes');
+const handleWebSocketRequest = require('./controller/chat');
+const expressWs = require('express-ws')
 const database = require('./model/database');
 
 const app = new Express();
@@ -26,7 +25,12 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cookieParser()); //you can provide a secret here to sign cookies if you wish
 
-//routes
+expressWs(app);
+
+//app.use(decodeToken); //assigns req.decoded
+
+//routes - must load/define after initializing WS
+const router = require('./routes');
 app.use(router);
 
 // serve static assets in production
@@ -35,16 +39,14 @@ if(process.env.NODE_ENV !== 'development') {
 }
 
 // general error handling
-const handleErrors = (err, req, res, next) => {
+app.use((err, req, res, next) => {
     if(err) {
         console.log(err);
         res.sendStatus(err.status);
         res.sendStatus(500);
     }
     next(err);
-}
-
-app.use(handleErrors);
+});
 
 // start the server
 const port = process.env.PORT || 3001;
@@ -58,3 +60,4 @@ if(process.env.NODE_ENV === 'development') {
 app.listen(port, () => {
     console.log('Listening on', port);
 });
+    

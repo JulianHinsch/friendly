@@ -23,7 +23,7 @@ const validateUsername = (username) => {
     return true;
 }
 
-//helper functions to keep things dry
+//helper functions to keep things DRY
 
 const badRequest = (res) => {
     return res.status(400).json({
@@ -193,12 +193,18 @@ const signup = async (req, res, next)  => {
     next();
 }
 
-const getUserInfo = async (req, res, next) => {
-    const token = req.cookies['access_token'];
-    return res.status(200).json({
-        success: true,
-        info: atob(token.split('.')[1]),
-    });
+const getUserInfo = (req, res, next) => {
+    if(req.decoded) {
+        return res.status(200).json({
+            success: true,
+            info: decoded,
+        });
+    } else {
+        return res.status(401).json({
+            success: false,
+            message: 'Auth token is not supplied. You may need to log in.',
+        });
+    }
     next();
 }
 

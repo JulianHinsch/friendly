@@ -1,39 +1,24 @@
 const router = require('express').Router();
 
+const crud = require('./middleware/crud');
+
 const users = require('./controller/users');
 const posts = require('./controller/posts');
 const comments = require('./controller/comments');
 const reactions = require('./controller/reactions');
 const follows = require('./controller/follows');
 const auth = require('./controller/auth');
+const chat = require('./controller/chat');
 
-router.route('/api/users/:id')
-    .get(users.loadOne)
-    .put(users.addOne)
-    .delete(users._delete)
-router.route('/api/posts')
-    .post(posts.addOne)
-    .get(posts.loadMany)
-router.route('/api/posts/:id')
-    .get(posts.loadOne)
-    .put(posts.addOne)
-    .delete(posts.deleteById)
-router.route('/api/comments')
-    .put(comments.addOne)
-    .delete(comments.deleteById)
-router.route('/api/reactions')
-    .put(reactions.addOne)
-    .delete(reactions.deleteById)
-router.route('/api/follows')
-    .put(follows.addOne)
-    .delete(follows.deleteByUserIds)
-router.route('/login')
-    .post(auth.login)
-router.route('/signup')
-    .post(auth.signup)
-router.route('/userinfo')
-    .post(auth.getUserInfo)
-router.route('/logout')
-    .post(auth.logout)
+router.route('/api/users/:id?').all(crud(users));
+router.route('/api/posts/:id?').all(crud(posts));
+router.route('/api/reactions/:id?').all(crud(reactions));
+router.route('/api/comments/:id?').all(crud(comments));
+router.route('/api/follows/:id?').all(crud(follows));
+router.post('/login', auth.login)
+router.post('/signup', auth.signup)
+router.post('/logout', auth.logout)
+router.get('/userinfo', auth.getUserInfo)
+router.ws('/', chat.handleRequest)
 
 module.exports = router;

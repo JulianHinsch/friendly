@@ -1,18 +1,18 @@
 module.exports = (database, DataTypes) => {
-    return database.define('comment', {
+    return database.define('message', {
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: true,
             primaryKey: true,
         },
-        postId: {
+        userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: false,
             foreignKey: true,
         },
-        userId: {
+        conversationId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: false,

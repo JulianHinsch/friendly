@@ -22,6 +22,7 @@ module.exports = (database, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: false,
+            defaultValue: 'LIKE',
         }
     }, {
         timestamps: true,

@@ -8,18 +8,24 @@ module.exports = (database, DataTypes) => {
             unique: true,
             primaryKey: true,
         },
-        followerUserId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            unique: true,
-            foreignKey: true,
-        },
-        followsUserId: {
+        followerId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: false,
             foreignKey: true,
         },
+        followsId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            unique: false,
+            foreignKey: true,
+        },
+        isApproved: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            unique: false,
+            defaultValue: false,
+        }
     }, {
         timestamps: true,
     });
