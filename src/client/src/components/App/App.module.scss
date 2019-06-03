@@ -1,3 +1,18 @@
+//TODO use these globals
+
+$color-primary: #4267b2;
+$color-background: #eef2f7;
+$color-foreground: #f5f6f7;
+$color-border: #ddd;
+$color-link: #365899;
+
+//TODO use
+@mixin card {
+    border: 1px solid $color-border;
+    background-color: white;
+    border-radius: 5px;
+}
+
 :global(a) {
     text-decoration: none;
     cursor: pointer;
