@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-
-//server side validation
-//username
-//password
+import styles from '../AuthForm.module.scss';
 
 class Login extends Component {
 
     state = {
-
+        email: '',
+        password: '',
+        canSubmit: false,
+        submitErrMsg: 'Something is wrong',
+        hideSubmitErrMsg: false,
     }
 
     handleSubmit = (event) => {
@@ -15,19 +16,35 @@ class Login extends Component {
     }
 
     handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
+        this.setState({[event.target.name]: event.target.value}, () => {
+            this.validateField(event.target.name);
+        });
     }
 
     render() {
         return (
-            <main>
+            <main className={styles.auth_form}>
+                <h1>Log In</h1>
                 <form>
-                    <input name='username' type='text'/>
-                    <label for='username'>Username</label>
-                    <input name='password' type='password'/>
-                    <label for='password'>Password</label>
-                    <button type='submit'>Log In</button>
+                    <div>
+                        <label htmlFor='email'>Email</label>
+                        <input name='email' type='text' required/>
+                    </div>
+                    <div>
+                        <label htmlFor='password' required>Password</label>
+                        <input name='password' type='password'/>
+                    </div>
+                    <button type='submit' disabled={!this.state.canSubmit}>Log In</button>
                 </form>
+                {this.state.submitErrMsg && (
+                    <div className={styles.submit_err_msg}>
+                        {this.state.submitErrMsg}
+                        <img 
+                            src={require('../../../assets/x.svg')} 
+                            alt='close' 
+                            onClick={()=>this.setState({hideSubmitErrMsg: true})}/>
+                    </div>
+                )}
             </main>
         );
     }

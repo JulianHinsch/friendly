@@ -5,11 +5,54 @@
     top: 0px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 40px;
     line-height: 40px;
     padding: 0 5%;
     background-color: #4267b2;
+    & > nav {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    & ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    & li {
+        display: inline-block;
+        margin-left: 20px;
+    }
     & a {
         color: white;
+    }
+}
+
+.logo {
+    display: block;
+    height: 30px;
+    top: 5px;
+}
+
+.search_form {
+    width: 50%;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & label {
+        display: none;
+    }
+    & input {
+        width: 100%;
+        outline: none;
+        border: none;
+        //border-radius: 15px;
+        padding: 0 5px;
+        font-size: 12px;
+        height: 25px;
+        line-height: 25px;
     }
 }

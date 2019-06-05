@@ -1,38 +1,90 @@
 import React, { Component } from 'react';
 
-/**
- * validate server side
- * 
- * 
- * first name
- * last name
- * email
- * phone
- * company (optional)
- * birthday
- * bio
- * password
- * 
- */
-
+import styles from '../AuthForm.module.scss';
 
 class Signup extends Component {
     
     state = {
-
+        firstName: '',
+        firstNameErrMsg: 'Something is wrong',
+        lastName: '',
+        lastNameErrMsg: '',
+        email: '',
+        emailErrMsg: '',
+        phone: '',
+        phoneErrMsg: '',
+        password: '',
+        passwordErrMsg: '',
+        canSubmit: false,
+        submitErrMsg: 'Something is wrong',
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
     }
 
+    validateField = () => {
+
+    }
+
     handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
+        this.setState({[event.target.name]: event.target.value}, () => {
+            this.validateField(event.target.name, event.target.value);
+        });
     }
     
     render() {
         return (
-            <div/>
+            <main className={styles.auth_form}>
+                <h1>Sign Up</h1>
+                <form onSubmit={this.handleSubmit}>
+                    <div>
+                        <label htmlFor='firstname'>First Name</label>
+                        <input name='firstname' type='text' required onChange={this.handleChange}/>
+                        <span className={styles.validation_err_msg}>
+                            {this.state.firstNameErrMsg}
+                        </span>
+                    </div>
+                    <div>
+                        <label htmlFor='lastname'>Last Name</label>
+                        <input name='lastname' type='text' required onChange={this.handleChange}/>
+                        <span className={styles.validation_err_msg}>
+                            {this.state.lastNameErrMsg}
+                        </span>
+                    </div>
+                    <div>
+                        <label htmlFor='email'>Email</label>
+                        <input name='email' type='text' required onChange={this.handleChange}/>
+                        <span className={styles.validation_err_msg}>
+                            {this.state.emailErrMsg}
+                        </span>
+                    </div>
+                    <div>
+                        <label htmlFor='phone'>Phone</label>
+                        <input name='phone' type='text' required onChange={this.handleChange}/>
+                        <span className={styles.validation_err_msg}>
+                            {this.state.phoneErrMsg}
+                        </span>
+                    </div>
+                    <div>
+                        <label for='password'>Password</label>
+                        <input name='password' type='password' required onChange={this.handleChange}/>
+                        <span className={styles.validation_err_msg}>
+                            {this.state.passwordErrMsg}
+                        </span>
+                    </div>
+                    <button type='submit' disabled={!this.state.canSubmit}>Sign Up</button>
+                </form>
+                {this.state.submitErrMsg && (
+                    <div className={styles.submit_err_msg}>
+                        {this.state.submitErrMsg}
+                        <img 
+                            src={require('../../../assets/x.svg')} 
+                            alt='close' 
+                            onClick={()=>this.setState({hideSubmitErrMsg: true})}/>
+                    </div>
+                )}
+            </main>
         )
     }
 }
