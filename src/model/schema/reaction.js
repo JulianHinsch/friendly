@@ -5,6 +5,7 @@ module.exports = (database, DataTypes) => {
             allowNull: false,
             unique: true,
             primaryKey: true,
+            autoIncrement: true,
         },
         postId: {
             type: DataTypes.INTEGER,

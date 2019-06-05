@@ -15,6 +15,11 @@ const validatePassword = (password) => {
     return true;
 }
 
+const validateEmail = (email) => {
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return emailRegex.test(email);
+}
+
 const validateUsername = (username) => {
     if(/\s/g.test(username)) return false; //whitespace
     if(username.length < 3) return false; //too short
@@ -82,28 +87,28 @@ const logout = (req, res, next) => {
 
 const login = async (req, res, next) => {
 
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    if(!username || !password) {
+    if(!email || !password) {
         return badRequest(res);
     }
 
     try {
 
-        const user = await User.findOne({ where: { username: username }});
+        const user = await User.findOne({ where: { email: email }});
         if(!user) {
             return badCreds(res);
         }
 
         const isValid = await user.checkPassword(password);
-        console.log(isValid);
+
         if(!isValid) {
             return badCreds(res);
         }
 
         const token = jwt.sign(
             { 
-                username: user.username,
+                email: user.email,
                 role: user.role,
             },
             process.env.SECRET_KEY,
@@ -111,7 +116,7 @@ const login = async (req, res, next) => {
                 expiresIn: '7d',
                 audience: 'node-token-auth-client',
                 issuer: 'node-token-auth-server',
-                subject: user.username,
+                subject: user.email,
             }
         );
         /* this yields a token of format header.payload.signature, 
@@ -134,9 +139,9 @@ const login = async (req, res, next) => {
 }
 
 const signup = async (req, res, next)  => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    if(!username || !password) {
+    if(!email || !password) {
         return badRequest(res);
     }
 
@@ -144,16 +149,16 @@ const signup = async (req, res, next)  => {
         return badCreds(res);
     }
 
-    if(!validateUsername(username)) {
+    if(!validateEmail(email)) {
         return badCreds(res);
     }
 
     try {
         const passwordHash = await User.prototype.generateHash(password);              
-        //dont allow duplicate usernames
+        //dont allow duplicate emails
         const [ user, created ] = await User.findOrCreate({
             where: {
-                username: username,
+                email: email,
             },
             defaults: {
                 passwordHash: passwordHash, 
@@ -162,19 +167,19 @@ const signup = async (req, res, next)  => {
         if(!created) {
             return res.status(200).json({
                 success: false,
-                message: 'Username has already been taken',
+                message: 'There is already an account associated with this email.',
             })
         }
         let token = jwt.sign(
             { 
-                username: user.username,
+                email: user.email,
             },
             process.env.SECRET_KEY,
             { 
                 expiresIn: '7d',
                 audience: 'node-token-auth-client',
                 issuer: 'node-token-auth-server',
-                subject: user.username,
+                subject: user.email,
             }
         );
         return res

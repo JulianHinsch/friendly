@@ -1,12 +1,29 @@
+/search/
+/feed/:userid?limit=50&offset=0 - could be posts by a user and their friends
+/profile/:userid?limit=50&offset=0 - could be posts just by a user
+
 # Comments
+
+POST /comments/
 
 # Users
 
+/signup/
+/search/
+/login/
+/logout/
+    
 # Posts
+
+GET /posts/:id
 
 # Reactions
 
+POST /reactions
+
 # Follows
+
+POST /follows
 
 # Chat
 

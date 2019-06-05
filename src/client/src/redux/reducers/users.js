@@ -1,5 +1,5 @@
-const ADD_COMMENT = 'ADD_COMMENT';
-const DELETE_COMMENT = 'DELETE_COMMENT';
+const DELETE_USER = 'DELETE_USER';
+const FETCH_USER = 'FETCH_USER';
 
 const defaultState = {
     error: null,
@@ -7,14 +7,16 @@ const defaultState = {
     items: {}
 }
 
-export const commentsReducer = (state = defaultState, action) => {
+export const usersReducer = (state = defaultState, action) => {
     switch(action.type) {
-        case ADD_COMMENT:
+        case DELETE_USER:
             return Object.assign(state, action.payload);
-        case DELETE_COMMENT:
+        case FETCH_USER:
             return Object.assign(state, action.payload);
         default:
             return state;
     }
 }
+
+
 

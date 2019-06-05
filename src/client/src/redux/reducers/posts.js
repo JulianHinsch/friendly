@@ -1,32 +1,32 @@
-//state structure
-const postsState = { 
+const ADD_POST = 'ADD_POST';
+const DELETE_POST = 'DELETE_POST';
+const SELECT_POST = 'SELECT_POST';
+
+const defaultState = { 
     selectedPostId: null, 
     collection: {}, 
     loading: false
 };
 
-//compute new state (write)
-export const postsReducer = (posts = postsState, action) => { 
+export const postsReducer = (state = defaultState, action) => { 
     switch (action.type) {
-        case SET_POSTS:
+        case ADD_POST:
             return Object.assign(state, action.payload);
-        case UPDATE_POST: 
-            return Object.assign(state, action.payload);
-        case REMOVE_POST:
+        case DELETE_POST:
             return Object.assign(state, action.payload);
         case SELECT_POST:
             return Object.assign(state,action.payload);
         default: 
-            return posts;
+            return state;
     } 
 };
 
-//select from state(read)
+//selectors
 
 export const getPostsIds = (state) => {
     return Object.keys(state.posts.collection);
 }
 
-export const getSelectedBook = (state) => {
+export const getSelectedPost = (state) => {
     return state.posts.selected[state.posts.selectedPostId];
 }
