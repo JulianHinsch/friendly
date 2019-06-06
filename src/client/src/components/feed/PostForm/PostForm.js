@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import styles from './PostForm.module.scss';
 import Avatar from '../../misc/Avatar/Avatar';
 
 class PostForm extends Component {
+
+    static propTypes = {
+        createPost: PropTypes.func.isRequired,
+    }
 
     state = {
         userInput: '',
@@ -11,7 +17,8 @@ class PostForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.createPost({
-            
+            userId: this.props.auth.userId,
+            text: this.state.userInput,
         });
     }
 
@@ -20,14 +27,16 @@ class PostForm extends Component {
     }
 
     render() {
+        console.log(this.props);
+        const { auth } = this.props;
         return (
             <form className={styles.post_form} onSubmit={this.handleSubmit}>
                 <label htmlFor='post'>Create Post</label>
-                <Avatar/>
-                <input 
-                    name='post' 
-                    id='post' 
-                    placeholder="What's on your mind?" 
+                <Avatar id={auth.id} email={auth.email}/>
+                <input
+                    name='post'
+                    id='post'
+                    placeholder="What's on your mind?"
                     onChange={this.handleChange}
                     autoFocus/>
             </form>

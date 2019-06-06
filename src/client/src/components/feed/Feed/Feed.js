@@ -1,6 +1,6 @@
 import React from 'react';
 import PostList from '../PostList/PostList';
-import PostForm from '../PostForm/PostForm';
+import PostForm  from '../PostForm/PostFormContainer';
 
 const Feed = ({ posts }) => (
     <main>

@@ -7,7 +7,7 @@ const mapStateToProps = (state, ownProps) => ({
     auth: state.auth,
 });
 
-const mapDispatchToProps = (state, ownProps) => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
     signup: (user) => dispatch(actions.signUp(user)),
 });
 

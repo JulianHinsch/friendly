@@ -3,12 +3,13 @@ import * as actions from '../../../redux/actions/auth';
 
 import Login from './Login';
 
+
 const mapStateToProps = (state, ownProps) => ({
-    auth: state.auth,
+    message: state.auth.message,
 });
 
-const mapDispatchToProps = (state, ownProps) => ({
-    login: (user) => dispatch(actions.login(user)),
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    logIn: (credentials) => dispatch(actions.logIn(credentials)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps, null)(Login);

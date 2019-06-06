@@ -6,7 +6,7 @@ class Signup extends Component {
     
     state = {
         firstName: '',
-        firstNameErrMsg: 'Something is wrong',
+        firstNameErrMsg: '',
         lastName: '',
         lastNameErrMsg: '',
         email: '',
@@ -16,7 +16,8 @@ class Signup extends Component {
         password: '',
         passwordErrMsg: '',
         canSubmit: false,
-        submitErrMsg: 'Something is wrong',
+        hideSubmitErrMsg: true,
+        submitErrMsg: '',
     }
 
     handleSubmit = (event) => {
@@ -67,7 +68,7 @@ class Signup extends Component {
                         </span>
                     </div>
                     <div>
-                        <label for='password'>Password</label>
+                        <label htmlFor='password'>Password</label>
                         <input name='password' type='password' required onChange={this.handleChange}/>
                         <span className={styles.validation_err_msg}>
                             {this.state.passwordErrMsg}
@@ -75,7 +76,7 @@ class Signup extends Component {
                     </div>
                     <button type='submit' disabled={!this.state.canSubmit}>Sign Up</button>
                 </form>
-                {this.state.submitErrMsg && (
+                {!this.state.hideSubmitErrMsg && (
                     <div className={styles.submit_err_msg}>
                         {this.state.submitErrMsg}
                         <img 

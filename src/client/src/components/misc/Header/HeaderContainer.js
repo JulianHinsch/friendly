@@ -8,17 +8,11 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    logIn: (user) => {
-        dispatch(actions.logIn(user))
-    },
-    signUp: (user) => {
-        dispatch(actions.signUp(user))
-    },
     logOut: (user) => {
         dispatch(actions.logOut());
     }
 })
 
 
-export const HeaderContainer = connect(mapStateToProps, null)(Header);
+export const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(Header);
 

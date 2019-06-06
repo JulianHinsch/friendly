@@ -1,6 +1,8 @@
-import * as actions from '../actions/auth';
+import { AUTH } from '../actions/auth';
+import { API_START, API_SUCCESS, API_ERROR } from '../actions/api';
 
 const defaultState = {
+    id: null,
     isAuthenticated: false,
     name: null,
     email: null,
@@ -10,14 +12,35 @@ const defaultState = {
 
 export const authReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case actions.LOG_IN:
-           return Object.assign(state, action.payload)    
-        case actions.SIGN_UP:
-            return Object.assign(state, action.payload)
-        case actions.GET_USER_INFO:
-            return Object.assign(state, action.payload) 
-        case actions.LOG_OUT:
-            return Object.assign(state, action.payload)
+
+        case `${AUTH} ${API_START}`:
+            console.log('you got to API start reducer in authReducer')
+            return Object.assign(state, { loading: true });
+        case `${AUTH} ${API_SUCCESS}`:
+            //this does not necessarily mean auth was successful
+            console.log('you got to API success reducer in authReducer')
+            console.log(action);
+            return Object.assign(state, { loading: false });
+            
+        case `${AUTH} ${API_ERROR}`:
+            console.log('you got to API error reducer in authReducer')
+
+            return Object.assign(state, { loading: false });
+            
+        
+        //     return Object.assign(state, {
+        //         isAuthenticated: true,
+        //         message: null,
+        //         ...action.payload
+        //     })
+        // case actions.AUTH_FAILURE:
+        //     return Object.assign(state, action.payload);
+        // case actions.GET_USER_INFO:
+        //     return Object.assign(state, action.payload) 
+        // case actions.LOG_OUT:
+        //     return Object.assign(state, {
+        //         isAuthenticated: false,
+        //     })
         default:
             return state;
     }

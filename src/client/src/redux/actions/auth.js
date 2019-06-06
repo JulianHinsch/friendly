@@ -1,27 +1,49 @@
+import { apiRequest } from '../actions/api';
+
 export const AUTH = '[Auth]';
 
-export const LOG_IN = `${AUTH} LOG_IN`;
-export const SIGN_UP = `${AUTH} SIGN_UP`;
-export const LOG_OUT = `${AUTH} LOG_OUT`;
-export const GET_USER_INFO = `${AUTH} GET_USER_INFO`;
+/*
 
-export const logIn = ({ user }) => ({
-    type: LOG_IN,
-    payload: user,
-})
+These aren't really middleware or action creators - they are just wrapping the apiRequest action
+which returns a function because its a 'thunk'
 
-export const signUp = ({ user }) => ({
-    type: SIGN_UP,
-    payload: user,
-})
+One could also move this logic to the UI containers - where they 
+would just call the apiRequest action creator i.e.
 
-export const logOut = () => ({
-    type: LOG_OUT,
+logIn: (credentials) => dispatch(apiRequest({
+    data: credentials,
+    method: 'POST',
+    url: '/login',
+    feature: '[Auth]',
+})),
+
+But, then they can't be shared between components, and we have to actually type out the feature :)
+
+*/
+
+export const logIn = (credentials) => apiRequest({
+    data: credentials,
+    method: 'POST',
+    url: '/login',
+    feature: AUTH,
+});
+
+export const signUp = (user) => apiRequest({
+    data: user,
+    method: 'POST',
+    url: '/signup',
+    feature: AUTH,
+});
+
+export const logOut = () => apiRequest({
+    method: 'POST',
+    url: '/logout',
+    feature: AUTH,
 });
 
 export const getUserInfo = () => ({
-    type: GET_USER_INFO,
-})
+
+});
 
 
 

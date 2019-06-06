@@ -1,12 +1,15 @@
 import { connect } from 'react-redux'
 
-import * as actions from '../actions/api.js';
 import Feed from './Feed';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    loadPosts: () => {
-        dispatch(actions.loadPosts);
-    }
+    // loadPosts: () => {
+    //     dispatch(actions.apiRequest({
+    //         method: 'GET',
+    //         url: '/api/posts',
+    //         feature: 'posts',
+    //     }));
+    // }
 });
 
 const mapStateToProps = (state, ownProps) => ({
@@ -14,6 +17,6 @@ const mapStateToProps = (state, ownProps) => ({
     error: state.posts.error,
 });
 
-const FeedContainer = connect(null, mapDispatchToProps)(Feed);
+const FeedContainer = connect(mapStateToProps, mapDispatchToProps)(Feed);
 
 export default FeedContainer;

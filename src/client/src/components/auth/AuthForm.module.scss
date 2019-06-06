@@ -50,7 +50,7 @@
     margin-top: -15px;
 }
 
-.submit_err_msg {
+.message {
     width: 100%;
     background-color: rgba(255,0,0,0.5);
     border: 1px solid red;
@@ -59,4 +59,11 @@
     border-radius: 5px;
     margin-top: 40px;
     font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close {
+    cursor: pointer;
 }

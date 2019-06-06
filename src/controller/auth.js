@@ -86,7 +86,7 @@ const logout = (req, res, next) => {
 }
 
 const login = async (req, res, next) => {
-
+    console.log(req.body);
     const { email, password } = req.body;
 
     if(!email || !password) {
