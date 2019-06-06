@@ -20,13 +20,7 @@ const validateEmail = (email) => {
     return emailRegex.test(email);
 }
 
-const validateUsername = (username) => {
-    if(/\s/g.test(username)) return false; //whitespace
-    if(username.length < 3) return false; //too short
-    if(username.length > 50) return false; //too long
-    if(/[!$%^&*()+|~=`{}\[\]:";'<>?,.\/]/.test(username)) return false; //has special char not allowed
-    return true;
-}
+
 
 //helper functions to keep things DRY
 
@@ -40,7 +34,7 @@ const badRequest = (res) => {
 const badCreds = (res) => {
     return res.status(403).json({
         success: false,
-        message: 'Invalid username or password',
+        message: 'Invalid email or password',
     });
 }
 

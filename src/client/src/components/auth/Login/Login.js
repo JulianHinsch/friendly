@@ -20,7 +20,6 @@ class Login extends Component {
     state = {
         email: '',
         password: '',
-        hideMessage: true,
         canSubmit: false,
     }
 
@@ -51,14 +50,9 @@ class Login extends Component {
                     </div>
                     <button type='submit' disabled={!this.state.canSubmit}>Log In</button>
                 </form>
-                {!this.state.hideMessage && (
+                {this.props.message && (
                     <div className={styles.message}>
                         {this.props.message}
-                        <img 
-                            src={require('../../../assets/x.svg')} 
-                            alt='close' 
-                            className={styles.close}
-                            onClick={()=>this.setState({hideMessage: true})}/>
                     </div>
                 )}
             </main>

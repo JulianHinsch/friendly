@@ -6,12 +6,6 @@ export const API_START = 'API_START';
 export const API_SUCCESS = 'API_SUCCESS';
 export const API_ERROR = 'API_ERROR';
 
-const cors = {
-    withCredentials: true, 
-    //mode: 'cors',
-}
-
-
 //this action creator returns a function because its a 'thunk'
 export const apiRequest = ({ data, method, url, feature }) => {
     return async dispatch => {
@@ -25,10 +19,8 @@ export const apiRequest = ({ data, method, url, feature }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                withCredentials: process.env.NODE_ENV === 'development' ? true : false,
                 data,
-            }
-            if(process.env.NODE_ENV === 'development') {
-                config = Object.assign(config, cors);
             }
             let result = await axios(`${API_ROOT}/${url}`, config)
             dispatch(apiSuccess({ result, feature }));
