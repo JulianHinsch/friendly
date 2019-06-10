@@ -22,8 +22,6 @@ class Signup extends Component {
         lastNameErrMsg: '',
         email: '',
         emailErrMsg: '',
-        phone: '',
-        phoneErrMsg: '',
         password: '',
         passwordErrMsg: '',
         canSubmit: false,
@@ -31,11 +29,10 @@ class Signup extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const { firstName, lastName, email, phone, password } = this.state;
+        const { firstName, lastName, email, password } = this.state;
         this.props.signUp({
-            name: this.state.firstName + this.state.lastName,
+            name: `${firstName} ${lastName}`,
             email,
-            phone,
             password
         });
     }
@@ -56,7 +53,6 @@ class Signup extends Component {
             email: validators.validateEmail,
             firstName: validators.validateName,
             lastName: validators.validateName,
-            phone: validators.validatePhone,
             password: validators.validatePassword,
         }
         const validator = validatorMap[field];
@@ -97,13 +93,6 @@ class Signup extends Component {
                         <input name='email' type='email' required onChange={this.handleChange}/>
                         <span className={styles.validation_err_msg}>
                             {this.state.emailErrMsg}
-                        </span>
-                    </div>
-                    <div>
-                        <label htmlFor='phone'>Phone (###-###-####)</label>
-                        <input name='phone' type='tel' required onChange={this.handleChange}/>
-                        <span className={styles.validation_err_msg}>
-                            {this.state.phoneErrMsg}
                         </span>
                     </div>
                     <div>

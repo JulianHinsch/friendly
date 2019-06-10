@@ -14,14 +14,6 @@ export const validateName = (userInput) => {
     return '';
 }
 
-export const validatePhone = (userInput) => {
-    userInput = userInput.trim();
-    const phoneRegex = /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$/;
-    if (userInput === '') return 'This field cannot be empty';
-    if(!phoneRegex.test(userInput)) return 'Please enter a valid phone number';
-    return '';
-}
-
 export const validatePassword = (userInput) => {
     userInput = userInput.trim();    
     if(userInput === '') return 'This field cannot be empty';

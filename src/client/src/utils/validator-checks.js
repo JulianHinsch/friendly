@@ -13,9 +13,6 @@ const isValidName = (userInput) => {
     return { isValid: nameRegex.test(userInput), message: 'Please enter a valid name' }
 };
 
-const isValidPhone = (userInput) => {
-
-};
 const isLessThan50Characters = (userInput) => {};
 const isMoreThan12Characters = (userInput) => {}
 const containsNumber = (userInput) => {}
@@ -40,11 +37,6 @@ export default class Validator {
     validateName = (userInput) => validate(userInput, [
         isNotEmpty,
         isValidName,
-    ]);
-
-    validatePhone = (userInput) => validate(userInput, [
-        isNotEmpty,
-        isValidPhone,
     ]);
 
     validatePassword = (userInput) => validate(userInput, [
@@ -74,12 +66,6 @@ validateName = (userInput) => {
     return { isValid: true };
 }
 
-validatePhone = (userInput) => {
-    const phoneRegex = /^/;
-    if (userInput === '') return { isValid: false, message: 'This field cannot be empty' };
-    if(!phoneRegex.test(userInput)) return { isValid: false, message: 'Please enter a valid phone number' }
-    return { isValid: true };
-}
 
 validatePassword = (password) => {
     if(password === '') return { isValid: false, message: 'This field cannot be empty' };

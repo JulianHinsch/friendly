@@ -15,9 +15,9 @@ export const authReducer = (state = defaultState, action) => {
         case `${AUTH} ${API_START}`:
             return Object.assign({}, state, action.payload);
         case `${AUTH} ${API_SUCCESS}`:
-            return Object.assign({}, state, { 
-                isAuthenticated: true,
+            return Object.assign({}, state, {
                 loading: false,
+                //...action.payload,                
             });
         case `${AUTH} ${API_ERROR}`:
             //safe getter function, since we don't know if all properties will exist
