@@ -8,7 +8,7 @@ class Header extends Component {
 
     static propTypes = {
         auth: PropTypes.object.isRequired,
-        logout: PropTypes.func.isRequired,
+        logOut: PropTypes.func.isRequired,
     }
 
     state = {
@@ -25,7 +25,7 @@ class Header extends Component {
     }
 
     render() {
-        const { auth, logout } = this.props;
+        const { auth, logOut } = this.props;
         return (
         <header className={classNames(styles.header, 'bg-1')}>
             <nav>
@@ -52,7 +52,7 @@ class Header extends Component {
                             </Link>   
                         </li>
                         <li>
-                            <img onClick={logout} src={require('../../../assets/logout.svg')} alt='Log Out'/>
+                            <img onClick={logOut} src={require('../../../assets/logout.svg')} alt='Log Out'/>
                         </li>
                     </ul>   
                 ) : (

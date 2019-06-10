@@ -13,10 +13,6 @@ class Login extends Component {
         document.title='Friendly | Log In';
     }
 
-    componentWillUnmount() {
-        document.title='Friendly';
-    }
-
     state = {
         email: '',
         password: '',
@@ -30,8 +26,9 @@ class Login extends Component {
     }
 
     handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value}, () => {
-            this.setState({canSubmit: this.state.email !== '' && this.state.password !== ''})
+        this.setState({ [event.target.name]: event.target.value }, () => {
+            const { email, password } = this.state;
+            this.setState({ canSubmit: [ email, password ].every(val => val !== '') })
         });
     }
 

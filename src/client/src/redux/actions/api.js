@@ -8,6 +8,7 @@ export const API_ERROR = 'API_ERROR';
 
 //this action creator returns a function because its a 'thunk'
 export const apiRequest = ({ data, method, url, feature }) => {
+     console.log('i got here');
     return async dispatch => {
         dispatch(apiStart({ feature }));
         if(url.charAt(0)==='/') {

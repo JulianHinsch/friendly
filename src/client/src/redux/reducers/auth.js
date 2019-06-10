@@ -20,10 +20,11 @@ export const authReducer = (state = defaultState, action) => {
                 loading: false,
             });
         case `${AUTH} ${API_ERROR}`:
-            //TODO improve this syntax, also this message thing might not be there
+            //safe getter function, since we don't know if all properties will exist
+            const get = (obj, path) => path.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, obj);      
             return Object.assign({}, state, { 
                 loading: false, 
-                //message: action.payload.error.response.data.message,
+                message: get(action, ['payload','error','response','data','message']),
             });
             
         

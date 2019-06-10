@@ -1,10 +1,10 @@
 export const POSTS = '[Posts]';
 
-export const ADD_POST = `${POSTS} ADD`;
+export const CREATE_POST = `${POSTS} CREATE`;
 export const DELETE_POST = `${POSTS} DELETE`;
 
-export const addPost = ({ post }) => ({
-    type: ADD_POST,
+export const createPost = ({ post }) => ({
+    type: CREATE_POST,
     payload: post,
 });
 

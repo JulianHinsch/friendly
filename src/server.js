@@ -27,13 +27,9 @@ app.use(cookieParser()); //you can provide a secret here to sign cookies if you 
 
 expressWs(app);
 
-//app.use(decodeToken); //assigns req.decoded
-
-//routes - must load/define after initializing WS
 const router = require('./routes');
 app.use(router);
 
-// serve static assets in production
 if(process.env.NODE_ENV !== 'development') {
     app.use(Express.static(path.join(__dirname, 'src/client/build')));    
 }
@@ -48,7 +44,6 @@ app.use((err, req, res, next) => {
     next(err);
 });
 
-// start the server
 const port = process.env.PORT || 3001;
 
 if(process.env.NODE_ENV === 'development') {

@@ -1,10 +1,10 @@
 import { AUTH } from '../actions/auth';
 import { API_SUCCESS } from '../actions/api';
-import { browserHistory } from 'react-router';
+import history from '../../history';
 
 export default ({dispatch}) => (next) => (action) => {
     next(action);
     if(action.type === `${AUTH} ${API_SUCCESS}`) {
-        browserHistory.push('/');
+        history.push('/');
     }
 }

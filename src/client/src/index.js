@@ -4,14 +4,15 @@ import App from './components/App/App';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import configureStore from './redux/store';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import history from './history';
 
 const store = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
+        <Router history={history}>
             <App />
-        </BrowserRouter>
+        </Router>
     </Provider>, document.getElementById('root'));
 serviceWorker.register();

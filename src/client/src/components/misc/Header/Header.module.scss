@@ -26,7 +26,15 @@
         margin-left: 20px;
     }
     & a {
+        display: block;
         color: white;
+        height: 40px;
+        line-height: 40px;
+    }
+    & img {
+        vertical-align: middle;
+        margin-top: -2px;
+        cursor: pointer;
     }
 }
 

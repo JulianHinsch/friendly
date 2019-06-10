@@ -27,7 +27,6 @@ class PostForm extends Component {
     }
 
     render() {
-        console.log(this.props);
         const { auth } = this.props;
         return (
             <form className={styles.post_form} onSubmit={this.handleSubmit}>
