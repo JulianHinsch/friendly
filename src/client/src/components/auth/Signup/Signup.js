@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import validator from '../../../utils/validator';
+import * as validators from '../../../utils/validators';
 
 import styles from '../AuthForm.module.scss';
 
@@ -31,24 +31,48 @@ class Signup extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-    }
-
-    //this is terrible
-
-    checkForm = () => {
-        const { firstNameErrMsg, lastNameErrMsg, emailErrMsg, phoneErrMsg, passwordErrMsg } = this.state;
-        const { firstName, lastName, email, phone, password } = this.state;        
-        return ([ firstName, lastName, email, phone, password ].every(val => val !== '') 
-            && 
-        [ firstNameErrMsg, lastNameErrMsg, emailErrMsg, phoneErrMsg, passwordErrMsg ].every(val => val === ''));
+        const { firstName, lastName, email, phone, password } = this.state;
+        this.props.signUp({
+            name: this.state.firstName + this.state.lastName,
+            email,
+            phone,
+            password
+        });
     }
 
     handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value}, () => {
-            this.setState({ canSubmit: this.checkForm() });
+        const field = event.target.name;
+        const value = event.target.value;
+        this.setState({
+            [field]: value,
+            [`${field}ErrMsg`]: this.getErrMsg(field, value),
+        }, () => {  
+            this.setState({ canSubmit: this.validateForm() });
         });
     }
-    
+
+    getErrMsg = (field, userInput) => {
+        const validatorMap = {
+            email: validators.validateEmail,
+            firstName: validators.validateName,
+            lastName: validators.validateName,
+            phone: validators.validatePhone,
+            password: validators.validatePassword,
+        }
+        const validator = validatorMap[field];
+        if(validator) {
+            return validator(userInput);
+        }
+        return '';
+    }
+
+    validateForm = () => {
+        return Object.keys(this.state).every(key => {
+            //check all error messages are empty and all fields are not empty
+            return key.includes('ErrMsg') ? this.state[key] === '' : this.state[key] !== '';
+        })
+    }
+
     render() {
         return (
             <main className={styles.auth_form}>
@@ -76,7 +100,7 @@ class Signup extends Component {
                         </span>
                     </div>
                     <div>
-                        <label htmlFor='phone'>Phone</label>
+                        <label htmlFor='phone'>Phone (###-###-####)</label>
                         <input name='phone' type='tel' required onChange={this.handleChange}/>
                         <span className={styles.validation_err_msg}>
                             {this.state.phoneErrMsg}
