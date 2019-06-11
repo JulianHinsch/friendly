@@ -13,13 +13,18 @@ export default class Profile extends Component {
         auth: PropTypes.object.isRequired,
     }
 
-    //TODO render PostForm only if this is the user's own profile
+    isOwnProfile = () => {
+        const url = window.location.href;
+        const id = url.split('/profile/')[1];
+        return id === this.props.auth.id;
+    }
+
     render() {
         const { auth } = this.props;
         return (
             <main className={styles.profile}>
                 <ProfileHeader/>
-                <PostForm/>
+                {this.isOwnProfile() && <PostForm/>}
                 <Feed/>
             </main>
         )

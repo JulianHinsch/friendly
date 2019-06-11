@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import * as actions from '../actions/comments.actions.js';
+import * as actions from '../../../redux/actions/comments.actions';
 import CommentForm from './CommentForm';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

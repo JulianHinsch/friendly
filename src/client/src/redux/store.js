@@ -7,7 +7,8 @@ import commentsMiddleware from './middleware/feature/comments.middleware';
 import postsMiddleware from './middleware/feature/posts.middleware';
 import reactionsMiddleware from './middleware/feature/reactions.middleware';
 
-import redirectMiddleware from './middleware/redirect.middleware';
+import apiMiddleware from './middleware/core/api.middleware';
+import redirectMiddleware from './middleware/core/redirect.middleware';
 
 const featureMiddleware = [
     authMiddleware,
@@ -17,6 +18,7 @@ const featureMiddleware = [
 ]
 
 const coreMiddleware = [
+    apiMiddleware,
     redirectMiddleware,
     logger,
 ]

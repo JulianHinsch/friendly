@@ -1,16 +1,17 @@
 import { API_REQUEST, apiError, apiSuccess } from "../../actions/api.actions";
-import { API_ROOT } from '../../utils/apiRoot';
+import { API_ROOT } from '../../../utils/apiRoot';
 import axios from 'axios';
 
-export const apiMiddleware = ({dispatch}) => (next) => (action) => {
+export default ({dispatch}) => (next) => (action) => {
 
     next(action);
 
     if (action.type.includes(API_REQUEST)) {
         
-        const { data, url, method, feature } = action.meta;
+        const { url, method, feature } = action.meta;
+        const data = action.payload;
 
-        axios(`${API_ROOT}/${url}`, {
+        axios(`${API_ROOT}/${url.charAt(0) === '/' ? url.slice(1) : url}`, {
             method,
             headers: {
                 'Content-Type': 'application/json',

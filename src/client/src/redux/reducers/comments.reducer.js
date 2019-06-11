@@ -1,18 +1,17 @@
-const ADD_COMMENT = 'ADD_COMMENT';
-const DELETE_COMMENT = 'DELETE_COMMENT';
+import { SET_COMMENTS } from '../actions/comments.actions';
 
 const defaultState = {
     error: null,
     loading: false,
-    items: {}
+    collection: {},
 }
 
 export default (state = defaultState, action) => {
     switch(action.type) {
-        case ADD_COMMENT:
-            return Object.assign(state, action.payload);
-        case DELETE_COMMENT:
-            return Object.assign(state, action.payload);
+
+        case SET_COMMENTS:
+            return Object.assign({}, state, action.payload);
+        
         default:
             return state;
     }

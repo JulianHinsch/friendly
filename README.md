@@ -6,6 +6,8 @@ UI
 - choose and implement global color scheme
 - make a .png favicon from the users icon
 - add field validation to everything, and make sure to be consistent server/client
+- we also need to prevent users from viewing content they are not authorized to view.
+This can be done by reacting to the server's 403 response.
 
 REDUX
 
@@ -17,7 +19,7 @@ REDUX
 
 SERVER
 
-- object level permissions on database operations (for example, if i'm authenticated, i can delete somebody else's post)
+- object level permissions on api calls (for example, even if i'm authenticated, i cant delete somebody else's post)
 - validation
 
 VALIDATION RULES

@@ -1,4 +1,4 @@
-import { REACTIONS, CREATE_REACTION, DELETE_REACTION, setReactions } from '../../actions/reactions.actions';
+import { POSTS, CREATE_POST, DELETE_POST, setPosts } from '../../actions/posts.actions';
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 import apiRoot from '../../../utils/apiRoot';
 
@@ -7,28 +7,28 @@ export default () => (next) => (action) => {
     next(action);
 
     switch(action.type) {
-        case CREATE_REACTION: 
+        case CREATE_POST: 
             next(apiRequest({ 
                 data: action.payload, 
                 method: 'POST', 
-                url: '/api/reactions', 
-                feature: REACTIONS
+                url: '/api/posts', 
+                feature: POSTS, 
             }));
             break;
-        case DELETE_REACTION:
+        case DELETE_POST:
             next(apiRequest({ 
                 method: 'DELETE', 
-                url: `/api/reactions/${action.payload.id}`,
-                feature: REACTIONS 
+                url: '/api/posts/${action.payload.id}', 
+                feature: POSTS
             }));
-            break;              
-        case `${REACTIONS} API_SUCCESS`:
-            next(setReactions({
+            break;               
+        case `${POSTS} API_SUCCESS`:
+            next(setPosts({
                 //books: action.payload.items, normalizeKey: 'id'
             }))
             break; 
-        case `${REACTIONS} API_ERROR`:
-            next(setReactions({
+        case `${POSTS} API_ERROR`:
+            next(setPosts({
 
             }))
             break;

@@ -1,18 +1,16 @@
-const DELETE_USER = 'DELETE_USER';
-const FETCH_USER = 'FETCH_USER';
+import { SET_USERS } from '../actions/users.actions';
 
 const defaultState = {
+    selectedUserId: null,
     error: null,
     loading: false,
-    items: {}
+    collection: {}
 }
 
 export default (state = defaultState, action) => {
     switch(action.type) {
-        case DELETE_USER:
-            return Object.assign(state, action.payload);
-        case FETCH_USER:
-            return Object.assign(state, action.payload);
+        case SET_USERS:
+            return Object.assign({}, state, action.payload);
         default:
             return state;
     }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './Post.module.scss';
 import Avatar from '../../misc/Avatar/Avatar';
 import CommentList from '../CommentList/CommentList';
-import CommentForm from '../CommentForm/CommentForm';
+import CommentForm from '../CommentForm/CommentFormContainer';
 
 const Post = ({ author, authorId, time, text, comments }) => (
     <article className={styles.post}>

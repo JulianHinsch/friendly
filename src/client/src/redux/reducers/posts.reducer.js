@@ -1,25 +1,20 @@
-const ADD_POST = 'ADD_POST';
-const DELETE_POST = 'DELETE_POST';
-const SELECT_POST = 'SELECT_POST';
+import { SET_POSTS } from '../actions/posts.actions';
 
-const defaultState = { 
-    selectedPostId: null, 
-    collection: {}, 
-    loading: false
-};
+const defaultState = {
+    selectedPostId: null,
+    loading: false,
+    error: null,
+    collection: {},
+}
 
-export default (state = defaultState, action) => { 
-    switch (action.type) {
-        case ADD_POST:
-            return Object.assign(state, action.payload);
-        case DELETE_POST:
-            return Object.assign(state, action.payload);
-        case SELECT_POST:
-            return Object.assign(state,action.payload);
-        default: 
+export default (state = defaultState, action) => {
+    switch(action.type) {
+        case SET_POSTS:
+            return Object.assign({}, state, action.payload);
+        default:
             return state;
-    } 
-};
+    }
+}
 
 //selectors
 

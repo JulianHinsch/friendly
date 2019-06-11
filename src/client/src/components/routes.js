@@ -1,5 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Login from './auth/Login/LoginContainer';
 import Signup from './auth/Signup/SignupContainer';
@@ -11,14 +13,16 @@ import NotFound from './misc/NotFound/NotFound';
 
 const ProtectedRoute = ({ auth, component: Component, ...rest }) => (
     <Route {...rest} render={props => {
-        if(auth.isAuthenticated()) {
+        if(auth.isAuthenticated) {
             return <Component {...props}/>
         } else {
             return <Redirect to={{pathname: "/login", state: { from: props.location }}}/>
         }}}/>
 );
 
-const Routes = () => {
+const Routes = (props) => {
+    //const { auth } = props;
+    console.log(props);
     //using render functions here because of https://github.com/ReactTraining/react-router/issues/6471
     return (
         <Switch>
@@ -26,16 +30,17 @@ const Routes = () => {
             <Route path='/login' render={() => <Login/>}/>
             <Route path='/signup' render={() => <Signup/>}/>
             <Route path='/search' render={() => <SearchResults/>}/>
-            <Route path='/user' render={() => <Profile/>}/>
-            <Route path='/post' render={() => <Post/>}/>
-
-            {/* <ProtectedRoute auth={auth} path='/' component={PostList}/>
-            <ProtectedRoute auth={auth} path='/profile' component={PostList}/>
-            <ProtectedRoute auth={auth} path='/post' component={Post}/> */}
+            {/* <ProtectedRoute auth={auth} path='/' component={Feed}/>
+            <ProtectedRoute auth={auth} path='/profile' component={Profile}/>
+            <ProtectedRoute auth={auth} path='/post' component={Post}/>}/> */}
             <Route render={() => <NotFound/>}/>
-            {/*<Route component={Forbidden}/> */}
         </Switch>
     )
 }
 
+Routes.propTypes = {
+    //auth: PropTypes.object.isRequired,
+}
+
 export default Routes;
+//export default connect((state, ownProps) => ({ auth: state.auth }), null)(Routes);

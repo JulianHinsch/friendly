@@ -1,22 +1,16 @@
-const ADD_REACTION = 'ADD_REACTION';
-const DELETE_REACTION = 'DELETE_REACTION';
+import { SET_REACTIONS } from '../actions/reactions.actions';
 
 const defaultState = {
     error: null,
     loading: false,
-    items: {}
+    collection: {}
 }
 
 export default (state = defaultState, action) => {
     switch(action.type) {
-        case ADD_REACTION:
-            return Object.assign(state, action.payload);
-        case DELETE_REACTION:
-            return Object.assign(state, action.payload);
+        case SET_REACTIONS:
+            return Object.assign({}, state, action.payload);
         default:
             return state;
     }
 }
-
-
-

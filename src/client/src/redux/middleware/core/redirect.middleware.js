@@ -1,9 +1,10 @@
-import { AUTH } from '../actions/auth';
-import { API_SUCCESS } from '../actions/api';
-import history from '../../history';
+import { AUTH } from '../../actions/auth.actions';
+import { API_SUCCESS } from '../../actions/api.actions';
+import history from '../../../history';
 
 export default ({dispatch}) => (next) => (action) => {
     next(action);
+    //TODO separate into log in, sign up, log out
     if(action.type === `${AUTH} ${API_SUCCESS}`) {
         history.push('/');
     }

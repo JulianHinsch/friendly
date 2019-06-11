@@ -29,10 +29,9 @@ class CommentForm extends Component {
                 className={styles.comment_form}
                 onSubmit={this.handleSubmit}>
                 <Avatar id={1}/>
-                <textarea 
+                <input 
                     type='text' 
                     name='comment'
-                    rows={4}
                     maxLength={1120}
                     onChange={this.handleChange}
                     placeholder='Write a comment...'/>
