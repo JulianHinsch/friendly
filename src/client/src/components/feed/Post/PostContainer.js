@@ -1,12 +1,10 @@
 import { connect } from 'react-redux';
 import Post from './Post';
 
-const mapStateToProps = (state, ownProps) => ({
+import * as actions from '../../../redux/actions/posts.actions';
 
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    deletePost: (id) => dispatch(actions.deletePost(id)),
 })
 
-const mapDispatchToProps = (state, ownProps) => ({
-
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default connect(null, mapDispatchToProps)(Post);

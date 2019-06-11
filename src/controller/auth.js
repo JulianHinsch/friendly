@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../model/database').models.User;
 
-const { validateEmail, validatePassword } = require('./../utils/validators');
+const { validateName, validateEmail, validatePassword } = require('./../utils/validators');
 
 //helper functions
 
@@ -12,24 +12,17 @@ const badRequest = (res) => res.status(400).json({
     message: 'Authentication failed! Please check the request',
 });
 
-const badCreds = (res) => res.status(403).json({
-    success: false,
-    message: 'Invalid email or password',
-});
-
 const authSuccess = (res, token) => {
     const tokenArr = token.split('.');
+    const options = {
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        secure: process.env.NODE_ENV !== 'development',        
+    }
     return res
         .status(200)
-        .cookie('access_token_header_payload', `${tokenArr[0]}.${tokenArr[1]}`, {
-            maxAge: 1000 * 60 * 60 * 24 * 7,
-            httpOnly: true, 
-            secure: process.env.NODE_ENV !== 'development',
-        })
-        .cookie('access_token_signature', tokenArr[2], {
-            maxAge: 1000 * 60 * 60 * 24 * 7,
-            secure: process.env.NODE_ENV !== 'development',
-        })
+        .cookie('jwt_header', tokenArr[0], { httpOnly: true, ...options })
+        .cookie('jwt_payload', tokenArr[1], options)
+        .cookie('jwt_signature', tokenArr[2], { httpOnly: true, ...options })
         .json({
             success: true,
         });
@@ -54,19 +47,13 @@ const createToken = (user) => jwt.sign(
 //route handlers
 
 const logout = (req, res, next) => {
+    const options = { maxAge: 0, overwrite: true }
     return res
         .status(200)
-        .cookie('access_token_header_payload', null, {
-            maxAge: 0,
-            overwrite: true,
-        })
-        .cookie('access_token_signature', null, {
-            maxAge: 0,
-            overwrite: true,
-        })
-        .json({
-            success: true,
-        })
+        .cookie('jwt_header', null, options)
+        .cookie('jwt_payload', null, options)
+        .cookie('jwt_signature', null, options)
+        .json({ success: true })
     next();
 }
 
@@ -83,13 +70,19 @@ const login = async (req, res, next) => {
         const user = await User.findOne({ where: { email: email }});
         
         if(!user) {
-            return badCreds(res);
+            return res.status(403).json({
+                success: false,
+                message: 'Invalid email or password',
+            });
         }
 
         const isValid = await user.checkPassword(password);
 
         if(!isValid) {
-            return badCreds(res);
+            return res.status(403).json({
+                success: false,
+                message: 'Invalid email or password',
+            });
         }
 
         return authSuccess(res, createToken(user));
@@ -101,14 +94,20 @@ const login = async (req, res, next) => {
 
 const signup = async (req, res, next)  => {
     
-    const { email, password } = req.body;
+    const { name, email, password,  } = req.body;
 
-    if(!email || !password) {
+    if(!name || !email || !password) {
         return badRequest(res);
     }
 
-    if(!validatePassword(password) || !validateEmail(email)) {
-        return badCreds(res);
+    if( !validateName(name) ||
+        !validateEmail(email) ||    
+        !validatePassword(password)
+    ) {
+        return res.status(403).json({
+            success: false,
+            message: 'Request included invalid fields',
+        });
     }
 
     try {
@@ -119,7 +118,8 @@ const signup = async (req, res, next)  => {
                 email: email,
             },
             defaults: {
-                passwordHash: passwordHash, 
+                name,
+                passwordHash, 
             }
         })
         if(!created) {

@@ -7,7 +7,7 @@ const defaultState = {
     items: {}
 }
 
-export const usersReducer = (state = defaultState, action) => {
+export default (state = defaultState, action) => {
     switch(action.type) {
         case DELETE_USER:
             return Object.assign(state, action.payload);

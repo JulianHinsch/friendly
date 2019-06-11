@@ -40,34 +40,26 @@ const seed = () => {
     .then(async () => {
         const users = [
             {
-                id: 1,
                 email: 'jhinsch799@gmail.com',
                 password: 'temp',
                 name: 'Julian Hinsch',
-                phone: '6097212326',  
             },
             {
-                id: 2,
                 email: 'jane.doe@gmail.com',
                 password: 'temp',
                 name: 'Jane Doe',
-                phone: '7777777777', 
             },
             {
-                id: 3,
                 email: 'john.doe@gmail.com',
                 password: 'temp',
                 name: 'John Doe',
-                phone: '6666666666', 
             },
         ];
         const seedUsers = users.map(async user => {
             const passwordHash = await User.prototype.generateHash(user.password)            
             User.create({
-                id: user.id,
                 email: user.email,
                 name: user.name,
-                phone: user.phone,                
                 passwordHash: passwordHash,
             });
         });

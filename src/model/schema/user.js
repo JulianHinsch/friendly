@@ -4,7 +4,7 @@ module.exports = (database, DataTypes) => {
     const User = database.define('user', {
         id: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
             unique: true,
             primaryKey: true,
             autoIncrement: true,
@@ -18,11 +18,6 @@ module.exports = (database, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: false,
-        },
-        phone: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
         },
         passwordHash: {
             type: DataTypes.STRING,

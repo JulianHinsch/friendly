@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import * as actions from '../../../redux/actions/auth';
+import * as actions from '../../../redux/actions/auth.actions';
 
 import Header from './Header';
 

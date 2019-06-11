@@ -1,10 +1,10 @@
 export const COMMENTS = '[Comments]';
 
-export const ADD_COMMENT = `${COMMENTS} ADD`;
+export const CREATE_COMMENT = `${COMMENTS} CREATE`;
 export const DELETE_COMMENT = `${COMMENTS} DELETE`;
 
-export const addComment = ({ comment }) => ({
-    type: ADD_COMMENT,
+export const createComment = ({ comment }) => ({
+    type: CREATE_COMMENT,
     payload: comment,
 });
 

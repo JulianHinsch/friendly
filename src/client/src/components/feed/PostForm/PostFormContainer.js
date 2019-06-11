@@ -1,23 +1,12 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-import * as actions from '../../../redux/actions/api.js';
+import * as actions from '../../../redux/actions/posts.actions';
 import PostForm from './PostForm';
 
-const mapStateToProps = (state, ownProps) => ({
-    auth: state.auth,
-})
-
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    createPost: (post) => {
-        // dispatch(actions.apiRequest({
-        //     body: post,
-        //     method: 'POST',
-        //     url: '/posts',
-        //     feature: 'posts',
-        // }));
-    }
-})   
+    createPost: (post) => dispatch(actions.createPost(post)),
+});
 
-const PostFormContainer = connect(mapStateToProps, mapDispatchToProps)(PostForm);
+const PostFormContainer = connect(null, mapDispatchToProps)(PostForm);
 
 export default PostFormContainer;

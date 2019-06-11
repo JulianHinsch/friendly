@@ -1,18 +1,11 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-import * as actions from '../actions/api.js';
+import * as actions from '../actions/comments.actions.js';
 import CommentForm from './CommentForm';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    createPost: (comment) => {
-        dispatch(actions.apiRequest({
-            body: comment,
-            method: 'POST',
-            url: '/comments',
-            feature: 'comments',
-        }));
-    }
-})   
+    createComment: (comment) => dispatch(actions.createComment(comment)),
+});
 
 const CommentFormContainer = connect(null, mapDispatchToProps)(CommentForm);
 

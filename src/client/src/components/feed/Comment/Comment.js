@@ -5,7 +5,7 @@ import styles from './Comment.module.scss';
 
 import Avatar from '../../misc/Avatar/Avatar';
 
-const Comment = ({ author, authorId, time, text }) => (
+const _Comment = ({ author, authorId, time, text }) => (
     <div className={styles.comment}>
         <Avatar/>
         <div className={styles.comment_body}>
@@ -17,11 +17,11 @@ const Comment = ({ author, authorId, time, text }) => (
     </div>
 )
 
-Comment.propTypes = {
+_Comment.propTypes = {
     author: PropTypes.string.isRequired,
     authorId: PropTypes.string.isRequired,
     time: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
 }
 
-export default Comment;
+export default _Comment;

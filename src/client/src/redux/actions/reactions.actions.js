@@ -1,10 +1,10 @@
 export const REACTIONS = '[Reactions]';
 
-export const ADD_REACTION = `${REACTIONS} ADD`;
+export const CREATE_REACTION = `${REACTIONS} CREATE`;
 export const DELETE_REACTION = `${REACTIONS} DELETE`;
 
-export const addReaction = ({ reaction }) => ({
-    type: ADD_REACTION,
+export const createReaction = ({ reaction }) => ({
+    type: CREATE_REACTION,
     payload: reaction,
 });
 

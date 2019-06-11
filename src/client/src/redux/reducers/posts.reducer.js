@@ -8,7 +8,7 @@ const defaultState = {
     loading: false
 };
 
-export const postsReducer = (state = defaultState, action) => { 
+export default (state = defaultState, action) => { 
     switch (action.type) {
         case ADD_POST:
             return Object.assign(state, action.payload);

@@ -7,7 +7,7 @@ const defaultState = {
     items: {}
 }
 
-export const commentsReducer = (state = defaultState, action) => {
+export default (state = defaultState, action) => {
     switch(action.type) {
         case ADD_COMMENT:
             return Object.assign(state, action.payload);

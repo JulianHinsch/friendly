@@ -1,5 +1,5 @@
-import { AUTH } from '../actions/auth';
-import { API_START, API_SUCCESS, API_ERROR } from '../actions/api';
+import { AUTH } from '../actions/auth.actions';
+import { API_SUCCESS, API_ERROR } from '../actions/api.actions';
 
 const defaultState = {
     id: null,
@@ -10,10 +10,8 @@ const defaultState = {
     message: null,
 };
 
-export const authReducer = (state = defaultState, action) => {
+export default (state = defaultState, action) => {
     switch (action.type) {
-        case `${AUTH} ${API_START}`:
-            return Object.assign({}, state, action.payload);
         case `${AUTH} ${API_SUCCESS}`:
             return Object.assign({}, state, {
                 loading: false,

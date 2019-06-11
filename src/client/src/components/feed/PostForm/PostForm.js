@@ -32,10 +32,12 @@ class PostForm extends Component {
             <form className={styles.post_form} onSubmit={this.handleSubmit}>
                 <label htmlFor='post'>Create Post</label>
                 <Avatar id={auth.id} email={auth.email}/>
-                <input
+                <textarea
                     name='post'
                     id='post'
                     placeholder="What's on your mind?"
+                    maxLength={1120}
+                    rows={4}
                     onChange={this.handleChange}
                     autoFocus/>
             </form>

@@ -1,11 +1,13 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-    
-    const { access_token_header_payload, access_token_signature } = req.cookies;
 
-    if(access_token_header_payload && access_token_signature) {
-        const token = `${access_token_header_payload}.${access_token_signature}`;
+    if (
+        req.cookies[jwt_header] && 
+        req.cookies[jwt_payload] &&
+        req.cookies[jwt_signature]
+    ) {
+        const token = `${jwt_header}.${jwt_payload}.${jwt_signature}`;
         jwt.verify(token, process.env.SECRET_KEY, {
             algorithms: ['HS256'],
             audience: 'node-token-auth-client',
@@ -13,10 +15,9 @@ module.exports = (req, res, next) => {
             maxAge: '7d',
         }, (err, decoded) => {
             if (err) {
-                console.log(err);
                 return res.status(401).json({
                     success: false,
-                    message: 'Token is not valid'
+                    message: 'Auth token is malformed'
                 });
             } else {
                 req.decoded = decoded;

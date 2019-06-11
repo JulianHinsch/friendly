@@ -70,16 +70,14 @@ const _delete = async (model, req, res, next) => {
 module.exports = (model) => {
     return ( req, res, next ) => {
         switch(req.method) {
+            case 'POST':
+            return _create(model, req, res, next);
             case 'GET':
                 return _read(model, req, res, next);
-            case 'PUT':
-                return _create(model, req, res, next);
-            case 'POST':
-                return _create(model, req, res, next);
-            case 'DELETE':
-                return _delete(model, req, res, next);
             case 'PATCH':
                 return _update(model, req, res, next);
+            case 'DELETE':
+                return _delete(model, req, res, next);
             default:
                 break;
         }

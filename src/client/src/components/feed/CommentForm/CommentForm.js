@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styles from './CommentForm.module.scss';
 
 import Avatar from '../../misc/Avatar/Avatar';
 
 class CommentForm extends Component {
+
+    static propTypes = {
+        createComment: PropTypes.func.isRequired,
+    }
 
     state = {
         userInput: '',
@@ -12,6 +16,7 @@ class CommentForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        this.props.createComment(this.state.userInput);
     }
 
     handleChange = (event) => {
@@ -24,18 +29,16 @@ class CommentForm extends Component {
                 className={styles.comment_form}
                 onSubmit={this.handleSubmit}>
                 <Avatar id={1}/>
-                <input 
+                <textarea 
                     type='text' 
-                    name='comment' 
+                    name='comment'
+                    rows={4}
+                    maxLength={1120}
                     onChange={this.handleChange}
                     placeholder='Write a comment...'/>
             </form>
         )
     }
 }
-
-// CommentForm.propTypes = {
-
-// }
 
 export default CommentForm;

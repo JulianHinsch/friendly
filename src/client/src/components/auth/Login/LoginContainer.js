@@ -1,12 +1,10 @@
 import { connect } from 'react-redux';
-import * as actions from '../../../redux/actions/auth';
+import * as actions from '../../../redux/actions/auth.actions';
 
 import Login from './Login';
 
-
 const mapStateToProps = (state, ownProps) => ({
     message: state.auth.message,
-    isAuthenticated: state.auth.isAuthenticated,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
