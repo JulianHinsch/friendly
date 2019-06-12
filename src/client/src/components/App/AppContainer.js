@@ -1,20 +1,11 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import * as actions from '../../redux/actions/auth.actions';
 
 import App from './App';
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        auth: state.auth,                
-    }
-}
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    getAuth: () => dispatch(actions.getAuth()),
+});
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        setAuth: () => {
-
-        }
-    }
-}
-
-export const AppContainer = connect(mapStateToProps, null, null)(App);
-
+export default withRouter(connect(null, mapDispatchToProps, null)(App));

@@ -1,33 +1,49 @@
-import { POSTS, CREATE_POST, DELETE_POST, setPosts } from '../../actions/posts.actions';
+import { POSTS, FETCH_POSTS, CREATE_POST, DELETE_POST, setPosts } from '../../actions/posts.actions';
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
-import apiRoot from '../../../utils/apiRoot';
 
 export default () => (next) => (action) => {
     
     next(action);
 
     switch(action.type) {
+        case FETCH_POSTS:
+            const { query } = action.payload;
+            next(apiRequest({
+                data: null,
+                method: 'GET',
+                url: `/api/posts/${query}`,
+                timeout: 3000,
+                feature: POSTS,
+            }));
+            break;
         case CREATE_POST: 
+            const { post } = action.payload;
             next(apiRequest({ 
-                data: action.payload, 
+                data: post, 
                 method: 'POST', 
                 url: '/api/posts', 
+                timeout: 3000,
                 feature: POSTS, 
             }));
             break;
         case DELETE_POST:
-            next(apiRequest({ 
+            const { id } = action.payload;
+            next(apiRequest({
+                data: null,
                 method: 'DELETE', 
-                url: '/api/posts/${action.payload.id}', 
-                feature: POSTS
+                url: `/api/posts/${id}`, 
+                timeout: 3000,
+                feature: POSTS,    
             }));
             break;               
-        case `${POSTS} API_SUCCESS`:
+        case `${POSTS} ${API_SUCCESS}`:
+            console.log(action.payload); //THIS WORKS
+            //{ config, data, etc... }
             next(setPosts({
-                //books: action.payload.items, normalizeKey: 'id'
+                collection: {},
             }))
             break; 
-        case `${POSTS} API_ERROR`:
+        case `${POSTS} ${API_ERROR}`:
             next(setPosts({
 
             }))

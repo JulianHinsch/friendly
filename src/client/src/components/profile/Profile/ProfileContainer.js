@@ -8,6 +8,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     createPost: (post) => dispatch(createPost(post)),
+    deletePost: (id) => dispatch(deletePost(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

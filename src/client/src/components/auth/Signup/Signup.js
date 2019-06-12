@@ -8,11 +8,13 @@ class Signup extends Component {
 
     static propTypes = {
         signUp: PropTypes.func.isRequired,
+        setAuth: PropTypes.func.isRequired,
         message: PropTypes.string,
     }
 
     componentWillMount() {
         document.title='Friendly | Sign Up';
+        this.props.setAuth({ message: null });        
     }
     
     state = {

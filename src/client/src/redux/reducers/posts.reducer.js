@@ -10,6 +10,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch(action.type) {
         case SET_POSTS:
+            console.log(action);    
             return Object.assign({}, state, action.payload);
         default:
             return state;

@@ -6,11 +6,13 @@ class Login extends Component {
 
     static propTypes = {
         logIn: PropTypes.func.isRequired,
+        setAuth: PropTypes.func.isRequired,
         message: PropTypes.string,
     }
 
     componentWillMount() {
         document.title='Friendly | Log In';
+        this.props.setAuth({ message: null });
     }
 
     state = {
