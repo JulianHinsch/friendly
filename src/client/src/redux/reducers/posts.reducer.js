@@ -10,7 +10,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch(action.type) {
         case SET_POSTS:
-            console.log(action);    
+            const { posts } = action.payload;  
             return Object.assign({}, state, action.payload);
         default:
             return state;

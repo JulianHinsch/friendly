@@ -2,25 +2,31 @@
 
 UI
 
-- make a 'content box' global style
-- choose and implement global color scheme
-- make a .png favicon from the users icon
-- add field validation to everything, and make sure to be consistent server/client
-- we also need to prevent users from viewing content they are not authorized to view.
-This can be done by reacting to the server's 403 response.
+- Make a 'content box' global style
+- Choose and implement global color scheme
+- Make a .png favicon from the users icon
+- Add field validation to everything, and make sure to be consistent server/client
+- Prevent users from viewing content they are not authorized to view by reacting to the server's 403 response.
+- Add a follows 'inbox'
+- Add chat
+- Put containers and components in the same files?
+- Put styles in a different folder?
 
 REDUX
 
-- fix login, signup - store decoded token in state or just use document.cookie?
-- differentiate between logout, login, and signup in auth reducer - right now they are all auth_success
-- load posts
-- implement create post flow
-- fix the unorthodox way I'm dispatching actions from UI (via wrappers i.e. in auth.js)
+- Load data!
+- Implement post flow
+- Implement comment flow
+- Implement reaction flow
+- Implement follow flow
+- Implement chat flow
 
 SERVER
 
-- object level permissions on api calls (for example, even if i'm authenticated, i cant delete somebody else's post)
-- validation
+- Fix signup - right now it is not returning 'user already exists' error...
+- Add object level permissions on api calls (for example, even if i'm authenticated, i cant delete somebody else's post)
+- Validation
+- Implement chat
 
 VALIDATION RULES
 
