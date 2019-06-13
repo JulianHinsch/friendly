@@ -1,6 +1,7 @@
 import cookies from 'js-cookie';
 import { AUTH, LOG_IN, SIGN_UP, LOG_OUT, GET_AUTH, setAuth } from '../../actions/auth.actions';
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
+import { clearStore } from '../../actions/data.actions';
 
 export default () => (next) => (action) => {
     
@@ -33,7 +34,7 @@ export default () => (next) => (action) => {
                 method: 'POST',
                 url: '/logout', 
                 timeout: 3000,
-                feature: AUTH 
+                feature: AUTH,
             }));
             break;
         case `${AUTH} ${API_ERROR}`:
@@ -43,29 +44,27 @@ export default () => (next) => (action) => {
                 message: get(action, ['payload','message']),
             }));
             break;
-        case `${AUTH} ${API_SUCCESS}`:    
+        case `${AUTH} ${API_SUCCESS}`: 
         case GET_AUTH:
+            //read the cookie
             const jwtPayload = cookies.get('jwt_payload');        
             if(jwtPayload) {
                 const { id, name, email, exp } = JSON.parse(window.atob(jwtPayload));
                 //exp is in seconds not milliseconds
                 if(exp*1000 > new Date().getTime()) {
-                    next(setAuth({ 
+                    const auth = {
                         id,
                         name,
                         email,
                         isAuthenticated: true,
                         message: null,
-                    }));
+                    }
+                    next(setAuth({ auth }));
                     break;
                 }
             }
-            next(setAuth({
-                id: null,
-                name: null,
-                email: null,
-                isAuthenticated: false 
-            }));
+            //clear the store when the user logs out
+            next(clearStore());            
             break;
         default:
             break;

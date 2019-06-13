@@ -15,7 +15,7 @@ export default ({dispatch}) => (next) => (action) => {
     if(action.type.includes('SET') && action.meta.normalizeKey) {
 
         //This middleware intercepts and dispatches the same action
-        //so, in order to avoid duplication in our log, we dispatch this action
+        //so, in order to avoid the appearance of duplication in our log, we dispatch this action
         dispatch(dataNormalized({ feature: action.meta.feature }))
 
         console.log(action.payload);
