@@ -7,7 +7,9 @@ import commentsMiddleware from './middleware/feature/comments.middleware';
 import postsMiddleware from './middleware/feature/posts.middleware';
 import reactionsMiddleware from './middleware/feature/reactions.middleware';
 
+import actionSplitterMiddleware from './middleware/core/actionSplitter.middleware';
 import apiMiddleware from './middleware/core/api.middleware';
+import normalizeMiddleware from './middleware/core/normalize.middleware';
 import redirectMiddleware from './middleware/core/redirect.middleware';
 
 const featureMiddleware = [
@@ -18,7 +20,9 @@ const featureMiddleware = [
 ]
 
 const coreMiddleware = [
+    actionSplitterMiddleware,
     apiMiddleware,
+    normalizeMiddleware,
     redirectMiddleware,
     logger,
 ]

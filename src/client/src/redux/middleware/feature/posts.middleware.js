@@ -7,7 +7,7 @@ export default () => (next) => (action) => {
 
     switch(action.type) {
         case FETCH_POSTS:
-            const { query } = action.payload;
+            const query = action.payload;
             next(apiRequest({
                 data: null,
                 method: 'GET',
@@ -17,7 +17,7 @@ export default () => (next) => (action) => {
             }));
             break;
         case CREATE_POST: 
-            const { post } = action.payload;
+            const post = action.payload;
             next(apiRequest({ 
                 data: post, 
                 method: 'POST', 
@@ -27,26 +27,22 @@ export default () => (next) => (action) => {
             }));
             break;
         case DELETE_POST:
-            const { id } = action.payload;
+            const id = action.payload;
             next(apiRequest({
                 data: null,
-                method: 'DELETE', 
-                url: `/api/posts/${id}`, 
+                method: 'DELETE',
+                url: `/api/posts/${id}`,
                 timeout: 3000,
                 feature: POSTS,    
             }));
-            break;               
+            break;
         case `${POSTS} ${API_SUCCESS}`:
-            console.log(action.payload); //THIS WORKS
-            //{ config, data, etc... }
-            next(setPosts({
-                collection: {},
-            }))
+            const posts = action.payload;
+            next(setPosts({ posts, normalizeKey: 'id' }))
             break; 
         case `${POSTS} ${API_ERROR}`:
-            next(setPosts({
-
-            }))
+            const error = action.payload;
+            console.log(error);
             break;
         default:
             break;

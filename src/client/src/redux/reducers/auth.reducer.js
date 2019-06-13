@@ -12,7 +12,8 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch (action.type) {
         case SET_AUTH:
-            return Object.assign({}, state, action.payload);
+            const auth = action.payload;
+            return Object.assign({}, state, auth);
         default:
             return state;
     }

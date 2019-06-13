@@ -14,6 +14,7 @@ UI
 
 REDUX
 
+- Normalize state - when a list of posts is loaded, set users, comments, and reactions - these are all loaded too
 - Load data!
 - Implement post flow
 - Implement comment flow

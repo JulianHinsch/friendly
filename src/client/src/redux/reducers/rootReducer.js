@@ -1,23 +1,23 @@
 import { combineReducers } from 'redux';
 
-import auth from './auth.reducer';
-//import users from './users.reducer';
-import posts from './posts.reducer';
-import reactions from './reactions.reducer';
-import comments from './comments.reducer';
-// import follows from './follows.reducer';
-// import conversations from './conversations.reducer';
-// import messages from './messages.reducer';
+import authReducer from './auth.reducer';
+//import usersReducer from './users.reducer';
+import postsReducer from './posts.reducer';
+import reactionsReducer from './reactions.reducer';
+import commentsReducer from './comments.reducer';
+// import followsReducer from './follows.reducer';
+// import conversationsReducer from './conversations.reducer';
+// import messagesReducer from './messages.reducer';
 
 const rootReducer = combineReducers({
-    auth,
-    //users,
-    posts,
-    reactions,
-    comments,
-    // follows,
-    // conversations,
-    // messages,
+    auth: authReducer,
+    //users: usersReducer,
+    posts: postsReducer,
+    reactions: reactionsReducer,
+    comments: commentsReducer,
+    // follows: followsReducer,
+    // conversations: conversationsReducer,
+    // messages: messagesReducer,
 });
 
 export default rootReducer;

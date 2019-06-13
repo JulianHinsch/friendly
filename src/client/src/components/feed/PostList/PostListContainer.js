@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    fetchPosts: (query) => dispatch(actions.fetchPosts(query)),
+    fetchPosts: (query) => dispatch(actions.fetchPosts({ query })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostList);

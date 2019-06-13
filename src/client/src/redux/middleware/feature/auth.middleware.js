@@ -8,8 +8,8 @@ export default () => (next) => (action) => {
 
     switch(action.type) {
         case LOG_IN:
-            const { credentials } = action.payload;
-            next(apiRequest({ 
+            const credentials = action.payload;
+            next(apiRequest({
                 data: credentials, 
                 method: 'POST', 
                 url: '/login',
@@ -18,7 +18,7 @@ export default () => (next) => (action) => {
             }));
             break;
         case SIGN_UP:
-            const { user } = action.payload;
+            const user = action.payload;
             next(apiRequest({ 
                 data: user, 
                 method: 'POST', 
@@ -40,7 +40,7 @@ export default () => (next) => (action) => {
             //safe getter function, since we don't know if these properties will exist
             const get = (obj, path) => path.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, obj);            
             next(setAuth({
-                message: get(action, ['payload','response','data','message']),
+                message: get(action, ['payload','message']),
             }));
             break;
         case `${AUTH} ${API_SUCCESS}`:    

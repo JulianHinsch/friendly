@@ -6,14 +6,14 @@ export const LOG_OUT = `${AUTH} LOG_OUT`;
 export const GET_AUTH = `${AUTH} GET_AUTH`;
 export const SET_AUTH = `${AUTH} SET_AUTH`;
 
-export const logIn = (credentials) => ({
+export const logIn = ({ credentials }) => ({
     type: LOG_IN,
-    payload: { credentials },
+    payload: credentials,
 });
 
-export const signUp = (user) => ({
+export const signUp = ({ user }) => ({
     type: SIGN_UP,
-    payload: { user },
+    payload: user,
 });
 
 export const logOut = () => ({
@@ -24,8 +24,12 @@ export const getAuth = () => ({
     type: GET_AUTH,
 });
 
-export const setAuth = (auth) => ({
+export const setAuth = ({ auth }) => ({
     type: SET_AUTH,
-    payload: { auth },
+    payload: auth,
+    meta: { 
+        normalizeKey: null, 
+        feature: AUTH,
+    }
 });
 
