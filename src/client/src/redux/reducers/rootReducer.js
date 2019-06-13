@@ -13,7 +13,6 @@ import commentsReducer from './comments.reducer';
 
 const rootReducer = (state, action) => {
 
-    //clear the store when the user logs out
     if (action.type === CLEAR_STORE) {
         state = undefined;
     }

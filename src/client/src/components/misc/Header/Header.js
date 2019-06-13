@@ -24,12 +24,16 @@ class Header extends Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
+    showFollowRequests = () => {
+
+    }
+
     render() {
         const { auth, logOut } = this.props;
         return (
             <header className={classNames(styles.header, 'bg-1')}>
                 <nav>
-                    <Link to='/' className={styles.logo}>
+                    <Link to='/' className={styles.logo} title='Home'>
                         <img src={require('../../../assets/logo.svg')} alt='home'/>
                         friendly
                     </Link>
@@ -45,15 +49,25 @@ class Header extends Component {
                     {auth.isAuthenticated ? (
                         <ul>
                             <li>
-                                <img src={require('../../../assets/inbox.svg')} alt='Follow Requests'/>
+                                <img 
+                                    onClick={this.showFollowRequests}
+                                    src={require('../../../assets/inbox.svg')} 
+                                    alt='Follow Requests' 
+                                    title='Follow Requests'/>
                             </li>
                             <li>
-                                <Link to={`/profile/${auth.id}`}>
-                                    <img src={require('../../../assets/profile.svg')} alt='My Profile'/>
+                                <Link to={`/profile/${auth.id}`} title='Profile'>
+                                    <img 
+                                        src={require('../../../assets/profile.svg')} 
+                                        alt='My Profile'/>
                                 </Link>   
                             </li>
-                            <li>
-                                <img onClick={logOut} src={require('../../../assets/logout.svg')} alt='Log Out'/>
+                            <li> 
+                                <img 
+                                    onClick={logOut} 
+                                    src={require('../../../assets/logout.svg')} 
+                                    alt='Log Out' 
+                                    title='Log Out'/>
                             </li>
                         </ul>   
                     ) : (

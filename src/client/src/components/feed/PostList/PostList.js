@@ -7,7 +7,7 @@ import Post from '../Post/Post';
 export default class PostList extends Component {
 
     static propTypes = {
-        posts: PropTypes.object.isRequired,
+        posts: PropTypes.array.isRequired,
         fetchPosts: PropTypes.func.isRequired,
     }
 
@@ -17,7 +17,6 @@ export default class PostList extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.posts)
         this.props.fetchPosts('?limit=50&offset=0&includeAll=true');
     }
 
@@ -28,19 +27,18 @@ export default class PostList extends Component {
     }
     
     render() {
-        const { posts } = this.props;
-        const { loading, error, collection } = posts;
-        return loading ? 'Loading' : error ? 'error' : (
+        const { loading, posts } = this.props;
+        return loading ? 'Loading' : (
             <div className={styles.post_list}>
-                {Object.keys(collection).map(key => {
-                    const { author, time, text, comments } = collection[key];
+                {posts.map(post => {
+                    const { id, author, time, text, comments } = post;
                     return (
                         <Post
                             author={author}
                             time={time}
                             text={text}
                             comments={comments}
-                            key={key}/>
+                            key={id}/>
                     )
                 })}
                 <button onClick={this.loadMorePosts}>

@@ -18,7 +18,7 @@ class PostForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.createPost({
-            userId: this.props.auth.userId,
+            userId: this.props.auth.id,
             text: this.state.userInput,
         });
     }

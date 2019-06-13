@@ -1,5 +1,5 @@
 import { dataNormalized } from '../../actions/data.actions';
-
+import { normalize, schema } from 'normalizr';
 /**
  * 
  * This middleware transforms an array into an object with normalizeKey as key
@@ -12,18 +12,37 @@ import { dataNormalized } from '../../actions/data.actions';
  * 
  */
 export default ({dispatch}) => (next) => (action) => {
+
     if(action.type.includes('SET') && action.meta.normalizeKey) {
 
         //This middleware intercepts and dispatches the same action
         //so, in order to avoid the appearance of duplication in our log, we dispatch this action
         dispatch(dataNormalized({ feature: action.meta.feature }))
 
-        const normalizedData = Array.isArray(action.payload) ? action.payload.reduce((acc, item) => {
-            acc[item[action.meta.normalizeKey]] = item;
-            return acc;
-        }, {}) : { [action.meta.normalizeKey]: action.payload }
- 
-        next({...action, payload: normalizedData, normalizeKey: null });
+        const user = new schema.Entity('users', {
+            posts: [ post ],
+            reactions: [ reaction ],
+        });
+        const posts = new schema.Entity('posts', {
+            userId: user,
+            comments: [ comment ],
+            reactions: [ reaction ],
+        });
+        const reactions = new schema.Entity('reactions', {
+            userId: user,
+            postId: post,
+        });
+        const comments = new schema.Entity('comments', {
+            userId: user,
+            postId: post,
+        });
+        // const follows = new schema.Entity('follows');        
+        // const messages  = new schema.Entity('messages');
+        // const conversations = new schema.Entity('conversations');
+
+        const normalizedData = normalize(originalData, user);
+
+        console.log(normalizedData);
 
 
         //TODO: normalize state across multiple entities

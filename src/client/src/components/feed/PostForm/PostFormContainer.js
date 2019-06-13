@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    createPost: (post) => dispatch(actions.createPost(post)),
+    createPost: (post) => dispatch(actions.createPost({ post })),
 });
 
 const PostFormContainer = connect(mapStateToProps, mapDispatchToProps)(PostForm);

@@ -18,6 +18,7 @@ export default () => (next) => (action) => {
             break;
         case CREATE_POST: 
             const post = action.payload;
+            console.log(post);
             next(apiRequest({ 
                 data: post, 
                 method: 'POST', 
