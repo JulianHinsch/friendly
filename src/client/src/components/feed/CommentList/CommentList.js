@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import styles from './CommentList.module.scss';
+import PropTypes from 'prop-types';
 
 import Comment from '../Comment/Comment';
+
+import styles from './CommentList.module.scss';
 
 class CommentList extends Component {
 
@@ -13,14 +15,18 @@ class CommentList extends Component {
         const { comments } = this.props;
         return (
             <div className={styles.comment_list}>
-                {this.state.expanded ? comments.map((comment, key) => (
-                    <Comment 
-                        author={comment.author}
-                        authorId={comment.authorId}
-                        time={comment.time}
-                        text={comment.text}
-                        key={key++}/>
-                )) : (
+                {this.state.expanded ? comments.map(comment => {
+                    const { id, user, createdAt, updatedAt, text } = comment;
+                    return (
+                        <Comment 
+                            id={id}
+                            user={comment.user}
+                            createdAt={comment.createdAt}
+                            updatedAt={comment.updatedAt}
+                            text={comment.text}
+                            key={comment.id}/>
+                    )
+                }) : (
                     <div className={styles.comment_list_placeholder} onClick={() => this.setState({ expanded: true })}>
                         {comments.length} comment{comments.length === 1 ? '' : 's'}
                     </div>
@@ -31,7 +37,13 @@ class CommentList extends Component {
 }
 
 CommentList.propTypes = {
-
+    comments: PropTypes.arrayOf(PropTypes.shape({
+        user: PropTypes.object,
+        id: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+        createdAt: PropTypes.string.isRequired,
+        updatedAt: PropTypes.string.isRequired,
+    }))
 }
 
 export default CommentList;

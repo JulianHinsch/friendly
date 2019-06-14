@@ -28,12 +28,12 @@ export default () => (next) => (action) => {
             break;                
         case `${COMMENTS} ${API_SUCCESS}`:
             next(setComments({
-                //books: action.payload.items, normalizeKey: 'id'
+                //TODO
             }))
             break; 
         case `${COMMENTS} ${API_ERROR}`:
             next(setComments({
-
+                //TODO
             }))
             break;
         default:

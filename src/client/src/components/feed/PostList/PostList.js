@@ -28,15 +28,19 @@ export default class PostList extends Component {
     
     render() {
         const { loading, posts } = this.props;
+        console.log(posts);
         return loading ? 'Loading' : (
             <div className={styles.post_list}>
                 {posts.map(post => {
-                    const { id, author, time, text, comments } = post;
+                    const { id, user, createdAt, updatedAt, text, reactions, comments } = post;
                     return (
                         <Post
-                            author={author}
-                            time={time}
+                            id={id}
+                            user={user}
+                            createdAt={createdAt}
+                            updatedAt={updatedAt}
                             text={text}
+                            reactions={reactions}
                             comments={comments}
                             key={id}/>
                     )

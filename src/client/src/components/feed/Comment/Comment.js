@@ -5,22 +5,23 @@ import styles from './Comment.module.scss';
 
 import Avatar from '../../misc/Avatar/Avatar';
 
-const _Comment = ({ author, authorId, time, text }) => (
+const _Comment = ({ text, createdAt, updatedAt }) => (
     <div className={styles.comment}>
         <Avatar/>
         <div className={styles.comment_body}>
-            <Link to={`/profile?id=${authorId}`}>{author}</Link>
+            <Link to={`/profile?id=${''}`}></Link>
             &nbsp;
             <span>{text}</span>
-            <span className={styles.time}>{time}</span>
+            <span className={styles.time}>{updatedAt}</span>
         </div>
     </div>
 )
 
 _Comment.propTypes = {
-    author: PropTypes.string.isRequired,
-    authorId: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    user: PropTypes.object.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    updatedAt: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
 }
 

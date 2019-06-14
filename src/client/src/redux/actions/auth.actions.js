@@ -3,8 +3,8 @@ export const AUTH = '[Auth]';
 export const LOG_IN = `${AUTH} LOG_IN`;
 export const SIGN_UP = `${AUTH} SIGN_UP`;
 export const LOG_OUT = `${AUTH} LOG_OUT`;
-export const GET_AUTH = `${AUTH} GET_AUTH`;
-export const SET_AUTH = `${AUTH} SET_AUTH`;
+export const GET_AUTH = `${AUTH} GET`;
+export const SET_AUTH = `${AUTH} SET`;
 
 export const logIn = ({ credentials }) => ({
     type: LOG_IN,

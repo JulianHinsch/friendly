@@ -14,10 +14,12 @@ export const deleteComment = ({ id }) => ({
     payload: { id },
 });
 
-export const setComments = ({ comments }) => ({
+export const setComments = ({ comments, normalizeKey }) => ({
     type: SET_COMMENTS,
     payload: { comments },
     meta: {
         normalize: false,
+        normalizeKey,
+        feature: COMMENTS,
     }
 })

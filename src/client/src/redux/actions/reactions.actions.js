@@ -14,7 +14,12 @@ export const deleteReaction = ({ id }) => ({
     payload: id,
 });
 
-export const setReactions = ({ reactions }) => ({
+export const setReactions = ({ reactions, normalizeKey }) => ({
     type: SET_REACTIONS,
     payload: reactions,
+    meta: {
+        normalize: false,
+        normalizeKey,
+        feature: REACTIONS,
+    }
 });

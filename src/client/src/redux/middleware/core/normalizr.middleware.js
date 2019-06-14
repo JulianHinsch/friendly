@@ -3,8 +3,12 @@ import { normalize, schema } from 'normalizr';
 import { POSTS } from '../../actions/posts.actions';
 import { USERS } from '../../actions/users.actions';
 
+const getActionType = (entity) => {
+    return `[${entity[0].toUpperCase() + entity.substr(1)}] SET`;
+}
+
 /**
- * This middleware normalizes server responses into separate entities
+ * Normalize server responses into separate entities
  */
 export default ({dispatch}) => (next) => (action) => {
 
@@ -33,13 +37,14 @@ export default ({dispatch}) => (next) => (action) => {
                     user: user,
                 });
                 normalizedData = normalize(originalData, [ post ]);
+                console.log(normalizedData);
                 next(Object.keys(normalizedData.entities).map(entity => ({
-                    type: `SET ${entity.toUpperCase()}`,
+                    type: getActionType(entity),
                     payload: normalizedData.entities[entity],
                     meta: {
-                        normalize: false,                        
+                        normalize: false,
                     }
-                })));                
+                })));        
                 break;
             case USERS:
                 user = new schema.Entity('users', {
@@ -51,7 +56,7 @@ export default ({dispatch}) => (next) => (action) => {
                 post = new schema.Entity('post');
                 normalizedData = normalize(originalData, [ user ]);
                 next(Object.keys(normalizedData.entities).map(entity => ({
-                    type: `SET ${entity.toUpperCase()}`,
+                    type: getActionType(entity),
                     payload: normalizedData.entities[entity],
                     meta: {
                         normalize: false,
@@ -61,7 +66,6 @@ export default ({dispatch}) => (next) => (action) => {
             default:
                 break;
         }
-        next(action);
     } else {
         next(action);
     }

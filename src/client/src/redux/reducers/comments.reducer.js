@@ -1,7 +1,7 @@
 import { SET_COMMENTS, DELETE_COMMENT } from '../actions/comments.actions';
 
 const defaultState = {
-    error: null,
+    selectedCommentId: null,
     loading: false,
     collection: {},
 }

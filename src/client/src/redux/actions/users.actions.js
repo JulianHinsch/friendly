@@ -24,7 +24,8 @@ export const setUsers = ({ users, normalizeKey }) => ({
     type: SET_USERS,
     payload: { users },
     meta: {
-        normalize: true,        
+        normalize: true,  
+        normalizeKey,      
         feature: USERS,
     }
 })

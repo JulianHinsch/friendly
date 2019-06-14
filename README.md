@@ -2,6 +2,7 @@
 
 UI
 
+- Display pretty times with Moment
 - Make a 'content box' global style
 - Choose and implement global color scheme
 - Make a .png favicon from the users icon
@@ -14,8 +15,6 @@ UI
 
 REDUX
 
-- Normalize state - when a list of posts is loaded, set users, comments, and reactions - these are all loaded too
-- Load data!
 - Implement post flow
 - Implement comment flow
 - Implement reaction flow
@@ -27,7 +26,7 @@ SERVER
 - Fix signup - right now it is not returning 'user already exists' error...
 - Add object level permissions on api calls (for example, even if i'm authenticated, i cant delete somebody else's post)
 - Validation
-- Implement chat
+- Chat
 
 VALIDATION RULES
 
