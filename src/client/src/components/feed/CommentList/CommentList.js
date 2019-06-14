@@ -20,11 +20,11 @@ class CommentList extends Component {
                     return (
                         <Comment 
                             id={id}
-                            user={comment.user}
-                            createdAt={comment.createdAt}
-                            updatedAt={comment.updatedAt}
-                            text={comment.text}
-                            key={comment.id}/>
+                            user={user}
+                            createdAt={createdAt}
+                            updatedAt={updatedAt}
+                            text={text}
+                            key={id}/>
                     )
                 }) : (
                     <div className={styles.comment_list_placeholder} onClick={() => this.setState({ expanded: true })}>

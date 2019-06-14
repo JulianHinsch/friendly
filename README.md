@@ -3,6 +3,8 @@
 UI
 
 - Display pretty times with Moment
+- Set loading flags
+- Load correct posts for each user!!
 - Make a 'content box' global style
 - Choose and implement global color scheme
 - Make a .png favicon from the users icon

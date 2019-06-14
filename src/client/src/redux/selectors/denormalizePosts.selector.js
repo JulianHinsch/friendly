@@ -1,35 +1,11 @@
 import { schema, denormalize } from 'normalizr';
-import {  getPostsArray } from './posts.selector';
-
-/*
-I have some normalized state (redux store)
-```js
-{
-users: [{ id, name, etc }...]
-posts: [{ id, content, userId }...]
-comments: [{ id, content, userId, postId }...]
-}
-```
-
-I'm looking to transform into a list of posts, i.e.
-```js
-[
-{id, comments: [id, content, user: {id, name}], user: {id, name}}
-]
-```
-
-Any advice? 
-*/
 
 export default (state) => {
-
-    let user, post, comment, reaction, follow;
     
-    comment = new schema.Entity('comments');
-    reaction = new schema.Entity('reactions');
-    follow = new schema.Entity('follow');
-    user = new schema.Entity('users');            
-    post = new schema.Entity('posts', {
+    const user = new schema.Entity('users');                
+    const comment = new schema.Entity('comments');
+    const reaction = new schema.Entity('reactions');
+    const post = new schema.Entity('posts', {
         comments: [ comment ],
         reactions: [ reaction ],
         user: user,
@@ -40,7 +16,6 @@ export default (state) => {
     //we could do this by leveraging another selector like getPostIdsByUser or something
     const input = Object.keys(state.posts.collection); 
 
-
     const postsSchema = [ post ];
     const entities = { 
         posts: state.posts.collection,
@@ -50,6 +25,8 @@ export default (state) => {
         follows: state.follows.collection,
     };
 
-    return denormalize(input, postsSchema, entities);
+    const denormalizedData = denormalize(input, postsSchema, entities);
+    console.log('Denormalized Data', denormalizedData);
 
+    return denormalizedData;
 }

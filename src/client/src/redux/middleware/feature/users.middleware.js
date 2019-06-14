@@ -1,4 +1,4 @@
-import { USERS, FETCH_USERS, CREATE_USER, DELETE_USER, setUsers } from '../../actions/users.actions';
+import { USERS, FETCH_USERS, DELETE_USER, setUsers } from '../../actions/users.actions';
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 
 export default () => (next) => (action) => {

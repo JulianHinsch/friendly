@@ -37,7 +37,7 @@ export default ({dispatch}) => (next) => (action) => {
                     user: user,
                 });
                 normalizedData = normalize(originalData, [ post ]);
-                console.log(normalizedData);
+                console.log('Normalized Data:', normalizedData);
                 next(Object.keys(normalizedData.entities).map(entity => ({
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],
@@ -55,6 +55,7 @@ export default ({dispatch}) => (next) => (action) => {
                 });
                 post = new schema.Entity('post');
                 normalizedData = normalize(originalData, [ user ]);
+                console.log('Normalized Data:', normalizedData);                
                 next(Object.keys(normalizedData.entities).map(entity => ({
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],

@@ -28,7 +28,6 @@ export default class PostList extends Component {
     
     render() {
         const { loading, posts } = this.props;
-        console.log(posts);
         return loading ? 'Loading' : (
             <div className={styles.post_list}>
                 {posts.map(post => {

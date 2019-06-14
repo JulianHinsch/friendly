@@ -35,7 +35,7 @@ class Header extends Component {
                 <nav>
                     <Link to='/' className={styles.logo} title='Home'>
                         <img src={require('../../../assets/logo.svg')} alt='home'/>
-                        friendly
+                        <span> friendly</span>
                     </Link>
                     <form className={styles.search_form} onSubmit={this.handleSubmit}>
                         <label htmlFor='search' style={{display: 'none'}}>Search</label>
