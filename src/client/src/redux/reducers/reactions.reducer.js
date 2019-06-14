@@ -1,4 +1,4 @@
-import { SET_REACTIONS } from '../actions/reactions.actions';
+import { SET_REACTIONS, DELETE_REACTION } from '../actions/reactions.actions';
 
 const defaultState = {
     error: null,
@@ -9,7 +9,11 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch(action.type) {
         case SET_REACTIONS:
-            return Object.assign({}, state, action.payload);
+            const reactions = action.payload;
+            return Object.assign({}, state, { collection: reactions});
+        case DELETE_REACTION:
+            //TODO
+            return state;
         default:
             return state;
     }

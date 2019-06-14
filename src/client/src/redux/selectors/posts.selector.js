@@ -1,5 +1,3 @@
-//feature selectors
-
 export const getPosts = (state) => {
     return state.posts.collection;
 }

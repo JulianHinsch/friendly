@@ -25,21 +25,6 @@ export default ({dispatch}) => (next) => (action) => {
  
         next({...action, payload: normalizedData, normalizeKey: null });
 
-
-        //TODO: normalize state across multiple entities
-
-        // import normalizr
-
-        // const { posts, comments, reactions, users } = normalizr(action.payload)
-
-        // next([ 
-        //    { type: SET_POSTS, payload: posts, normalizeKey: null }
-        //    { type: SET_COMMENTS, payload: comments, normalizeKey: null }
-        //    { type: SET_REACTIONS, payload: reactions, normalizeKey: null }
-        //    { type: SET_USERS, payload: users, normalizeKey: null }
-        // ])
-
-
     } else {
         next(action);
     }

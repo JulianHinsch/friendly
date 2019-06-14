@@ -1,4 +1,4 @@
-import { SET_COMMENTS } from '../actions/comments.actions';
+import { SET_COMMENTS, DELETE_COMMENT } from '../actions/comments.actions';
 
 const defaultState = {
     error: null,
@@ -8,10 +8,12 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
     switch(action.type) {
-
         case SET_COMMENTS:
-            return Object.assign({}, state, action.payload);
-        
+            const comments = action.payload;
+            return Object.assign({}, state, { collection: comments });
+        case DELETE_COMMENT:
+            //TODO
+            return state;
         default:
             return state;
     }

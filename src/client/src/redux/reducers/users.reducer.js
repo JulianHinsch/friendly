@@ -2,7 +2,6 @@ import { SET_USERS } from '../actions/users.actions';
 
 const defaultState = {
     selectedUserId: null,
-    error: null,
     loading: false,
     collection: {}
 }
@@ -10,7 +9,8 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch(action.type) {
         case SET_USERS:
-            return Object.assign({}, state, action.payload);
+            const users = action.payload;
+            return Object.assign({}, state, { collection: users });
         default:
             return state;
     }

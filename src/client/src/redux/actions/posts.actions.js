@@ -24,6 +24,7 @@ export const setPosts = ({ posts, normalizeKey }) => ({
     type: SET_POSTS,
     payload: posts,
     meta: {
+        normalize: true,        
         normalizeKey,
         feature: POSTS,
     },

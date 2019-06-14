@@ -28,6 +28,7 @@ export const setAuth = ({ auth }) => ({
     type: SET_AUTH,
     payload: auth,
     meta: { 
+        normalize: false,
         normalizeKey: null, 
         feature: AUTH,
     }
