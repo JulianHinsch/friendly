@@ -1,4 +1,4 @@
-import { FOLLOWS, CREATE_FOLLOW, DELETE_FOLLOW, UPDATE_FOLLOW } from '../../actions/follows.actions';
+import { FOLLOWS, CREATE_FOLLOW, DELETE_FOLLOW, UPDATE_FOLLOW, setFollows } from '../../actions/follows.actions';
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 
 export default () => (next) => (action) => {
@@ -28,6 +28,16 @@ export default () => (next) => (action) => {
             break;
         case UPDATE_FOLLOW:
             //todo
+            break;
+        case `${FOLLOWS} ${API_SUCCESS}`:
+            next(setFollows({
+                //TODO
+            }));
+            break;
+        case `${FOLLOWS} ${API_ERROR}`:
+            next(setFollows({
+                //TODO
+            }));
             break;
         default:
             break;

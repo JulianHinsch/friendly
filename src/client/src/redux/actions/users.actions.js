@@ -5,24 +5,24 @@ export const UPDATE_USER = `${USERS} UPDATE`;
 export const DELETE_USER = `${USERS} DELETE`;
 export const SET_USERS = `${USERS} SET`;
 
-export const fetchUsers = (query) => ({
+export const fetchUsers = ({ query }) => ({
     type: FETCH_USERS,
-    payload: { query },
+    payload: query,
 })
 
-export const updateUser = (user) => ({
+export const updateUser = ({ user }) => ({
     type: UPDATE_USER,
-    payload: { user },
+    payload: user,
 });
 
-export const deleteUser = (id) => ({
+export const deleteUser = ({ id }) => ({
     type: DELETE_USER,
-    payload: { id },
+    payload: id,
 });
 
 export const setUsers = ({ users, normalizeKey }) => ({
     type: SET_USERS,
-    payload: { users },
+    payload: users,
     meta: {
         normalize: true,  
         normalizeKey,      

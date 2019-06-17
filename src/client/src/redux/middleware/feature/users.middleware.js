@@ -8,6 +8,8 @@ export default () => (next) => (action) => {
     switch(action.type) {
         case FETCH_USERS:
             const query = action.payload;
+            console.log(action.payload);            
+            console.log(query);
             next(apiRequest({
                 data: null,
                 method: 'GET',
