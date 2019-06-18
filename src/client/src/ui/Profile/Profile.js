@@ -7,6 +7,8 @@ import ProfileHeader from '../ProfileHeader/ProfileHeader';
 
 import styles from './Profile.module.scss';
 
+
+//TODO fix the loading logic here...
 export default class Profile extends Component {
 
     static propTypes = {
@@ -22,34 +24,33 @@ export default class Profile extends Component {
             id: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
             email: PropTypes.string.isRequired,
-        }).isRequired,
-        createFollowRequest: PropTypes.func.isRequired,
+        }),
+        loading: PropTypes.bool.isRequired,
         fetchUsers: PropTypes.func.isRequired,
     }
 
-    componentWillMount() {
-        //TODO
-        document.title = "User's name";
-    }
-
     componentDidMount() {
-        const url = window.location.href;        
-        const id = url.split('/profile/')[1];
-        this.props.fetchUsers(`?id=${id}&includeAll=true&limit=1`);
-    }
-
-    isOwnProfile = () => {
         const url = window.location.href;
         const id = url.split('/profile/')[1];
-        return id === this.props.auth.id;
+        this.props.fetchUsers(`${id}?includeAll=true&limit=1`);
+    }
+
+    componentDidUpdate() {
+        const { user } = this.props;
+        document.title = user ? user.name : 'Friendly';                
     }
 
     render() {
+        const { user } = this.props;  
+        if(!user) {
+            return 'Loading';
+        }
+        const isOwnProfile = this.props.user.id === this.props.auth.id;
         return (
             <main className={styles.profile}>
-                <ProfileHeader/>
-                {this.isOwnProfile() && <PostForm/>}
-                {/* <PostList/> */}
+                <ProfileHeader user={user} isOwnProfile={isOwnProfile}/>
+                {isOwnProfile && <PostForm/>}
+                <PostList/>
             </main>
         )
     }

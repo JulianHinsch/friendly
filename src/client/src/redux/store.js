@@ -27,10 +27,27 @@ const coreMiddleware = [
     apiMiddleware,
     normalizrMiddleware,
     redirectMiddleware,
-    actionSplitterMiddleware,    
-    logger,
+    actionSplitterMiddleware,     //- nir recommends this one goes first, but it throws errors    
+    logger, //must be last
 ]
 
 export default () => {
     return createStore(rootReducer, applyMiddleware(...featureMiddleware, ...coreMiddleware));
 }
+
+/*
+export default () => {
+    return createStore(rootReducer, applyMiddleware(
+        actionSplitterMiddleware,
+        apiMiddleware,
+        normalizrMiddleware,
+        redirectMiddleware,
+        authMiddleware,
+        commentsMiddleware,
+        followsMiddleware,
+        postsMiddleware,    
+        reactionsMiddleware,
+        usersMiddleware,
+        logger,
+    ));
+}*/

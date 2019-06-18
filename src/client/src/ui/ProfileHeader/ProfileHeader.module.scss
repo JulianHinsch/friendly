@@ -1,0 +1,26 @@
+.profile_header {
+    width: 90%;
+    max-width: 980px;
+    margin: auto;
+    padding: 40px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    & div {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    & button {
+        background-color: #4267b2;
+        color: white;
+        cursor: pointer;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        height: 40px;
+        font-size: 14px;
+        float: right;
+    }
+}

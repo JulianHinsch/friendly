@@ -12,13 +12,14 @@ const getActionType = (entity) => {
  */
 export default ({dispatch}) => (next) => (action) => {
 
-    if(action.type.includes('SET') && action.meta.normalize) {
+    if(action.meta && action.meta.normalize) {
 
         //This middleware intercepts and dispatches the same action
         //so, in order to avoid the appearance of duplication in our log, we dispatch this action
         dispatch(dataNormalizing({ feature: action.meta.feature }))
 
         const originalData = action.payload;   
+        console.log('originalData', originalData);
         let normalizedData;         
 
         let user, post, comment, reaction, follow;
@@ -47,13 +48,13 @@ export default ({dispatch}) => (next) => (action) => {
                 })));        
                 break;
             case USERS:
+                post = new schema.Entity('post');
                 user = new schema.Entity('users', {
                     posts: [ post ],
                     comments: [ comment ],
                     reactions: [ reaction ],
                     follows: [ follow ],
                 });
-                post = new schema.Entity('post');
                 normalizedData = normalize(originalData, [ user ]);
                 console.log('Normalized Data:', normalizedData);                
                 next(Object.keys(normalizedData.entities).map(entity => ({

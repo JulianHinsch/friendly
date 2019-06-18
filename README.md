@@ -2,8 +2,12 @@
 
 UI
 
-- Display pretty times with Moment
-- Set loading flags
+- Set loading flags!!! Maybe use a new action type?
+
+- It seems like a bad idea to mix loading & actual entities in the same action (i.e. SET_THINGS)
+- Maybe the best solution is to just add a loading setter to each entity (i.e. SET_THINGS_LOADER)
+- Then, we can just dispatch this array of actions using our action splitter middleware that sometimes doesn't work
+
 - Load correct posts for each user!!
 - Make a 'content box' global style
 - Choose and implement global color scheme
@@ -22,6 +26,8 @@ REDUX
 - Implement reaction flow
 - Implement follow flow
 - Implement chat flow
+- Put { id, userId } etc in container methods so that component knows what params to pass?
+- Figure out how to populate all nested data from denormalizers
 
 SERVER
 

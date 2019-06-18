@@ -1,9 +1,9 @@
 export const FOLLOWS = '[Follows]';
 
-export const SET_FOLLOWS = `${FOLLOWS} SET`;
 export const CREATE_FOLLOW = `${FOLLOWS} CREATE`;
 export const UPDATE_FOLLOW = `${FOLLOWS} UPDATE`;
 export const DELETE_FOLLOW = `${FOLLOWS} DELETE`;
+export const SET_FOLLOWS = `${FOLLOWS} SET`;
 
 export const createFollow = ({ follow }) => ({
     type: CREATE_FOLLOW,
@@ -20,12 +20,10 @@ export const deleteFollow = ({ id }) => ({
     payload: id,
 });
 
-export const setFollows = ({ follows, normalizeKey }) => ({
+export const setFollows = ({ follows }) => ({
     type: SET_FOLLOWS,
     payload: follows,
     meta: {
-        normalize: false,
-        normalizeKey,
         feature: FOLLOWS,
     }
 })

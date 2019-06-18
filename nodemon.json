@@ -2,5 +2,10 @@
     "verbose": false,
     "debug": true,
     "watch": "src",
+    "ignore": [
+        "src/client/**",
+        ".git",
+        "node_modules/**/node_modules"
+    ],
     "ext": "js"
 }

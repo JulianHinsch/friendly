@@ -3,14 +3,14 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Landing from './Landing/Landing';
-import Feed from './Feed/Feed';
-import Login from './Login/LoginContainer';
-import Signup from './Signup/SignupContainer';
-import SearchResults from './SearchResults/SearchResultsContainer';
-import Profile from './Profile/ProfileContainer';
-import Post from './Post/PostContainer';
-import NotFound from './NotFound/NotFound';
+import Landing from '../Landing/Landing';
+import Feed from '../Feed/FeedContainer';
+import Login from '../Login/LoginContainer';
+import Signup from '../Signup/SignupContainer';
+import SearchResults from '../SearchResults/SearchResultsContainer';
+import Profile from '../Profile/ProfileContainer';
+import Post from '../Post/PostContainer';
+import NotFound from '../NotFound/NotFound';
 
 const ProtectedRoute = ({ auth, component: Component, ...rest }) => (
     <Route {...rest} render={props => {

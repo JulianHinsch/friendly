@@ -6,20 +6,18 @@ export const SET_COMMENTS = `${COMMENTS} SET`;
 
 export const createComment = ({ comment }) => ({
     type: CREATE_COMMENT,
-    payload: { comment },
+    payload: comment,
 });
 
 export const deleteComment = ({ id }) => ({
     type: DELETE_COMMENT,
-    payload: { id },
+    payload: id,
 });
 
-export const setComments = ({ comments, normalizeKey }) => ({
+export const setComments = ({ comments }) => ({
     type: SET_COMMENTS,
-    payload: { comments },
+    payload: comments,
     meta: {
-        normalize: false,
-        normalizeKey,
         feature: COMMENTS,
     }
 })
