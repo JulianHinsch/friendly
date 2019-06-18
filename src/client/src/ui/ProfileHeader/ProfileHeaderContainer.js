@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import * as actions from '../../redux/actions/follows.actions';
+
 import ProfileHeader from './ProfileHeader';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -7,7 +9,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    createFollow: (follow) => dispatch(createFollow({ follow })),
+    createFollow: (follow) => dispatch(actions.createFollow({ follow })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileHeader);

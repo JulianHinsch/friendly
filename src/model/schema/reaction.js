@@ -1,5 +1,5 @@
 module.exports = (database, DataTypes) => {
-    return database.define('like', {
+    return database.define('reactions', {
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,

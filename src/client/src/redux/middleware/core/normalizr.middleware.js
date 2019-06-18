@@ -48,7 +48,7 @@ export default ({dispatch}) => (next) => (action) => {
                 })));        
                 break;
             case USERS:
-                post = new schema.Entity('post');
+                post = new schema.Entity('posts');
                 user = new schema.Entity('users', {
                     posts: [ post ],
                     comments: [ comment ],

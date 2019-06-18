@@ -8,14 +8,19 @@ export default class Feed extends Component {
 
     static propTypes = {
         auth: PropTypes.shape({
-
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+            email: PropTypes.string.isRequired,
+            isAuthenticated: PropTypes.bool.isRequired,
+            loading: PropTypes.bool.isRequired,
+            message: PropTypes.string,
         }).isRequired,
         loading: PropTypes.bool.isRequired,
         fetchPosts: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-        this.props.fetchPosts();
+        this.props.fetchPosts('?includeAll=true');
     }
 
     render() {

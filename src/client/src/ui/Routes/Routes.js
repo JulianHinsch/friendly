@@ -23,7 +23,7 @@ const ProtectedRoute = ({ auth, component: Component, ...rest }) => (
 
 const Routes = (props) => {
     const { auth } = props;
-    //using render functions here because of https://github.com/ReactTraining/react-router/issues/6471
+    //using render props here because of https://github.com/ReactTraining/react-router/issues/6471
     return (
         <Switch>
             <Route exact path='/' render={() => auth.isAuthenticated ? <Feed/> : <Landing/>}/> 

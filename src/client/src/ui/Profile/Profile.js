@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import PostList from '../PostList/PostList';
+import PostList from '../PostList/PostListContainer';
 import PostForm from '../PostForm/PostFormContainer';
-import ProfileHeader from '../ProfileHeader/ProfileHeader';
+import ProfileHeader from '../ProfileHeader/ProfileHeaderContainer';
 
 import styles from './Profile.module.scss';
 
-
-//TODO fix the loading logic here...
 export default class Profile extends Component {
 
     static propTypes = {
@@ -41,11 +39,11 @@ export default class Profile extends Component {
     }
 
     render() {
-        const { user } = this.props;  
-        if(!user) {
+        const { auth, user, loading } = this.props;  
+        if(!user || loading) {
             return 'Loading';
         }
-        const isOwnProfile = this.props.user.id === this.props.auth.id;
+        const isOwnProfile = user.id === auth.id;
         return (
             <main className={styles.profile}>
                 <ProfileHeader user={user} isOwnProfile={isOwnProfile}/>

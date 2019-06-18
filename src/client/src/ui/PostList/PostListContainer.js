@@ -7,4 +7,8 @@ const mapStateToProps = (state, ownProps) => ({
     posts: denormalizePosts(state),
 });
 
-export default connect(mapStateToProps, null)(PostList);
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    fetchPosts: (query) => dispatch(actions.fetchPosts({ query })),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);

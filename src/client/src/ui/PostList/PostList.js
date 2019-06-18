@@ -12,23 +12,18 @@ export default class PostList extends Component {
     }
 
     state = {
-        numPosts: 50,
         offset: 0,
     }
 
-    componentDidMount() {
-        this.props.fetchPosts('?limit=50&offset=0&includeAll=true');
-    }
-
-    //TODO
     loadMorePosts = () => {
-        this.setState(prevState => ({offset: prevState.offset+50}), () => {
+        this.setState(prevState => ({ offset: prevState.offset+50 }), () => {
             this.props.fetchPosts(`?limit=50&offset=${this.state.offset}&includeAll=true`);            
         });
     }
     
     render() {
         const { loading, posts } = this.props;
+        console.log(posts);
         return loading ? 'Loading' : (
             <div className={styles.post_list}>
                 {posts.map(post => <Post key={post.id} {...post}/>)}

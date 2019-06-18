@@ -44,13 +44,16 @@ export default () => (next) => (action) => {
         case `${AUTH} ${API_ERROR}`:
             //safe getter function, since we don't know if these properties will exist
             const get = (obj, path) => path.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, obj);            
-            next(setAuth({
-                message: get(action, ['payload','message']),
-            }));
-            next(setLoader({ feature: AUTH, loading: false }))
+            next(setAuth({ message: get(action, ['payload','message']) }));
+            next(setLoader({ feature: AUTH, loading: false }));
+            // next([
+            //     setAuth({ message: get(action, ['payload','message'])}),
+            //     setLoader({ feature: AUTH, loading: false }),
+            // ]);
             break;
         case `${AUTH} ${API_SUCCESS}`:
         case GET_AUTH:
+            next(setLoader({ feature: AUTH, loading: true }));
             //read the cookie
             const jwtPayload = cookies.get('jwt_payload');        
             if(jwtPayload) {
@@ -64,10 +67,12 @@ export default () => (next) => (action) => {
                         isAuthenticated: true,
                         message: null,
                     }
-                    next(setAuth({ 
-                        auth, 
-                    }));
-                    next(setLoader({ feature: AUTH, loading: false }))
+                    next(setAuth({ auth }));
+                    next(setLoader({ feature: AUTH, loading: false }));
+                    // next([
+                    //     setAuth({ auth }),
+                    //     setLoader({ feature: AUTH, loading: false }),
+                    // ]);
                     break;
                 }
             }
