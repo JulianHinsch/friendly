@@ -1,0 +1,14 @@
+.search_results {
+    width: 90%;
+    max-width: 700px;
+    margin: auto;
+}
+
+.search_result {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}

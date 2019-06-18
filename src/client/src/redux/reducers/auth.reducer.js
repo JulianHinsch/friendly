@@ -14,10 +14,10 @@ export default (state = defaultState, action) => {
     switch (action.type) {
         case `${AUTH} ${SET_LOADER}`:
             const loading = action.payload;
-            return Object.assign({}, state, { loading });
+            return { loading, ...state }
         case SET_AUTH:
             const auth = action.payload;
-            return Object.assign({}, state, auth);
+            return { ...state, ...auth };            
         default:
             return state;
     }

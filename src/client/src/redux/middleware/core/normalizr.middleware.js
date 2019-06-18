@@ -19,7 +19,7 @@ export default ({dispatch}) => (next) => (action) => {
         dispatch(dataNormalizing({ feature: action.meta.feature }))
 
         const originalData = action.payload;
-        console.log('originalData', originalData);
+        console.log('Original Data:', originalData);
         let normalizedData;         
 
         let user, post, comment, reaction, follow;

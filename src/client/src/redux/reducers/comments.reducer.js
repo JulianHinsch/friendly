@@ -10,13 +10,15 @@ export default (state = defaultState, action) => {
     switch(action.type) {
         case `${COMMENTS} ${SET_LOADER}`:
             const loading = action.payload;
-            return Object.assign({}, state, { loading });
+            return { loading, ...state };
         case SET_COMMENTS:
-            const comments = action.payload;
-            return Object.assign({}, state, { collection: comments });
+            return { ...state, collection: { ...state.collection, ...action.payload }};
         case DELETE_COMMENT:
-            //TODO
-            return state;
+            //TODO get the id
+            const id = action.payload;
+            const nextCollection = { ...state.collection };
+            delete nextCollection[id];
+            return { ...state, collection: { ...nextCollection }};
         default:
             return state;
     }

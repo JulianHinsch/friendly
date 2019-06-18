@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+import Avatar from '../Avatar/Avatar';
+import Loader from '../Loader/Loader';
+
 import styles from './SearchResults.module.scss';
 
 class SearchResults extends Component {
 
-    async componentDidMount() {
-        await this.props.search();
+    static propTypes = {
+        users: PropTypes.array.isRequired,
+        fetchUsers: PropTypes.func.isRequired,
     }
 
+    async componentDidMount() {
+        const query = `?q=${window.location.href.split('search/')[1]}`;
+        this.props.fetchUsers({ query });
+    }
+
+    //TODO handle no results
     render() {
-        const { loading, error, results } = this.props;
+        const { loading, users } = this.props;
         return (
-            <main>
-                {loading ? (
-                    <div className='loading'/>
-                ) : error ? (
-                    <div className='error'/>
-                ) : (
-                    results.map(result => {
+            <main className={styles.search_results}>
+                {loading ? <Loader/> : (
+                    users.map(user => {
+                        const { id, email, name } = user;
                         return (
-                            <div className='result'>
-                            
+                            <div className={styles.search_result} key={id}>
+                                <Avatar email={email} id={id} diameter={60}/>
+                                <Link to={`/profile/${id}`}>{name}</Link>
                             </div>
                         )
                     })

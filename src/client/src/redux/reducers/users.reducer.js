@@ -1,4 +1,4 @@
-import { USERS, SET_USERS } from '../actions/users.actions';
+import { USERS, SET_USERS, DELETE_USER } from '../actions/users.actions';
 import { SET_LOADER } from '../actions/loaders.actions';
 
 const defaultState = {
@@ -10,10 +10,15 @@ export default (state = defaultState, action) => {
     switch(action.type) {
         case `${USERS} ${SET_LOADER}`:
             const loading = action.payload;
-            return Object.assign({}, state, { loading });
+            return { loading, ...state };
         case SET_USERS:
-            const users = action.payload;
-            return Object.assign({}, state, { collection: users });
+            return { ...state, collection: { ...state.collection, ...action.payload }};
+        case DELETE_USER:
+            //TODO get the id from the api call?
+            const id = action.payload;
+            const nextCollection = { ...state.collection };
+            delete nextCollection[id];
+            return { ...state, collection: { ...nextCollection }};
         default:
             return state;
     }

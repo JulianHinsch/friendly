@@ -10,16 +10,15 @@ export default (state = defaultState, action) => {
     switch(action.type) {
         case `${POSTS} ${SET_LOADER}`:
             const loading = action.payload;
-            return Object.assign({}, state, { loading });
+            return { loading, ...state };
         case SET_POSTS:
-            const posts = action.payload;
-            return Object.assign({}, state, { collection: posts });
+            return { ...state, collection: { ...state.collection, ...action.payload }};
         case DELETE_POST:
-            //TODO get the id from the api call...
+            //TODO get the id
             const id = action.payload;
-            const nextState = Object.assign({}, state.collection);
-            delete nextState[id];
-            return Object.assign({}, state, nextState)
+            const nextCollection = { ...state.collection };
+            delete nextCollection[id];
+            return { ...state, collection: { ...nextCollection }};
         default:
             return state;
     }

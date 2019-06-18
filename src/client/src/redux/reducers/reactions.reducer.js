@@ -2,7 +2,6 @@ import { REACTIONS, SET_REACTIONS, DELETE_REACTION } from '../actions/reactions.
 import { SET_LOADER } from '../actions/loaders.actions';
 
 const defaultState = {
-    error: null,
     loading: false,
     collection: {}
 }
@@ -11,13 +10,15 @@ export default (state = defaultState, action) => {
     switch(action.type) {
         case `${REACTIONS} ${SET_LOADER}`:
             const loading = action.payload;
-            return Object.assign({}, state, { loading });
+            return { loading, ...state }
         case SET_REACTIONS:
-            const reactions = action.payload;
-            return Object.assign({}, state, { collection: reactions});
+            return { ...state, collection: { ...state.collection, ...action.payload }};        
         case DELETE_REACTION:
-            //TODO
-            return state;
+            //TODO get the id
+            const id = action.payload;
+            const nextCollection = { ...state.collection };
+            delete nextCollection[id];
+            return { ...state, collection: { ...nextCollection }};
         default:
             return state;
     }

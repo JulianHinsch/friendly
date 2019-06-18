@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
         auth: state.auth,
         loading: state.users.loading || state.posts.loading,
         user: getUserById(state, id),
-    })
+    });
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

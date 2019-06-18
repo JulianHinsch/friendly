@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import PostList from '../PostList/PostListContainer';
 import PostForm  from '../PostForm/PostFormContainer';
+import Loader from '../Loader/Loader';
 
 export default class Feed extends Component {
 
@@ -20,6 +21,7 @@ export default class Feed extends Component {
     }
 
     componentDidMount() {
+        //TODO use auth to get the correct posts here, not just all posts
         this.props.fetchPosts('?includeAll=true');
     }
 
@@ -28,7 +30,7 @@ export default class Feed extends Component {
         return (
             <main>
                 <PostForm/>
-                {loading ? 'Loading' : <PostList/>}
+                {loading ? <Loader/> : <PostList/>}
             </main>
         )
     }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import PostList from '../PostList/PostListContainer';
 import PostForm from '../PostForm/PostFormContainer';
 import ProfileHeader from '../ProfileHeader/ProfileHeaderContainer';
+import Loader from '../Loader/Loader';
 
 import styles from './Profile.module.scss';
 
@@ -41,7 +42,7 @@ export default class Profile extends Component {
     render() {
         const { auth, user, loading } = this.props;  
         if(!user || loading) {
-            return 'Loading';
+            return <Loader/>;
         }
         const isOwnProfile = user.id === auth.id;
         return (

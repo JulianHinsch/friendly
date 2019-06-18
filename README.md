@@ -5,14 +5,19 @@
 ## Tech Stack
 
 Database - Postgres
+
 ORM - Sequelize
+
 Server - Express
+
 Client - React/Redux, SCSS
 
 ## Special Thanks
 
 - [Thinking in Redux](https://leanpub.com/thinking-in-Redux)
+- [Normalizr](https://github.com/paularmstrong/normalizr)
 - [Feathericons](https://feathericons.com)
+- [Gravatar](https://en.gravatar.com/)
 
 
 

@@ -21,9 +21,7 @@ const Post = ({ id, userId, user, createdAt, updatedAt, text, comments, reaction
                     <span className={styles.time}>{displayDate(updatedAt)}</span>
                 </div>
             </header>
-            <p className={styles.post_body}>
-                {text}
-            </p>
+            <p className={styles.post_body} dangerouslySetInnerHTML={{__html: text}}/>
             <Reactions reactions={reactions}/>
             {comments.length > 0 && (
                 <CommentList comments={comments}/>    
