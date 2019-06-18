@@ -2,16 +2,9 @@
 
 UI
 
-- Set loading flags!!! Maybe use a new action type?
-
-- It seems like a bad idea to mix loading & actual entities in the same action (i.e. SET_THINGS)
-- Maybe the best solution is to just add a loading setter to each entity (i.e. SET_THINGS_LOADER)
-- Then, we can just dispatch this array of actions using our action splitter middleware that sometimes doesn't work
-
 - Load correct posts for each user!!
 - Make a 'content box' global style
 - Choose and implement global color scheme
-- Make a .png favicon from the users icon
 - Add field validation to everything, and make sure to be consistent server/client
 - Prevent users from viewing content they are not authorized to view by reacting to the server's 403 response.
 - Add a follows 'inbox'
@@ -33,6 +26,7 @@ SERVER
 
 - Fix signup - right now it is not returning 'user already exists' error...
 - Add object level permissions on api calls (for example, even if i'm authenticated, i cant delete somebody else's post)
+- Fix follows - right now they are not joined to the user because they do not use the userId key
 - Validation
 - Chat
 

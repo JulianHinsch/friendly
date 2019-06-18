@@ -18,7 +18,7 @@ export default ({dispatch}) => (next) => (action) => {
         //so, in order to avoid the appearance of duplication in our log, we dispatch this action
         dispatch(dataNormalizing({ feature: action.meta.feature }))
 
-        const originalData = action.payload;   
+        const originalData = action.payload;
         console.log('originalData', originalData);
         let normalizedData;         
 
