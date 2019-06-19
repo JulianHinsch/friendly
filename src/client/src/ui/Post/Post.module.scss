@@ -1,17 +1,7 @@
-.post {
-    display: block;
-    width: 90%;
-    max-width: 700px;
-    margin: 5% auto;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: white;
-}
+@import '../styles/global.scss';
 
-@media(min-width: 768px) {
-    .post {
-        margin: 40px auto;
-    }
+.post {
+    @include card;
 }
 
 .post_header {
@@ -30,18 +20,18 @@
 
 .name {
     font-size: 16px;
-    color: #365899;
+    color: $color-link;
     font-weight: 500;
     display: block;
 }
 
 .time {
     font-size: 12px;
-    color: #666;
+    color: $color-text-light;
 }
 
 .post_body {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid $color-border;
     padding: 10px 10px 20px 10px;
     margin: 0px;
 }

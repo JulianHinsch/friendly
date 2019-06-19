@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as validators from '../../utils/validators';
 
-import styles from '../AuthForm.module.scss';
+import styles from '../styles/AuthForm.module.scss';
 
 class Signup extends Component {
 

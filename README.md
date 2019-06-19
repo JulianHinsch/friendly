@@ -16,8 +16,10 @@ Client - React/Redux, SCSS
 
 - [Thinking in Redux](https://leanpub.com/thinking-in-Redux)
 - [Normalizr](https://github.com/paularmstrong/normalizr)
+- [Redux Logger](https://github.com/LogRocket/redux-logger)
 - [Feathericons](https://feathericons.com)
 - [Gravatar](https://en.gravatar.com/)
+
 
 
 

@@ -1,13 +1,12 @@
+@import '../styles/global.scss';
+
 .search_results {
-    width: 90%;
-    max-width: 700px;
+    width: 100%;
     margin: auto;
 }
 
 .search_result {
-    background-color: white;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+    @include card;
     display: flex;
     justify-content: flex-start;
     align-items: center;

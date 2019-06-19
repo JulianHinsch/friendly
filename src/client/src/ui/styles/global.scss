@@ -1,0 +1,34 @@
+$color-primary: #4267b2;
+$color-background: #eef2f7;
+$color-border: #ddd;
+$color-text-light: #666;
+$color-text-dark: black;
+$color-link: #365899;
+
+@mixin card($maxWidth: 700px) {
+    width: 90%;
+    max-width: $maxWidth;
+    border: 1px solid $color-border;
+    background-color: white;
+    border-radius: 5px;
+    margin: 5% auto;
+    @media(min-width: 768px) {
+        margin: 40px auto;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: $color-background;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}

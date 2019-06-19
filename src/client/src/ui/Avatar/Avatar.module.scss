@@ -1,6 +1,8 @@
+@import '../styles/global.scss';
+
 .avatar {
     border-radius: 15px;
-    background-color: #eef2f7;
+    background-color: $color-background;
     margin-right: 10px;
     flex-shrink: 0;
 }

@@ -1,3 +1,5 @@
+@import '../styles/global';
+
 .header {
     color: white;
     width: 100%;
@@ -9,7 +11,7 @@
     height: 40px;
     line-height: 40px;
     padding: 0 5%;
-    background-color: #4267b2;
+    background-color: $color-primary;
     z-index: 9999;
     & > nav {
         width: 100%;
@@ -58,7 +60,6 @@
         width: 100%;
         outline: none;
         border: none;
-        //border-radius: 15px;
         padding: 0 5px;
         font-size: 12px;
         height: 25px;

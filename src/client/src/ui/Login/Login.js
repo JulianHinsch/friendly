@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from '../AuthForm.module.scss';
+import styles from '../styles/AuthForm.module.scss';
 import PropTypes from 'prop-types';
 
 class Login extends Component {

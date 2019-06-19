@@ -1,11 +1,7 @@
+@import '../styles/global.scss';
+
 .post_form {
-    display: block;
-    width: 90%;
-    max-width: 700px;
-    margin: 0 auto 5% auto;
-    border: 1px solid #ddd;
-    background-color: white;
-    border-radius: 5px;
+    @include card;
     & label {
         display: block;
         width: 100%;

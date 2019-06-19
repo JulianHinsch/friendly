@@ -1,6 +1,8 @@
+@import '../styles/global.scss';
+
 .comment_list_placeholder {
     padding: 10px;
-    color: #666;
+    color: $color-text-light;
     font-size: 12px;
     cursor: pointer;
 }

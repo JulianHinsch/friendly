@@ -1,3 +1,5 @@
+@import '../styles/global.scss';
+
 .comment {
     width: 100%;
     display: flex;
@@ -9,12 +11,12 @@
     width: 30px;
     height: 30px;
     border-radius: 15px;
-    background-color: #eef2f7;
+    background-color: white;
 }
 
 .comment_body {
     position: relative;
-    background-color: #eef2f7;
+    background-color: white;
     border-radius: 15px;
     padding: 5px 10px;
     margin-bottom: 20px;
@@ -33,5 +35,5 @@
     height: 15px;
     line-height: 15px;
     bottom: -18px;
-    color: #666;
+    color: $color-text-light;
 }
