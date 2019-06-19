@@ -81,7 +81,7 @@ const seed = () => {
             },
             {
                 userId: 2,
-                text: "Check out this <a href='https://nytimes.com' rel='noopener noreferrer'>cool article</a>!",
+                text: "Check out this <a href='https://nytimes.com' target='_blank' rel='noopener noreferrer'>cool article</a>!",
             },
             {
                 userId: 3,

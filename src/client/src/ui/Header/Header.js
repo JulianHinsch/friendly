@@ -5,6 +5,8 @@ import styles from './Header.module.scss';
 import PropTypes from 'prop-types';
 import history from '../../history';
 
+import FollowRequestList from '../FollowRequestList/FollowRequestListContainer';
+
 class Header extends Component {
 
     static propTypes = {
@@ -18,7 +20,11 @@ class Header extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        history.push(`/search/?q=${this.state.search}`);
+        const query = this.state.search.trim();
+        if(query!=='') {
+            history.push(`/search/?q=${query}`);
+            this.setState({ search: '' });
+        }
     }
 
     handleChange = (event) => {
@@ -35,8 +41,10 @@ class Header extends Component {
             <header className={classNames(styles.header, 'bg-1')}>
                 <nav>
                     <Link to='/' className={styles.logo} title='Home'>
-                        <img src={require('../../assets/logo.svg')} alt='home'/>
-                        <span> friendly</span>
+                        <img 
+                            src={require('../../assets/logo_white.svg')} 
+                            alt='Home'/>
+                        <span className={styles.logo_text}> friendly</span>
                     </Link>
                     <form className={styles.search_form} onSubmit={this.handleSubmit}>
                         <label htmlFor='search' style={{display: 'none'}}>Search</label>
@@ -46,6 +54,11 @@ class Header extends Component {
                             maxLength={140}
                             onChange={this.handleChange} 
                             placeholder='Search for people...'/>
+                        <img 
+                            src={require('../../assets/search.svg')}
+                            alt='Search'
+                            title='Search'
+                            onClick={this.handleSubmit}/>
                     </form>
                     {auth.isAuthenticated ? (
                         <ul>
@@ -55,6 +68,9 @@ class Header extends Component {
                                     src={require('../../assets/inbox.svg')} 
                                     alt='Follow Requests' 
                                     title='Follow Requests'/>
+                                {this.state.showFollowRequests && (
+                                    <FollowRequestList/>
+                                )}
                             </li>
                             <li>
                                 <Link to={`/profile/${auth.id}`} title='Profile'>

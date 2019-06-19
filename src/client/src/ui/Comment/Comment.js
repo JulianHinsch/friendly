@@ -6,7 +6,7 @@ import styles from './Comment.module.scss';
 
 import Avatar from '../Avatar/Avatar';
 
-const _Comment = ({ id, userId, user, text, createdAt, updatedAt }) => {
+const _Comment = ({ auth, id, userId, user, text, updatedAt, deleteComment }) => {
     const { email, name } = user;
     return (
         <div className={styles.comment}>
@@ -15,13 +15,24 @@ const _Comment = ({ id, userId, user, text, createdAt, updatedAt }) => {
                 <Link to={`/profile/${userId}`}>{name}</Link>
                 &nbsp;
                 <span>{text}</span>
+                {auth.id === userId && (
+                    <img 
+                        src={require('../../assets/x_grey.svg')}
+                        className={styles.delete}
+                        alt='Delete'
+                        onClick={() => deleteComment(id)}/>
+                )}
                 <span className={styles.time}>{displayDate(updatedAt)}</span>
             </div>
+            
         </div>
     )
 }
 
 _Comment.propTypes = {
+    auth: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+    }),
     id: PropTypes.number.isRequired,
     userId: PropTypes.number.isRequired,
     user: PropTypes.shape({
@@ -32,6 +43,7 @@ _Comment.propTypes = {
     text: PropTypes.string.isRequired,    
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string.isRequired,
+    deleteComment: PropTypes.func.isRequired,
 }
 
 export default _Comment;

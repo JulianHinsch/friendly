@@ -1,6 +1,6 @@
 import { schema, denormalize } from 'normalizr';
 
-export default (state) => {
+export default (state, idArray) => {
     
     const post = new schema.Entity('posts');         
     const comment = new schema.Entity('comments');
@@ -14,10 +14,7 @@ export default (state) => {
         user: user,
     });
 
-    //TODO
-    //this is where we can set which users we want to denormalize (i.e. not all of them) 
-    //we could do this by leveraging another selector
-    const input = Object.keys(state.users.collection); 
+    const input = idArray || Object.keys(state.posts.collection);     
 
     const usersSchema = [ user ];
     const entities = { 

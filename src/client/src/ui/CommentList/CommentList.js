@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Comment from '../Comment/Comment';
+import Comment from '../Comment/CommentContainer';
 
 import styles from './CommentList.module.scss';
 

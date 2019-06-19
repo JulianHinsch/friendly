@@ -106,13 +106,9 @@ class Signup extends Component {
                     </div>
                     <button type='submit' disabled={!this.state.canSubmit}>Sign Up</button>
                 </form>
-                {!this.state.hideSubmitErrMsg && (
-                    <div className={styles.submit_err_msg}>
-                        {this.state.submitErrMsg}
-                        <img 
-                            src={require('../../assets/x.svg')} 
-                            alt='close' 
-                            onClick={()=>this.setState({hideSubmitErrMsg: true})}/>
+                {this.props.message && (
+                    <div className={styles.message}>
+                        {this.props.message}
                     </div>
                 )}
             </main>

@@ -26,7 +26,7 @@
     }
     & li {
         display: inline-block;
-        margin-left: 20px;
+        margin-left: 10px;
     }
     & a {
         display: block;
@@ -45,9 +45,18 @@
     display: block;
     height: 30px;
     top: 5px;
+    margin-right: 10px;
+}
+
+.logo_text {
+    display: none;
+    @media(min-width: 768px) {
+        display: inline;
+    }
 }
 
 .search_form {
+    position: relative;
     width: 50%;
     max-width: 300px;
     display: flex;
@@ -57,6 +66,7 @@
         display: none;
     }
     & input {
+        position: relative;
         width: 100%;
         outline: none;
         border: none;
@@ -64,5 +74,13 @@
         font-size: 12px;
         height: 25px;
         line-height: 25px;
+    }
+    & img {
+        display: block;
+        width: 20px;
+        content: url('../../assets/search.svg');
+        position: absolute;
+        right: 5px;
+        top: 5px;
     }
 }

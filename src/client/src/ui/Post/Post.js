@@ -10,7 +10,7 @@ import CommentForm from '../CommentForm/CommentFormContainer';
 
 import styles from './Post.module.scss';
 
-const Post = ({ id, userId, user, createdAt, updatedAt, text, comments, reactions }) => {
+const Post = ({ auth, id, userId, user, updatedAt, text, comments, reactions, deletePost }) => {
     const { email, name } = user;
     return (
         <article className={styles.post}>
@@ -20,6 +20,13 @@ const Post = ({ id, userId, user, createdAt, updatedAt, text, comments, reaction
                     <Link className={styles.name} to={`/profile/${userId}`}>{name}</Link>
                     <span className={styles.time}>{displayDate(updatedAt)}</span>
                 </div>
+                {auth.id === userId && (
+                    <img 
+                        src={require('../../assets/x_grey.svg')}
+                        className={styles.delete}
+                        alt='Delete'
+                        onClick={() => deletePost(id)}/>
+                )}
             </header>
             <p className={styles.post_body} dangerouslySetInnerHTML={{__html: text}}/>
             <Reactions reactions={reactions}/>
@@ -32,6 +39,9 @@ const Post = ({ id, userId, user, createdAt, updatedAt, text, comments, reaction
 }
 
 Post.propTypes = {
+    auth: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+    }).isRequired,
     id: PropTypes.number.isRequired,
     userId: PropTypes.number.isRequired,
     user: PropTypes.shape({
@@ -39,11 +49,11 @@ Post.propTypes = {
         email: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
     }).isRequired,
-    createdAt: PropTypes.string,
     updatedAt: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     comments: PropTypes.array.isRequired,
     reactions: PropTypes.array.isRequired,
+    deletePost: PropTypes.func.isRequired,
 }
 
 export default Post;

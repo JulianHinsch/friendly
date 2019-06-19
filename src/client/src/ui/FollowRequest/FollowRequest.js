@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Avatar from '../Avatar/Avatar';
+
 import styles from './FollowRequest.module.scss';
 
-const FollowRequest = ({ id, user, auth, updateFollowRequest, deleteFollowRequest }) => {
+const FollowRequest = ({ id, user, auth, updateFollow, deleteFollow }) => {
     return (
         <li className={styles.follow_request}>
-            {name}
-            <button onClick={updateFollowRequest({})}>
+            <Avatar id={user.id} email={user.email} diameter={20}/>
+            {user.name}
+            <button onClick={updateFollow({})}>
                 Approve
             </button>
-            <button onClick={deleteFollowRequest({})}>
+            <button onClick={deleteFollow({})}>
                 Delete
             </button>
         </li>
@@ -20,13 +23,15 @@ const FollowRequest = ({ id, user, auth, updateFollowRequest, deleteFollowReques
 FollowRequest.propTypes = {
     id: PropTypes.number.isRequired,
     user: PropTypes.shape({
-
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
     }).isRequired,
     auth: PropTypes.shape({
-
+        id: PropTypes.number.isRequired,
     }).isRequired,
-    updateFollowRequest: PropTypes.func.isRequired,
-    deleteFollowRequest: PropTypes.func.isRequired,
+    updateFollow: PropTypes.func.isRequired,
+    deleteFollow: PropTypes.func.isRequired,
 }
 
 export default FollowRequest;

@@ -30,6 +30,13 @@
     color: $color-text-light;
 }
 
+.delete {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
 .post_body {
     border-bottom: 1px solid $color-border;
     padding: 10px 10px 20px 10px;

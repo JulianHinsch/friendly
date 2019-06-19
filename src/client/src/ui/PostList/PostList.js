@@ -3,7 +3,7 @@ import styles from './PostList.module.scss';
 import PropTypes from 'prop-types';
 
 import Loader from '../Loader/Loader';
-import Post from '../Post/Post';
+import Post from '../Post/PostContainer';
 
 //TODO do we even need this component?  It might be easier to just use Feed and Profile
 

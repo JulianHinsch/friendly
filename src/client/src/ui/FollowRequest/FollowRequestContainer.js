@@ -8,8 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    updateFollowRequest: (followRequest) => dispatch(actions.updateFollowRequest({ id })),
-    deleteFollowRequest: (id) => dispatch(actions.deleteFollowRequest({ id })),
+    updateFollow: (follow) => dispatch(actions.updateFollow({ follow })),
+    deleteFollow: (id) => dispatch(actions.deleteFollow({ id })),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FollowRequest);
