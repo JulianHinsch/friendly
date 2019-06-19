@@ -13,8 +13,9 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch (action.type) {
         case `${AUTH} ${SET_LOADER}`:
-            const loading = action.payload;
-            return { loading, ...state }
+            const nextState = { ...state }
+            nextState.loading = action.payload;
+            return { ...nextState };
         case SET_AUTH:
             const auth = action.payload;
             return { ...state, ...auth };            

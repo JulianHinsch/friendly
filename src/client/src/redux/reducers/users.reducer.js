@@ -9,8 +9,9 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch(action.type) {
         case `${USERS} ${SET_LOADER}`:
-            const loading = action.payload;
-            return { loading, ...state };
+            const nextState = { ...state }
+            nextState.loading = action.payload;
+            return { ...nextState };
         case SET_USERS:
             return { ...state, collection: { ...state.collection, ...action.payload }};
         case DELETE_USER:

@@ -11,6 +11,7 @@ class SearchResults extends Component {
 
     static propTypes = {
         users: PropTypes.array.isRequired,
+        loading: PropTypes.bool.isRequired,
         fetchUsers: PropTypes.func.isRequired,
     }
 
@@ -19,9 +20,9 @@ class SearchResults extends Component {
         this.props.fetchUsers(query);
     }
 
-    //TODO handle no results
     render() {
         const { loading, users } = this.props;
+        console.log(loading, users);
         return (
             <main className={styles.search_results}>
                 {loading ? <Loader/> : users.length === 0 ? (

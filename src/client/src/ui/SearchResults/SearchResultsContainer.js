@@ -6,6 +6,7 @@ import SearchResults from './SearchResults';
 
 const mapStateToProps = (state, ownProps) => ({
     users: getUsersArray(state),
+    loading: state.users.loading,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
