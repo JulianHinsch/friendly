@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    deletePost: (id) => dispatch(actions.deletePost(id)),
+    deletePost: (id) => dispatch(actions.deletePost({ id })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post);

@@ -3,20 +3,51 @@ import PropTypes from 'prop-types';
 
 import styles from './Reactions.module.scss';
 
-//TODO add the ability to choose reaction type and delete reaction
-const Reactions = ({ reactions, createReaction, deleteReaction }) => (
-    <div className={styles.reactions}>
-        <img
-            src={require('../../assets/thumbs_up.svg')} 
-            alt={'Thumbs Up'}
-            onClick={createReaction}/>
-        {reactions.length > 0 && (
-            <p>{reactions.length} {reactions.length > 1 ? 'likes' : 'like'}</p>
-        )}
-    </div>
-)
+const Reactions = ({ postId, auth, reactions, createReaction, deleteReaction }) => {
+    const ownReaction = reactions.find(reaction => reaction.userId === auth.id);
+    console.log(reactions, ownReaction);    
+    return (
+        <div className={styles.reactions}>
+            <img
+                src={ownReaction ? 
+                    require('../../assets/thumbs_up_fill.svg') 
+                    :
+                    require('../../assets/thumbs_up.svg'
+                )} 
+                alt={'Thumbs Up'}
+                onClick={() => {
+                    if(ownReaction) {
+                        deleteReaction(ownReaction.id);                     
+                    } else {
+                        createReaction({ 
+                            userId: auth.id,
+                            type: 'LIKE',
+                            postId
+                        });
+                    }    
+                }}/>
+            {reactions.length > 0 && (
+                <p>
+                    {ownReaction ? (
+                        reactions.length > 1 ? (
+                            `You and ${reactions.length-1} ${reactions.length-1 > 1 ? 'others': 'other'}`
+                        ) : (
+                            'You like this'
+                        )
+                    ) : (
+                        `${reactions.length} ${reactions.length > 1 ? 'likes' : 'like'}`
+                    )}
+                </p>
+            )}
+        </div>
+    )
+}
 
 Reactions.propTypes = {
+    postId: PropTypes.number.isRequired,
+    auth: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+    }).isRequired,
     reactions: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         user: PropTypes.object.isRequired,

@@ -8,7 +8,7 @@ export default () => (next) => (action) => {
 
     switch(action.type) {
         case CREATE_REACTION:
-            const { reaction } = action.payload; 
+            const reaction = action.payload; 
             next(setLoader({ feature: REACTIONS, loading: true }));            
             next(apiRequest({ 
                 data: reaction,

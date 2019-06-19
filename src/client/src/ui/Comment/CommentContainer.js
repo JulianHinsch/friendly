@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    deleteComment: (id) => dispatch(actions.deleteComment(id)),
+    deleteComment: (id) => dispatch(actions.deleteComment({ id })),
 });
 
 const CommentContainer = connect(mapStateToProps, mapDispatchToProps)(_Comment);

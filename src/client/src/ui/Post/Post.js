@@ -29,7 +29,7 @@ const Post = ({ auth, id, userId, user, updatedAt, text, comments, reactions, de
                 )}
             </header>
             <p className={styles.post_body} dangerouslySetInnerHTML={{__html: text}}/>
-            <Reactions reactions={reactions}/>
+            <Reactions postId={id} reactions={reactions}/>
             {comments.length > 0 && (
                 <CommentList comments={comments}/>    
             )}

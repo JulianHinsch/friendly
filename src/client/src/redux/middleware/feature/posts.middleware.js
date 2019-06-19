@@ -48,6 +48,7 @@ export default () => (next) => (action) => {
         case `${POSTS} ${API_ERROR}`:
             const error = action.payload;
             console.log(error);
+            next(setLoader({ feature: POSTS, loading: false }));            
             break;
         default:
             break;
