@@ -1,5 +1,5 @@
 .app {
-    padding-top: 40px;
+    padding-top: calc(40px + 5%);
     @media(min-width: 768px) {
         padding-top: 80px;                
     }

@@ -7,7 +7,16 @@
 
 .search_result {
     @include card;
+    padding: 10px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    & a {
+        color: $color-link;
+    }
+}
+
+.no_results {
+    @include card;
+    padding: 20px;
 }

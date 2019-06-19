@@ -15,8 +15,8 @@ class SearchResults extends Component {
     }
 
     async componentDidMount() {
-        const query = `?q=${window.location.href.split('search/')[1]}`;
-        this.props.fetchUsers({ query });
+        const query = `${window.location.href.split('/search/')[1]}`;
+        this.props.fetchUsers(query);
     }
 
     //TODO handle no results
@@ -24,12 +24,16 @@ class SearchResults extends Component {
         const { loading, users } = this.props;
         return (
             <main className={styles.search_results}>
-                {loading ? <Loader/> : (
+                {loading ? <Loader/> : users.length === 0 ? (
+                    <div className={styles.no_results}>
+                        No results!
+                    </div>
+                ) : (
                     users.map(user => {
                         const { id, email, name } = user;
                         return (
                             <div className={styles.search_result} key={id}>
-                                <Avatar email={email} id={id} diameter={60}/>
+                                <Avatar email={email} id={id} diameter={50}/>
                                 <Link to={`/profile/${id}`}>{name}</Link>
                             </div>
                         )

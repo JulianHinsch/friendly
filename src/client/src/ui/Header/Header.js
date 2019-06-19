@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from './Header.module.scss';
 import PropTypes from 'prop-types';
+import history from '../../history';
 
 class Header extends Component {
 
@@ -17,7 +18,7 @@ class Header extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.history.push(`/search/q=${this.state.search}`);
+        history.push(`/search/?q=${this.state.search}`);
     }
 
     handleChange = (event) => {

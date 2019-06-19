@@ -11,9 +11,9 @@ $color-link: #365899;
     border: 1px solid $color-border;
     background-color: white;
     border-radius: 5px;
-    margin: 5% auto;
+    margin: 0 auto 5% auto;
     @media(min-width: 768px) {
-        margin: 40px auto;
+        margin: 0 auto 40px auto;
     }
 }
 

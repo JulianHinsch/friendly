@@ -3,9 +3,6 @@
 .auth_form {
     @include card;
     padding: 40px 5%;
-    width: 90%;
-    margin: auto;
-    border-radius: 5px;
     & h1 {
         margin-top: 0px;
     }

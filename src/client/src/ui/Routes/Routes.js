@@ -9,7 +9,6 @@ import Login from '../Login/LoginContainer';
 import Signup from '../Signup/SignupContainer';
 import SearchResults from '../SearchResults/SearchResultsContainer';
 import Profile from '../Profile/ProfileContainer';
-import Post from '../Post/PostContainer';
 import NotFound from '../NotFound/NotFound';
 
 const ProtectedRoute = ({ auth, component: Component, ...rest }) => (
@@ -23,16 +22,16 @@ const ProtectedRoute = ({ auth, component: Component, ...rest }) => (
 
 const Routes = (props) => {
     const { auth } = props;
-    //using render props here because of https://github.com/ReactTraining/react-router/issues/6471
+    /* using render props for stateful components
+        because of https://github.com/ReactTraining/react-router/issues/6471 */
     return (
         <Switch>
-            <Route exact path='/' render={() => auth.isAuthenticated ? <Feed/> : <Landing/>}/> 
+            <Route exact path='/' render={() => auth.isAuthenticated ? <Feed/> : <Landing/>}/>
             <Route path='/login' render={() => <Login/>}/>
             <Route path='/signup' render={() => <Signup/>}/>
             <Route path='/search' render={() => <SearchResults/>}/>
             <ProtectedRoute auth={auth} path='/profile' component={Profile}/>
-            <ProtectedRoute auth={auth} path='/post' component={Post}/>}/>
-            <Route render={() => <NotFound/>}/>
+            <Route component={NotFound}/>
         </Switch>
     )
 }
