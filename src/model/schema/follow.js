@@ -1,5 +1,3 @@
-//could this just be a join table?
-
 module.exports = (database, DataTypes) => {
     return database.define('follow', {
         id: {
@@ -9,13 +7,15 @@ module.exports = (database, DataTypes) => {
             primaryKey: true,
             autoIncrement: true,
         },
-        followerId: {
+        userId: {
+            //if Jane follows Jerry, this is Jane's id
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: false,
             foreignKey: true,
         },
         followsId: {
+            //if Jane follows Jerry, this is Jerry's id
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: false,

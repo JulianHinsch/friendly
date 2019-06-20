@@ -7,15 +7,17 @@ const database = new Sequelize(process.env.DATABASE_URL, {
 const User = require('./schema/user')(database, Sequelize);
 const Post = require('./schema/post')(database, Sequelize);
 const _Comment = require('./schema/comment')(database, Sequelize);
-const Follow = require('./schema/follow')(database, Sequelize);
 const Reaction = require('./schema/Reaction')(database, Sequelize);
-const Message = require('./schema/message')(database, Sequelize);
-const Conversation = require('./schema/conversation')(database, Sequelize);
+const Follow = require('./schema/follow')(database, Sequelize);
+// const Message = require('./schema/message')(database, Sequelize);
+// const Conversation = require('./schema/conversation')(database, Sequelize);
 
 User.hasMany(Post, { as: 'posts', foreignKey: 'userId', targetKey: 'id' });
-User.hasMany(_Comment, { foreignKey: 'userId', targetKey: 'id' });
-User.hasMany(Reaction, { foreignKey: 'userId', targetKey: 'id' });
-User.hasMany(Message, { foreignKey: 'userId', targetKey: 'id' });
+User.hasMany(_Comment, { as: 'comments', foreignKey: 'userId', targetKey: 'id' });
+User.hasMany(Reaction, { as: 'reactions', foreignKey: 'userId', targetKey: 'id' });
+User.hasMany(Follow, { as: 'follows', foreignKey: 'userId', targetKey: 'id'});
+
+//User.hasMany(Message, { as: 'messages', foreignKey: 'userId', targetKey: 'id' });
 
 Post.belongsTo(User, { onDelete: 'CASCADE' });
 Post.hasMany(_Comment, { as: 'comments', foreignKey: 'postId', targetKey: 'id' });
@@ -27,10 +29,12 @@ _Comment.belongsTo(User, { onDelete: 'CASCADE' });
 Reaction.belongsTo(Post, { onDelete: 'CASCADE' });
 Reaction.belongsTo(User, { onDelete: 'CASCADE' });
 
-Conversation.hasMany(Message, { foreignKey: 'conversationId', targetKey: 'id'});
+Follow.belongsTo(User, { onDelete: 'CASCADE' });
 
-Message.belongsTo(User, { onDelete: 'CASCADE' });
-Message.belongsTo(Conversation, { onDelete: 'CASCADE' });
+// Conversation.hasMany(Message, { foreignKey: 'conversationId', targetKey: 'id'});
+
+// Message.belongsTo(User, { onDelete: 'CASCADE' });
+// Message.belongsTo(Conversation, { onDelete: 'CASCADE' });
 
 const sync = () => database.sync({ force: true });
 
@@ -56,9 +60,11 @@ const seed = () => {
             },
         ];
         const seedUsers = users.map(async user => {
-            const passwordHash = await User.prototype.generateHash(user.password)            
+            const emailHash = await User.prototype.generateEmailHash(user.email) 
+            const passwordHash = await User.prototype.generatePasswordHash(user.password);            
             User.create({
                 email: user.email,
+                emailHash: emailHash,
                 name: user.name,
                 passwordHash: passwordHash,
             });
@@ -175,27 +181,27 @@ const seed = () => {
     .then(() => {
         const follows = [
             {
-                followerId: 1,
+                userId: 1,
                 followsId: 2,
                 isApproved: true,
             },
             {
-                followerId: 1,
+                userId: 1,
                 followsId: 3,
                 isApproved: true,
             },
             {
-                followerId: 2,
+                userId: 2,
                 followsId: 1,
                 isApproved: true,
             },
             {
-                followerId: 3,
+                userId: 3,
                 followsId: 1,
                 isApproved: false,
             },
             {
-                followerId: 3,
+                userId: 3,
                 followsId: 2,
                 isApproved: true,
             },
@@ -238,8 +244,8 @@ module.exports = {
         Reaction,
         Post,
         User,
-        Message,
-        Conversation
+        // Message,
+        // Conversation
     },
     sync,
     seed,

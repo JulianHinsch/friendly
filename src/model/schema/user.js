@@ -15,6 +15,11 @@ module.exports = (database, DataTypes) => {
             allowNull: false,
             unique: true,
         },
+        emailHash: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -29,7 +34,7 @@ module.exports = (database, DataTypes) => {
         timestamps: true,
     });
 
-    User.prototype.generateHash = function(password) {
+    User.prototype.generatePasswordHash = function(password) {
         return new Promise(function(resolve, reject) {
             bcrypt.genSalt(8, function(err, salt) {
                 if (err) {
@@ -47,6 +52,11 @@ module.exports = (database, DataTypes) => {
         });
     }
 
+    //this hashing algorithm can be used syncronously because its very fast
+    User.prototype.generateEmailHash = function(email) {
+        return md5(email);
+    }
+
     User.prototype.checkPassword = function(password) {
         const passwordHash = this.passwordHash;
         return new Promise(function(resolve, reject) {
@@ -58,16 +68,6 @@ module.exports = (database, DataTypes) => {
                 }
             });
         });
-    }
-
-    //TODO
-    //this only works when we query the User model directly - but not in joins
-    User.prototype.toJSON = function () {
-        const values = { ...this.get() };
-        delete values.passwordHash;
-        values.emailHash = md5(values.email);
-        delete values.email;        
-        return values;
     }
 
     return User;

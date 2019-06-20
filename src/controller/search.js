@@ -8,11 +8,11 @@ const handleSearch = async (req, res, next) => {
     try {
         let result = await User.findAll({
             where: {
-                //iLike is case insensitive
                 name: { [iLike]: `%${query}%` }
             },
             limit,
             offset,
+            attributes: [ 'id', 'name', 'emailHash' ],
         });
         return res.status(200).send(result);
     } catch (err) {

@@ -1,17 +1,9 @@
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
-const md5 = require('md5');
 
 const User = require('../model/database').models.User;
 
 const { validateName, validateEmail, validatePassword } = require('./../utils/validators');
-
-//helper functions
-
-const badRequest = (res) => res.status(400).json({
-    success: false,
-    message: 'Authentication failed! Please check the request',
-});
 
 const authSuccess = (res, token) => {
     const tokenArr = token.split('.');
@@ -33,7 +25,7 @@ const createToken = (user) => jwt.sign(
     { 
         id: user.id,
         name: user.name,
-        emailHash: md5(user.email),
+        emailHash: user.emailHash,
         role: user.role,
     },
     process.env.SECRET_KEY,
@@ -41,11 +33,9 @@ const createToken = (user) => jwt.sign(
         expiresIn: '7d',
         audience: 'node-token-auth-client',
         issuer: 'node-token-auth-server',
-        subject: user.email,
+        subject: user.emailHash,
     }
 );
-
-//route handlers
 
 const logout = (req, res, next) => {
     const options = { maxAge: 0, overwrite: true }
@@ -63,13 +53,15 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
 
     if(!email || !password) {
-        return badRequest(res);
+        return res.status(400).json({
+            success: false,
+            message: 'Authentication failed! Please check the request',
+        });
     }
 
     try {
 
         const user = await User.findOne({ where: { email: email }});
-        console.log(user);
 
         if(!user) {
             return res.status(403).json({
@@ -97,10 +89,12 @@ const login = async (req, res, next) => {
 const signup = async (req, res, next)  => {
     
     const { name, email, password } = req.body;
-    console.log(name, email, password);
 
     if(!name || !email || !password) {
-        return badRequest(res);
+        return res.status(400).json({
+            success: false,
+            message: 'Authentication failed! Please check the request',
+        });
     }
 
     if( !validateName(name) ||
@@ -114,7 +108,8 @@ const signup = async (req, res, next)  => {
     }
 
     try {
-        const passwordHash = await User.prototype.generateHash(password);              
+        const emailHash = User.prototype.generateEmailHash(email);
+        const passwordHash = await User.prototype.generatePasswordHash(password);              
         //dont allow duplicate emails
         const [ user, created ] = await User.findOrCreate({
             where: {
@@ -123,13 +118,14 @@ const signup = async (req, res, next)  => {
             defaults: {
                 name,
                 passwordHash, 
+                emailHash,
             }
         })
         if(!created) {
-            return res.status(200).json({
+            return res.status(409).json({
                 success: false,
                 message: 'There is already an account associated with this email.',
-            })
+            });
         }
         return authSuccess(res, createToken(user));
     } catch(err) {
