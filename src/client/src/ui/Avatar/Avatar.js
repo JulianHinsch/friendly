@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import md5 from 'md5';
 import styles from './Avatar.module.scss';
 
-const Avatar = ({ id, email, diameter }) => (
+const Avatar = ({ id, emailHash, diameter }) => (
      <Link 
         style={{
-            backgroundImage: `url(https://www.gravatar.com/avatar/${md5(email.toLowerCase())})`,
+            backgroundImage: `url(https://www.gravatar.com/avatar/${emailHash})`,
             backgroundSize: 'cover',
             height: diameter ? `${diameter}px` : '30px',
             width: diameter ? `${diameter}px` : '30px', 
@@ -19,7 +18,7 @@ const Avatar = ({ id, email, diameter }) => (
 
 Avatar.propTypes = {
     id: PropTypes.number.isRequired,
-    email: PropTypes.string.isRequired,
+    emailHash: PropTypes.string.isRequired,
     diameter: PropTypes.number,
 }
 

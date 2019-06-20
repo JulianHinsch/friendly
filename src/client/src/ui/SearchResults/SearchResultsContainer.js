@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import getUsersArray from '../../redux/selectors/getUsersArray.selector';
-import * as actions from '../../redux/actions/users.actions';
+import * as actions from '../../redux/actions/search.actions';
 
 import SearchResults from './SearchResults';
 
@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    fetchUsers: (query) => dispatch(actions.fetchUsers({ query })),
+    fetchSearchResults: (query) => dispatch(actions.fetchSearchResults({ query })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

@@ -7,10 +7,10 @@ import styles from './Comment.module.scss';
 import Avatar from '../Avatar/Avatar';
 
 const _Comment = ({ auth, id, userId, user, text, updatedAt, deleteComment }) => {
-    const { email, name } = user;
+    const { emailHash, name } = user;
     return (
         <div className={styles.comment}>
-            <Avatar id={userId} email={email}/>
+            <Avatar id={userId} emailHash={emailHash}/>
             <div className={styles.comment_body}>
                 <Link to={`/profile/${userId}`}>{name}</Link>
                 &nbsp;
@@ -37,7 +37,7 @@ _Comment.propTypes = {
     userId: PropTypes.number.isRequired,
     user: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        email: PropTypes.string.isRequired,
+        emailHash: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
     }).isRequired,
     text: PropTypes.string.isRequired,    

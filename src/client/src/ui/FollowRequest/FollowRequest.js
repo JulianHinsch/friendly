@@ -8,7 +8,7 @@ import styles from './FollowRequest.module.scss';
 const FollowRequest = ({ id, user, auth, updateFollow, deleteFollow }) => {
     return (
         <li className={styles.follow_request}>
-            <Avatar id={user.id} email={user.email} diameter={20}/>
+            <Avatar id={user.id} emailHash={user.emailHash} diameter={20}/>
             {user.name}
             <button onClick={updateFollow({})}>
                 Approve
@@ -25,7 +25,7 @@ FollowRequest.propTypes = {
     user: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
+        emailHash: PropTypes.string.isRequired,
     }).isRequired,
     auth: PropTypes.shape({
         id: PropTypes.number.isRequired,

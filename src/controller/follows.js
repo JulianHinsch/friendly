@@ -1,6 +1,6 @@
 const Follow = require('../model/database.js').models.Follow;
 
-const addOne = async (req, res, next) => {
+const _create = async (req, res, next) => {
     try {
         let result = await Follow.create(req.body);
         return res.status(201).send(result);      
@@ -9,21 +9,34 @@ const addOne = async (req, res, next) => {
     }
 }
 
-const deleteByUserIds = async (req, res, next) => {
+const _update = async (req, res, next) => {
     try {
-        await Follow.destroy({
-            where: {
-                followerUserId: req.query.followerUserId,
-                followsUserId: req.query.followsUserId,
-            }
+        const result = await Follow.update(req.body, {
+            where: { id: req.params.id },
+            returning: true,
+            plain: true,
+        });
+        return res.status(200).send(result);
+    } catch (err) {
+        next(err);
+    }
+}
+
+const _delete = async (req, res, next) => {
+    try {
+        const result = await Follow.destroy({
+            where: { id: req.params.id },
+            returning: true,
+            plain: true,
         })
-        return res.sendStatus(204);
+        return res.status(204).send(result);
     } catch (err) {
         next(err);
     }
 }
 
 module.exports = {
-    addOne,
-    deleteByUserIds,
+    _create,
+    _update,
+    _delete,
 }

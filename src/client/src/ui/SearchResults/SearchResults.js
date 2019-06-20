@@ -10,9 +10,14 @@ import styles from './SearchResults.module.scss';
 class SearchResults extends Component {
 
     static propTypes = {
-        users: PropTypes.array.isRequired,
+        users: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+            emailHash: PropTypes.string.isRequired,
+        })).isRequired,
         loading: PropTypes.bool.isRequired,
         fetchUsers: PropTypes.func.isRequired,
+        fetchSearchResults: PropTypes.func.isRequired,
     }
 
     async componentDidMount() {
@@ -22,7 +27,6 @@ class SearchResults extends Component {
 
     render() {
         const { loading, users } = this.props;
-        console.log(loading, users);
         return (
             <main className={styles.search_results}>
                 {loading ? <Loader/> : users.length === 0 ? (
@@ -31,10 +35,10 @@ class SearchResults extends Component {
                     </div>
                 ) : (
                     users.map(user => {
-                        const { id, email, name } = user;
+                        const { id, emailHash, name } = user;
                         return (
                             <div className={styles.search_result} key={id}>
-                                <Avatar email={email} id={id} diameter={50}/>
+                                <Avatar emailHash={emailHash} id={id} diameter={50}/>
                                 <Link to={`/profile/${id}`}>{name}</Link>
                             </div>
                         )
@@ -43,8 +47,6 @@ class SearchResults extends Component {
             </main>
         )
     }
-    
-
 }
 
 export default SearchResults;

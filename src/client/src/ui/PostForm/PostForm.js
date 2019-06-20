@@ -10,10 +10,7 @@ class PostForm extends Component {
         auth: PropTypes.shape({
             id: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
-            email: PropTypes.string.isRequired,
-            isAuthenticated: PropTypes.bool.isRequired,
-            loading: PropTypes.bool.isRequired,            
-            message: PropTypes.string,
+            emailHash: PropTypes.string.isRequired,
         }).isRequired,
         createPost: PropTypes.func.isRequired,
     }
@@ -36,12 +33,12 @@ class PostForm extends Component {
 
     render() {
         const { auth } = this.props;
-        const { id, email, name } = auth;
+        const { id, emailHash, name } = auth;
         return (
             <form className={styles.post_form} onSubmit={this.handleSubmit}>
                 <label htmlFor='post'>Create Post</label>
                 <div>
-                    <Avatar id={id} email={email} diameter={50}/>
+                    <Avatar id={id} emailHash={emailHash} diameter={50}/>
                     <input
                         name='post'
                         id='post'

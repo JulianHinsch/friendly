@@ -18,6 +18,7 @@
         "express-session": "^1.15.6",
         "express-ws": "^4.0.0",
         "jsonwebtoken": "^8.5.1",
+        "md5": "^2.2.1",
         "morgan": "^1.9.1",
         "path": "^0.12.7",
         "pg": "^7.7.1",

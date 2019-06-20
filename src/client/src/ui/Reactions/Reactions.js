@@ -5,7 +5,6 @@ import styles from './Reactions.module.scss';
 
 const Reactions = ({ postId, auth, reactions, createReaction, deleteReaction }) => {
     const ownReaction = reactions.find(reaction => reaction.userId === auth.id);
-    console.log(reactions, ownReaction);    
     return (
         <div className={styles.reactions}>
             <img

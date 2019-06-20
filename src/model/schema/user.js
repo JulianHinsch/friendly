@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const md5 = require('md5');
 
 module.exports = (database, DataTypes) => {
     const User = database.define('user', {
@@ -28,8 +29,6 @@ module.exports = (database, DataTypes) => {
         timestamps: true,
     });
 
-    /* instance level methods */
-
     User.prototype.generateHash = function(password) {
         return new Promise(function(resolve, reject) {
             bcrypt.genSalt(8, function(err, salt) {
@@ -50,7 +49,6 @@ module.exports = (database, DataTypes) => {
 
     User.prototype.checkPassword = function(password) {
         const passwordHash = this.passwordHash;
-        console.log(passwordHash);
         return new Promise(function(resolve, reject) {
             bcrypt.compare(password, passwordHash, (err, success) => {
                 if(err) {
@@ -58,9 +56,18 @@ module.exports = (database, DataTypes) => {
                 } else {
                     resolve(success);
                 }
-            });   
+            });
         });
-        
+    }
+
+    //TODO
+    //this only works when we query the User model directly - but not in joins
+    User.prototype.toJSON = function () {
+        const values = { ...this.get() };
+        delete values.passwordHash;
+        values.emailHash = md5(values.email);
+        delete values.email;        
+        return values;
     }
 
     return User;

@@ -11,11 +11,12 @@ import CommentForm from '../CommentForm/CommentFormContainer';
 import styles from './Post.module.scss';
 
 const Post = ({ auth, id, userId, user, updatedAt, text, comments, reactions, deletePost }) => {
-    const { email, name } = user;
+    const { emailHash, name } = user;
+    console.log(emailHash, name);
     return (
         <article className={styles.post}>
             <header className={styles.post_header}>
-                <Avatar id={userId} email={email} diameter={40}/>
+                <Avatar id={userId} emailHash={emailHash} diameter={40}/>
                 <div>
                     <Link className={styles.name} to={`/profile/${userId}`}>{name}</Link>
                     <span className={styles.time}>{displayDate(updatedAt)}</span>
@@ -46,7 +47,7 @@ Post.propTypes = {
     userId: PropTypes.number.isRequired,
     user: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        email: PropTypes.string.isRequired,
+        emailHash: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
     }).isRequired,
     updatedAt: PropTypes.string.isRequired,

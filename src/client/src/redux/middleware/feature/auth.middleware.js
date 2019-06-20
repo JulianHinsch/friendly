@@ -57,13 +57,13 @@ export default () => (next) => (action) => {
             //read the cookie
             const jwtPayload = cookies.get('jwt_payload');        
             if(jwtPayload) {
-                const { id, name, email, exp } = JSON.parse(window.atob(jwtPayload));
+                const { id, name, emailHash, exp } = JSON.parse(window.atob(jwtPayload));
                 //exp is in seconds not milliseconds
                 if(exp*1000 > new Date().getTime()) {
                     const auth = {
                         id,
                         name,
-                        email,
+                        emailHash,
                         isAuthenticated: true,
                         message: null,
                     }

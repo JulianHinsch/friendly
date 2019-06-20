@@ -5,7 +5,7 @@ const defaultState = {
     id: null,
     isAuthenticated: false,
     name: null,
-    email: null,
+    emailHash: null,
     loading: false,
     message: null,
 };

@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
+const md5 = require('md5');
 
 const User = require('../model/database').models.User;
 
@@ -32,7 +33,7 @@ const createToken = (user) => jwt.sign(
     { 
         id: user.id,
         name: user.name,
-        email: user.email,
+        emailHash: md5(user.email),
         role: user.role,
     },
     process.env.SECRET_KEY,
@@ -68,7 +69,8 @@ const login = async (req, res, next) => {
     try {
 
         const user = await User.findOne({ where: { email: email }});
-        
+        console.log(user);
+
         if(!user) {
             return res.status(403).json({
                 success: false,
@@ -116,7 +118,7 @@ const signup = async (req, res, next)  => {
         //dont allow duplicate emails
         const [ user, created ] = await User.findOrCreate({
             where: {
-                email: email,
+                email,
             },
             defaults: {
                 name,

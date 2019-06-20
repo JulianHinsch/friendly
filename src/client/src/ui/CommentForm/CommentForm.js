@@ -10,11 +10,7 @@ class CommentForm extends Component {
         createComment: PropTypes.func.isRequired,
         auth: PropTypes.shape({
             id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            email: PropTypes.string.isRequired,
-            isAuthenticated: PropTypes.bool.isRequired,
-            loading: PropTypes.bool.isRequired,
-            message: PropTypes.string,
+            emailHash: PropTypes.string.isRequired,
         }).isRequired,
     }
 
@@ -33,12 +29,12 @@ class CommentForm extends Component {
 
     render() {
         const { auth } = this.props;
-        const { id, email } = auth;
+        const { id, emailHash } = auth;
         return (
             <form
                 className={styles.comment_form}
                 onSubmit={this.handleSubmit}>
-                <Avatar id={id} email={email}/>
+                <Avatar id={id} emailHash={emailHash}/>
                 <input 
                     type='text' 
                     name='comment'
