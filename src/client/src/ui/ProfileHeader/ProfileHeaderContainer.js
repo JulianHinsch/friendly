@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     createFollow: (follow) => dispatch(actions.createFollow({ follow })),
+    deleteFollow: (id) => dispatch(actions.deleteFollow({ id })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileHeader);

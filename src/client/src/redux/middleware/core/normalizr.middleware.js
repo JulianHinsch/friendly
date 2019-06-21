@@ -14,12 +14,18 @@ export default ({dispatch}) => (next) => (action) => {
 
     if(action.meta && action.meta.normalize) {
 
+        let originalData = action.payload;
+        console.log('Original Data:', originalData);
+
+        //normalizr only works with arrays
+        if(!Array.isArray(originalData)) {
+            originalData = [originalData];
+        }
+
         //This middleware intercepts and dispatches the same action
         //so, in order to avoid the appearance of duplication in our log, we dispatch this action
         dispatch(dataNormalizing({ feature: action.meta.feature }))
 
-        const originalData = action.payload;
-        console.log('Original Data:', originalData);
         let normalizedData;         
 
         let user, post, comment, reaction, follow;
@@ -31,7 +37,7 @@ export default ({dispatch}) => (next) => (action) => {
         switch(action.meta.feature) {
             //app only fetches users and posts, everything else is nested
             case POSTS:
-                user = new schema.Entity('users');            
+                user = new schema.Entity('users');
                 post = new schema.Entity('posts', {
                     comments: [ comment ],
                     reactions: [ reaction ],

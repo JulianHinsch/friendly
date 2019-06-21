@@ -37,8 +37,8 @@ const ProfileHeader = ({
             <div>
                 <Avatar id={id} emailHash={emailHash} diameter={80}/>
                 {name}
-                {followers.length} Followers
-                {following.length} Following
+                {/* {followers.length} Followers
+                {following.length} Following */}
             </div>
             {!isOwnProfile && (
                 <button
@@ -63,8 +63,8 @@ ProfileHeader.propTypes = {
     ownFollow: PropTypes.shape({
         isApproved: PropTypes.bool.isRequired,
     }),
-    followers: PropTypes.array.isRequired,
-    following: PropTypes.array.isRequired,
+    // followers: PropTypes.array.isRequired,
+    // following: PropTypes.array.isRequired,
     createFollow: PropTypes.func.isRequired,
     deleteFollow: PropTypes.func.isRequired,
     isOwnProfile: PropTypes.bool.isRequired,

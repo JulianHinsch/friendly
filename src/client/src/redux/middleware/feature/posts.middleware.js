@@ -9,7 +9,7 @@ export default () => (next) => (action) => {
     switch(action.type) {
         case CREATE_POST: 
             const post = action.payload;
-            next(apiRequest({ 
+            next(apiRequest({
                 data: post, 
                 method: 'POST', 
                 url: '/api/posts', 

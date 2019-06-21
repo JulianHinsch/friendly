@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as validators from '../../utils/validators';
 
-import styles from '../styles/AuthForm.module.scss';
+import styles from './Signup.module.scss';
 
 class Signup extends Component {
 
@@ -73,7 +73,7 @@ class Signup extends Component {
 
     render() {
         return (
-            <main className={styles.auth_form}>
+            <main className={styles.signup_form}>
                 <h1>Sign Up</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div>

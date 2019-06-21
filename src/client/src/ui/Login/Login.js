@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import styles from '../styles/AuthForm.module.scss';
 import PropTypes from 'prop-types';
+
+import styles from './Login.module.scss';
 
 class Login extends Component {
 
@@ -39,7 +40,7 @@ class Login extends Component {
 
     render() {
         return (
-            <main className={styles.auth_form}>
+            <main className={styles.login_form}>
                 <h1>Log In</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div>
