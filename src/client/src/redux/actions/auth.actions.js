@@ -6,9 +6,12 @@ export const LOG_OUT = `${AUTH} LOG_OUT`;
 export const GET_AUTH = `${AUTH} GET`;
 export const SET_AUTH = `${AUTH} SET`;
 
-export const logIn = ({ credentials }) => ({
+export const logIn = ({ credentials, redirectTo }) => ({
     type: LOG_IN,
     payload: credentials,
+    meta: {
+        redirectTo
+    }
 });
 
 export const signUp = ({ user }) => ({

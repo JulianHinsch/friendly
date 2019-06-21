@@ -8,6 +8,7 @@ const auth = require('./controller/auth');
 const chat = require('./controller/chat');
 const feed = require('./controller/feed');
 const profile = require('./controller/profile');
+const users = require('./controller/users');
 const posts = require('./controller/posts');
 const comments = require('./controller/comments');
 const reactions = require('./controller/reactions');
@@ -29,6 +30,10 @@ router.get('/api/feed/:userId', checkToken, checkPermissions, feed._get);
 
 //profile
 router.route('/api/profile/:userId').all(checkToken, checkPermissions, profile._get)
+
+//users
+router.route('/api/users/:id?').all(checkToken, checkPermissions)
+    .delete(users._delete);
 
 //posts
 router.route('/api/posts/:id?').all(checkToken, checkPermissions)

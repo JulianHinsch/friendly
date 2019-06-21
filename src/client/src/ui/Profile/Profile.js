@@ -14,24 +14,21 @@ export default class Profile extends Component {
         auth: PropTypes.shape({
             id: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
-            email: PropTypes.string.isRequired,
-            isAuthenticated: PropTypes.bool.isRequired,
-            loading: PropTypes.bool.isRequired,
-            message: PropTypes.string,
+            emailHash: PropTypes.string.isRequired,
         }).isRequired,
         user: PropTypes.shape({
             id: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
-            email: PropTypes.string.isRequired,
+            emailHash: PropTypes.string.isRequired,
         }),
         loading: PropTypes.bool.isRequired,
-        fetchUsers: PropTypes.func.isRequired,
+        fetchProfile: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
         const url = window.location.href;
-        const id = url.split('/profile/')[1];
-        this.props.fetchUsers(`${id}?includeAll=true&limit=1`);
+        const userId = url.split('/profile/')[1];
+        this.props.fetchProfile(`${userId}`, 100, 0);
     }
 
     componentDidUpdate() {

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Profile from './Profile';
-import { fetchUsers } from '../../redux/actions/users.actions';
+import { fetchProfile } from '../../redux/actions/profile.actions';
 import getUserById from '../../redux/selectors/getUserById.selector';
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    fetchUsers: (query) => dispatch(fetchUsers({ query })),
+    fetchProfile: (userId, limit, offset) => dispatch(fetchProfile({ userId, limit, offset })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

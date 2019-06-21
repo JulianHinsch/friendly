@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import PostList from '../PostList/PostListContainer';
 import PostForm  from '../PostForm/PostFormContainer';
-import Loader from '../Loader/Loader';
 
 export default class Feed extends Component {
 
@@ -11,21 +10,19 @@ export default class Feed extends Component {
         auth: PropTypes.shape({
             id: PropTypes.number.isRequired,
         }).isRequired,
-        loading: PropTypes.bool.isRequired,
-        fetchPosts: PropTypes.func.isRequired,
+        fetchFeed: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-        //TODO use auth to get the correct posts here, not just all posts
-        this.props.fetchPosts('?includeAll=true&orderBy=updatedAt&orderDirection=ASC');
+        const { id } = this.props.auth;
+        this.props.fetchFeed(id, null, 0);
     }
 
     render() {
-        const { loading } = this.props;
         return (
             <main>
                 <PostForm/>
-                {loading ? <Loader/> : <PostList/>}
+                <PostList/>
             </main>
         )
     }

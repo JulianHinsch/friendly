@@ -1,6 +1,6 @@
 import { schema, denormalize } from 'normalizr';
 
-export default (state, idArray) => {
+export default (state) => {
     
     const post = new schema.Entity('posts');         
     const comment = new schema.Entity('comments');
@@ -11,10 +11,9 @@ export default (state, idArray) => {
         comments: [ comment ],
         reactions: [ reaction ],
         follows: [ follow ],
-        user: user,
     });
 
-    const input = idArray || Object.keys(state.posts.collection);     
+    const input = state.users.selectedUserArray;
 
     const usersSchema = [ user ];
     const entities = { 

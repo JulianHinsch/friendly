@@ -12,7 +12,6 @@ import styles from './Post.module.scss';
 
 const Post = ({ auth, id, userId, user, updatedAt, text, comments, reactions, deletePost }) => {
     const { emailHash, name } = user;
-    console.log(emailHash, name);
     return (
         <article className={styles.post}>
             <header className={styles.post_header}>

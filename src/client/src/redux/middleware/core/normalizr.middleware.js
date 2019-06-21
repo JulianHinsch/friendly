@@ -1,4 +1,4 @@
-import { dataNormalizing } from '../../actions/data.actions';
+import { dataNormalizing, setSelectedData } from '../../actions/data.actions';
 import { normalize, schema } from 'normalizr';
 import { POSTS } from '../../actions/posts.actions';
 import { USERS } from '../../actions/users.actions';
@@ -39,13 +39,15 @@ export default ({dispatch}) => (next) => (action) => {
                 });
                 normalizedData = normalize(originalData, [ post ]);
                 console.log('Normalized Data:', normalizedData);
+                //this sets posts, users, comments, reactions, etc..
                 next(Object.keys(normalizedData.entities).map(entity => ({
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],
                     meta: {
                         normalize: false,
                     }
-                })));        
+                })));
+                next(setSelectedData({ feature: POSTS, idArray: normalizedData.result }));
                 break;
             case USERS:
                 post = new schema.Entity('posts');
@@ -56,7 +58,8 @@ export default ({dispatch}) => (next) => (action) => {
                     follows: [ follow ],
                 });
                 normalizedData = normalize(originalData, [ user ]);
-                console.log('Normalized Data:', normalizedData);                
+                console.log('Normalized Data:', normalizedData);
+                //this sets users, posts, comments, reactions, follows etc..             
                 next(Object.keys(normalizedData.entities).map(entity => ({
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],
@@ -64,6 +67,7 @@ export default ({dispatch}) => (next) => (action) => {
                         normalize: false,
                     }
                 })));
+                next(setSelectedData({ feature: USERS, idArray: normalizedData.result }));
                 break;
             default:
                 break;

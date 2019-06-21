@@ -1,5 +1,4 @@
 const Post = require('../model/database').models.Post;
-const { genericCreate, genericRead, genericDelete } = require('../utils/crud');
 
 const _create = async (req, res, next) => {
     try {

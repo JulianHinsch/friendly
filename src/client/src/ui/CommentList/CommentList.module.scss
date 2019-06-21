@@ -1,8 +1,11 @@
 @import '../styles/global.scss';
 
-.comment_list_placeholder {
+.comment_list_toggle {
     padding: 10px;
     color: $color-text-light;
     font-size: 12px;
-    cursor: pointer;
+    & span:hover {
+        cursor: pointer;        
+        text-decoration: underline;        
+    }
 }

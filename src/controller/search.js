@@ -2,8 +2,8 @@ const User = require('../model/database').models.User;
 const { iLike } = require('sequelize').Op;
 
 const handleSearch = async (req, res, next) => {
-    const limit = req.query.limit || 20;
-    const offset = req.query.offset || 0;
+    const limit = req.query.limit === 'null' || req.query.limit === 'undefined' ? null : req.query.limit;
+    const offset = req.query.offset === 'null' || req.query.offset === 'undefined' ? null : req.query.offset;
     const query = req.query.q;
     try {
         let result = await User.findAll({

@@ -1,16 +1,16 @@
 const { User, Post, _Comment, Reaction, Follow } = require('../model/database').models;
 
 const _get = async(req,res,next) => {
-    const limit = req.query.limit || 20;
-    const offset = req.query.offset || 0;
+    const limit = req.query.limit === 'null' || req.query.limit === 'undefined' ? null : req.query.limit;
+    const offset = req.query.offset === 'null' || req.query.offset === 'undefined' ? null : req.query.offset;
     try {
         const result = await User.findByPk(req.params.userId, {
-            limit,
-            offset,
             include: [
                 { 
                     model: Post,
                     as: 'posts',
+                    limit,
+                    offset,
                     include: [
                         {
                             model: _Comment,

@@ -7,7 +7,11 @@ export default class InfiniteScroll extends Component {
     static propTypes = {
         loading: PropTypes.bool.isRequired,
         loadFunction: PropTypes.func.isRequired,
-        childComponent: PropTypes.instaceOf(Component).isRequired,
+        childComponent: PropTypes.instanceOf(Component).isRequired,
+    }
+
+    state = {
+        offset: 0,
     }
 
     componentDidMount() {

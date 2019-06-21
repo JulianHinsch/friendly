@@ -1,14 +1,8 @@
 export const POSTS = '[Posts]';
 
-export const FETCH_POSTS = `${POSTS} FETCH`;
 export const CREATE_POST = `${POSTS} CREATE`;
 export const DELETE_POST = `${POSTS} DELETE`;
 export const SET_POSTS = `${POSTS} SET`;
-
-export const fetchPosts = ({ query }) => ({
-    type: FETCH_POSTS,
-    payload: query,
-});
 
 export const createPost = ({ post }) => ({
     type: CREATE_POST,

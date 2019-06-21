@@ -1,5 +1,4 @@
-import { COMMENTS, SET_COMMENTS, DELETE_COMMENT } from '../actions/comments.actions';
-import { SET_LOADER } from '../actions/loaders.actions';
+import { SET_COMMENTS, DELETE_COMMENT } from '../actions/comments.actions';
 
 const defaultState = {
     loading: false,
@@ -8,10 +7,6 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
     switch(action.type) {
-        case `${COMMENTS} ${SET_LOADER}`:
-            const nextState = { ...state }
-            nextState.loading = action.payload;
-            return { ...nextState };
         case SET_COMMENTS:
             return { ...state, collection: { ...state.collection, ...action.payload }};
         case DELETE_COMMENT:

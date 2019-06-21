@@ -2,16 +2,16 @@ export const API_REQUEST = 'API_REQUEST';
 export const API_SUCCESS = 'API_SUCCESS';
 export const API_ERROR   = 'API_ERROR';
 
-export const apiRequest = ({ data, method, url, timeout, feature }) => ({
+export const apiRequest = ({ data, method, url, timeout, feature, redirectTo }) => ({
     type: `${feature} ${API_REQUEST}`,
     payload: data,
-    meta: { method, url, timeout, feature }
+    meta: { method, url, timeout, feature, redirectTo }
 });
 
-export const apiSuccess = ({ response, feature }) => ({
+export const apiSuccess = ({ response, feature, redirectTo }) => ({
     type: `${feature} ${API_SUCCESS}`,
     payload: response,
-    meta: { feature }
+    meta: { feature, redirectTo }
 });
 
 export const apiError = ({ error, feature }) => ({

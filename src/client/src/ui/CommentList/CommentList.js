@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import Comment from '../Comment/CommentContainer';
 
@@ -15,15 +16,16 @@ class CommentList extends Component {
         const { comments } = this.props;
         return (
             <div className={styles.comment_list}>
-                {this.state.expanded ? comments.map(comment => (
-                    <Comment key={comment.id} {...comment}/>)   
-                ) : (
-                    <div 
-                        className={styles.comment_list_placeholder} 
-                        onClick={() => this.setState({ expanded: true })}>
+                <div className={styles.comment_list_toggle}>
+                    <span onClick={() => this.setState(prevState => ({ 
+                        expanded: !prevState.expanded 
+                    }))}>
                         {comments.length} comment{comments.length === 1 ? '' : 's'}
-                    </div>
-                )}
+                    </span>
+                </div>
+                {this.state.expanded && comments.sort((c1,c2) => {
+                    return moment(c1.updatedAt) - moment(c2.updatedAt);
+                }).map(comment => <Comment key={comment.id} {...comment}/>)}
             </div>
         )
     }
@@ -31,11 +33,15 @@ class CommentList extends Component {
 
 CommentList.propTypes = {
     comments: PropTypes.arrayOf(PropTypes.shape({
-        user: PropTypes.object,
         id: PropTypes.number.isRequired,
         text: PropTypes.string.isRequired,
         createdAt: PropTypes.string.isRequired,
         updatedAt: PropTypes.string.isRequired,
+        user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+            emailHash: PropTypes.string.isRequired,
+        }).isRequired,
     }))
 }
 

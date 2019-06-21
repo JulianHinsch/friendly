@@ -1,39 +1,59 @@
 import React, { Component } from 'react';
 import styles from './PostList.module.scss';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import Loader from '../Loader/Loader';
 import Post from '../Post/PostContainer';
 
-//TODO do we even need this component?  It might be easier to just use Feed and Profile
-
 export default class PostList extends Component {
 
     static propTypes = {
-        posts: PropTypes.array.isRequired,
-        fetchPosts: PropTypes.func.isRequired,
-    }
-
-    state = {
-        offset: 0,
-        didLoad: false,
-    }
-
-    //TODO use infinite scroll HOC
-    loadMorePosts = () => {
-        this.setState(prevState => ({ offset: prevState.offset+50, didLoad: true }), () => {
-            this.props.fetchPosts(`?limit=50&offset=${this.state.offset}&includeAll=true`);            
-        });
+        loading: PropTypes.bool.isRequired,
+        posts: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            text: PropTypes.string.isRequired,
+            createdAt: PropTypes.string.isRequired,
+            updatedAt: PropTypes.string.isRequired,
+            user: PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                name: PropTypes.string.isRequired,
+                emailHash: PropTypes.string.isRequired,
+            }).isRequired,
+            comments: PropTypes.arrayOf(PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                text: PropTypes.string.isRequired,
+                createdAt: PropTypes.string.isRequired,
+                updatedAt: PropTypes.string.isRequired,
+                user: PropTypes.shape({
+                    id: PropTypes.number.isRequired,
+                    name: PropTypes.string.isRequired,
+                    emailHash: PropTypes.string.isRequired,
+                }).isRequired,
+            })).isRequired,
+            reactions: PropTypes.arrayOf(PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                type: PropTypes.string.isRequired,
+                createdAt: PropTypes.string.isRequired,
+                updatedAt: PropTypes.string.isRequired,
+                user: PropTypes.shape({
+                    id: PropTypes.number.isRequired,
+                    name: PropTypes.string.isRequired,
+                    emailHash: PropTypes.string.isRequired,
+                }).isRequired,
+            })).isRequired,
+        })).isRequired,
     }
     
     render() {
         const { loading, posts } = this.props;
-        const { didLoad } = this.state;
         return (
             <div className={styles.post_list} id='post_list'>
-                {!didLoad && loading && <Loader/>}
-                {posts && posts.map(post => <Post key={post.id} {...post}/>)}
-                {didLoad && loading && <Loader/>}
+                {loading ? <Loader/> : (
+                    posts.sort((p1,p2) => {
+                        return moment(p1.updatedAt) - moment(p2.updatedAt);
+                    }).map(post => <Post key={post.id} {...post}/>)
+                )}
             </div>
         )
     }

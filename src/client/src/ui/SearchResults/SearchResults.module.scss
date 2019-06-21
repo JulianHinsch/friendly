@@ -16,7 +16,18 @@
     }
 }
 
-.no_results {
-    @include card;
-    padding: 20px;
+.results_count {
+    width: 90%;
+    max-width: 700px;
+    margin: auto;
+    font-size: 18px;
+    font-weight: normal;
+    padding-bottom: 5%;
+    @media(min-width: 768px) {
+        padding-bottom: 40px;        
+    }
+}
+
+.query {
+    font-weight: bold;
 }

@@ -8,6 +8,9 @@ import followsMiddleware from './middleware/feature/follows.middleware';
 import postsMiddleware from './middleware/feature/posts.middleware';
 import reactionsMiddleware from './middleware/feature/reactions.middleware';
 import usersMiddleware from './middleware/feature/users.middleware';
+import searchMiddleware from './middleware/feature/search.middleware';
+import feedMiddleware from './middleware/feature/feed.middleware';
+import profileMiddleware from './middleware/feature/profile.middleware';
 
 import actionSplitterMiddleware from './middleware/core/actionSplitter.middleware';
 import apiMiddleware from './middleware/core/api.middleware';
@@ -21,6 +24,9 @@ const featureMiddleware = [
     postsMiddleware,    
     reactionsMiddleware,
     usersMiddleware,
+    searchMiddleware,
+    feedMiddleware,
+    profileMiddleware,
 ]
 
 const coreMiddleware = [

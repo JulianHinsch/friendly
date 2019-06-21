@@ -28,9 +28,9 @@ const Routes = (props) => {
     return (
         <Switch>
             <Route exact path='/' render={() => auth.isAuthenticated ? <Feed/> : <Landing/>}/>
-            <Route path='/login' render={() => <Login/>}/>
+            <Route path='/login' render={(props) => <Login location={props.location}/>}/>
             <Route path='/signup' render={() => <Signup/>}/>
-            <Route path='/search' render={() => <SearchResults/>}/>
+            <Route path='/search' render={() => <SearchResults key={props.location.key}/>}/>
             <ProtectedRoute auth={auth} path='/profile' component={Profile}/>
             <Route component={NotFound}/>
         </Switch>

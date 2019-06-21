@@ -1,7 +1,6 @@
 import cookies from 'js-cookie';
 import { AUTH, LOG_IN, SIGN_UP, LOG_OUT, GET_AUTH, setAuth } from '../../actions/auth.actions';
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
-import { setLoader } from '../../actions/loaders.actions';
 import { clearStore } from '../../actions/data.actions';
 
 export default () => (next) => (action) => {
@@ -11,49 +10,45 @@ export default () => (next) => (action) => {
     switch(action.type) {
         case LOG_IN:
             const credentials = action.payload;
-            next(setLoader({ feature: AUTH, loading: true }));
+            const { redirectTo } = action.meta;
             next(apiRequest({
                 data: credentials, 
-                method: 'POST', 
+                method: 'POST',
                 url: '/login',
                 timeout: 3000,
                 feature: AUTH,
+                redirectTo
             }));
             break;
         case SIGN_UP:
             const user = action.payload;
-            next(setLoader({ feature: AUTH, loading: true }));
             next(apiRequest({ 
                     data: user, 
                     method: 'POST', 
                     url: '/signup', 
                     timeout: 3000,
                     feature: AUTH,
+                    redirectTo: null,                    
             }));
             break;
         case LOG_OUT:
-            next(setLoader({ feature: AUTH, loading: true }));
             next(apiRequest({ 
                     data: null, 
                     method: 'POST',
                     url: '/logout', 
                     timeout: 3000,
                     feature: AUTH,
+                    redirectTo: null,                    
             }));
             break;
         case `${AUTH} ${API_ERROR}`:
             //safe getter function, since we don't know if these properties will exist
-            const get = (obj, path) => path.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, obj);            
-            next(setAuth({ message: get(action, ['payload','message']) }));
-            next(setLoader({ feature: AUTH, loading: false }));
-            // next([
-            //     setAuth({ message: get(action, ['payload','message'])}),
-            //     setLoader({ feature: AUTH, loading: false }),
-            // ]);
+            const get = (obj, path) => path.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, obj);
+            const message = get(action, ['payload','response', 'data', 'message']);   
+            next(setAuth({ auth: { message }}));
             break;
         case `${AUTH} ${API_SUCCESS}`:
         case GET_AUTH:
-            next(setLoader({ feature: AUTH, loading: true }));
             //read the cookie
             const jwtPayload = cookies.get('jwt_payload');        
             if(jwtPayload) {
@@ -68,11 +63,6 @@ export default () => (next) => (action) => {
                         message: null,
                     }
                     next(setAuth({ auth }));
-                    next(setLoader({ feature: AUTH, loading: false }));
-                    // next([
-                    //     setAuth({ auth }),
-                    //     setLoader({ feature: AUTH, loading: false }),
-                    // ]);
                     break;
                 }
             }

@@ -1,5 +1,4 @@
-import { FOLLOWS, SET_FOLLOWS, UPDATE_FOLLOW, DELETE_FOLLOW } from '../actions/follows.actions';
-import { SET_LOADER } from '../actions/loaders.actions';
+import { SET_FOLLOWS, UPDATE_FOLLOW, DELETE_FOLLOW } from '../actions/follows.actions';
 
 const defaultState = {
     loading: false,
@@ -8,10 +7,6 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
     switch(action.type) {
-        case `${FOLLOWS} ${SET_LOADER}`:
-            const nextState = { ...state }
-            nextState.loading = action.payload;
-            return { ...nextState };
         case SET_FOLLOWS:
             return { ...state, collection: { ...state.collection, ...action.payload }}; 
         case DELETE_FOLLOW:

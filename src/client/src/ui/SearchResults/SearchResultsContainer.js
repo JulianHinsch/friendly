@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import getUsersArray from '../../redux/selectors/getUsersArray.selector';
+import denormalizeUsers from '../../redux/selectors/denormalizeUsers.selector';
 import * as actions from '../../redux/actions/search.actions';
 
 import SearchResults from './SearchResults';
 
 const mapStateToProps = (state, ownProps) => ({
-    users: getUsersArray(state),
+    users: denormalizeUsers(state),
     loading: state.users.loading,
 });
 

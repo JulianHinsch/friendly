@@ -31,10 +31,6 @@ class Header extends Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
-    showFollowRequests = () => {
-
-    }
-
     render() {
         const { auth, logOut } = this.props;
         return (
