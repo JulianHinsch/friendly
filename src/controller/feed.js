@@ -1,17 +1,31 @@
 const { User, Post, _Comment, Reaction, Follow } = require('../model/database').models;
+const Op = require('sequelize').Op;
 
 const _get = async(req,res,next) => {
     const limit = req.query.limit === 'null' || req.query.limit === 'undefined' ? null : req.query.limit;
     const offset = req.query.offset === 'null' || req.query.offset === 'undefined' ? null : req.query.offset;
     try {
+        //get all follows/followers
         const followArr = await Follow.findAll({
             where: {
-                userId: req.params.userId,
+                    [Op.or]: {
+                        userId: req.params.userId,
+                        followsId: req.params.userId,
+                    },
             },
-            attributes: [ 'followsId' ],
+            include: [
+                {
+                    model: User,
+                    as: 'user',
+                    attributes: [ 'id', 'name', 'emailHash' ],
+                },
+            ],
         });
-        const followIdArr = followArr.map(follow => follow.followsId);
-        const result = await Post.findAll({
+        //get the ids of users we need posts from
+        const followIdArr = followArr
+            .filter(follow => follow.userId == req.params.userId)
+            .map(follow => follow.followsId);
+        const postArr = await Post.findAll({
             limit,
             offset,
             where: {
@@ -19,13 +33,9 @@ const _get = async(req,res,next) => {
             },
             include: [
                 {
-                    model: _Comment,
-                    as: 'comments',
-                    include: {
-                        model: User,
-                        as: 'user',
-                        attributes: [ 'id', 'name', 'emailHash'],
-                    },
+                    model: User,
+                    as: 'user',
+                    attributes: ['id', 'name', 'emailHash']
                 },
                 { 
                     model: Reaction,
@@ -37,16 +47,21 @@ const _get = async(req,res,next) => {
                     }
                 },
                 {
-                    model: User,
-                    as: 'user',
-                    attributes: [ 'id', 'name', 'emailHash' ],
-                }
+                    model: _Comment,
+                    as: 'comments',
+                    include: {
+                        model: User,
+                        as: 'user',
+                        attributes: [ 'id', 'name', 'emailHash'],
+                    },
+                },
             ],
             order: [
                 ['updatedAt', 'DESC'],
-            ]
+            ],
         });
-        return res.status(200).send(result);
+        //combine
+        return res.status(200).send({ follows: followArr, posts: postArr });
     } catch (err) {
         next(err);
     }

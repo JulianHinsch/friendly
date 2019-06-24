@@ -16,6 +16,7 @@ User.hasMany(Post, { as: 'posts', foreignKey: 'userId', targetKey: 'id' });
 User.hasMany(_Comment, { as: 'comments', foreignKey: 'userId', targetKey: 'id' });
 User.hasMany(Reaction, { as: 'reactions', foreignKey: 'userId', targetKey: 'id' });
 User.hasMany(Follow, { as: 'follows', foreignKey: 'userId', targetKey: 'id'});
+//User.hasMany(Follow, { as: 'followers', foreignKey: 'followsId', targetKey: 'id'});
 
 //User.hasMany(Message, { as: 'messages', foreignKey: 'userId', targetKey: 'id' });
 
@@ -29,7 +30,9 @@ _Comment.belongsTo(User, { onDelete: 'CASCADE' });
 Reaction.belongsTo(Post, { onDelete: 'CASCADE' });
 Reaction.belongsTo(User, { onDelete: 'CASCADE' });
 
+//Follow.belongsToMany(User, { through: 'UsersFollows', onDelete: 'CASCADE' });
 Follow.belongsTo(User, { onDelete: 'CASCADE' });
+
 
 // Conversation.hasMany(Message, { foreignKey: 'conversationId', targetKey: 'id'});
 
