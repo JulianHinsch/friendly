@@ -3,7 +3,7 @@ import { AUTH, LOG_IN, SIGN_UP, LOG_OUT, GET_AUTH, setAuth } from '../../actions
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 import { clearStore } from '../../actions/data.actions';
 
-export default () => (next) => (action) => {
+export default ({ dispatch }) => (next) => (action) => {
     
     next(action);
 

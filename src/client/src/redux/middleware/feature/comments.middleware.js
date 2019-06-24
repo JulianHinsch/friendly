@@ -1,7 +1,7 @@
 import { COMMENTS, CREATE_COMMENT, DELETE_COMMENT, setComments } from '../../actions/comments.actions';
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 
-export default () => (next) => (action) => {
+export default ({ dispatch }) => (next) => (action) => {
     
     next(action);
 

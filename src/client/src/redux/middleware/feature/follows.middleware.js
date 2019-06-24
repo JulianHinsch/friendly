@@ -1,7 +1,7 @@
 import { FOLLOWS, CREATE_FOLLOW, DELETE_FOLLOW, UPDATE_FOLLOW, setFollows } from '../../actions/follows.actions';
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 
-export default () => (next) => (action) => {
+export default ({ dispatch }) => (next) => (action) => {
     
     next(action);
 

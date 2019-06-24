@@ -2,7 +2,7 @@ import { USERS, DELETE_USER, setUsers } from '../../actions/users.actions';
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 import { setLoader } from '../../actions/loaders.actions';
 
-export default () => (next) => (action) => {
+export default ({ dispatch }) => (next) => (action) => {
     
     next(action);
 
@@ -20,7 +20,7 @@ export default () => (next) => (action) => {
             break;
         case `${USERS} ${API_SUCCESS}`:
             const users = action.payload;
-            next(setUsers({ users, normalize: true }));
+            next(setUsers({ users }));
             next(setLoader({ feature: USERS, loading: false }));
             break; 
         case `${USERS} ${API_ERROR}`:

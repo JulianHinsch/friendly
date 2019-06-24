@@ -1,7 +1,7 @@
 import { REACTIONS, CREATE_REACTION, DELETE_REACTION, setReactions } from '../../actions/reactions.actions';
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 
-export default () => (next) => (action) => {
+export default ({ dispatch }) => (next) => (action) => {
     
     next(action);
 

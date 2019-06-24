@@ -6,9 +6,9 @@ import styles from './FollowRequestList.module.scss';
 const FollowRequestList = ({ followRequests }) => {
     return (
         <ul className={styles.follow_request_list}>
-            {followRequests.map(followRequest => (
+            {/* {followRequests.map(followRequest => (
                 <FollowRequest key={followRequest.id} {...followRequest}/>
-            ))}
+            ))} */}
         </ul>
     )
 }

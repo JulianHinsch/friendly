@@ -1,9 +1,10 @@
 export const SET_SELECTED_DATA = 'SET_SELECTED_DATA';
-export const DATA_NORMALIZING = 'DATA_NORMALIZING';
+export const NORMALIZE_DATA = 'NORMALIZE_DATA';
 export const CLEAR_STORE = 'CLEAR_STORE';
 
-export const dataNormalizing = ({ feature }) => ({
-    type: `${feature} ${DATA_NORMALIZING}`,
+export const normalizeData = ({ feature, data }) => ({
+    type: `${feature} ${NORMALIZE_DATA}`,
+    payload: data,
     meta: { feature },
 });
 

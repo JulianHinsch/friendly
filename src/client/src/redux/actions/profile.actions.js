@@ -1,5 +1,4 @@
 export const PROFILE= '[Profile]';
-
 export const FETCH_PROFILE = `${PROFILE} FETCH`;
 
 export const fetchProfile = ({ userId, limit, offset }) => ({

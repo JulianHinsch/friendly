@@ -3,7 +3,7 @@ import { SET_LOADER } from '../actions/loaders.actions';
 import { SET_SELECTED_DATA } from '../actions/data.actions';
 
 const defaultState = {
-    selectedPostArray: [],
+    selectedPostArr: [],
     loading: false,
     collection: {},
 }
@@ -15,7 +15,7 @@ export default (state = defaultState, action) => {
         case SET_POSTS:
             return { ...state, collection: { ...state.collection, ...action.payload }};
         case `${POSTS} ${SET_SELECTED_DATA}`:
-            return Object.assign({}, state, { selectedPostArray: action.payload });
+            return Object.assign({}, state, { selectedPostArr: action.payload });
         case DELETE_POST:
             //TODO get the id
             const id = action.payload;

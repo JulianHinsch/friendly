@@ -14,11 +14,10 @@ export const deletePost = ({ id }) => ({
     payload: id,
 });
 
-export const setPosts = ({ posts, normalize }) => ({
+export const setPosts = ({ posts }) => ({
     type: SET_POSTS,
     payload: posts,
     meta: {
-        normalize,        
         feature: POSTS,
     },
 });

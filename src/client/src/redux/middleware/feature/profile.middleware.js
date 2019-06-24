@@ -1,9 +1,11 @@
-import { FETCH_PROFILE } from '../../actions/profile.actions';
+import { PROFILE, FETCH_PROFILE } from '../../actions/profile.actions';
 import { USERS } from '../../actions/users.actions';
-import { apiRequest } from '../../actions/api.actions';
+import { FOLLOWS } from '../../actions/follows.actions';
+import { apiRequest, API_SUCCESS, API_ERROR } from '../../actions/api.actions';
+import { normalizeData } from '../../actions/data.actions';
 import { setLoader } from '../../actions/loaders.actions';
 
-export default () => (next) => (action) => {
+export default ({ dispatch }) => (next) => (action) => {
 
     next(action);
 
@@ -18,10 +20,19 @@ export default () => (next) => (action) => {
                 method: 'GET',
                 url: `/api/profile/${userId}?limit=${limit}&offset=${offset}`,
                 timeout: 3000,
-                feature: USERS,
-                redirectTo: null,                
+                feature: PROFILE,
+                redirectTo: null,  
             }));
             break;
+        case `${PROFILE} ${API_SUCCESS}`:
+            const { follows, users } = action.payload;
+            next(normalizeData({ feature: USERS, data: users }));
+            next(normalizeData({ feature: FOLLOWS, data: follows }));
+            break;
+        case `${PROFILE} ${API_ERROR}`: 
+            const error = action.payload;
+            console.log(error);
+            next(setLoader({ feature: PROFILE, loading: false })); 
         default:
             break;
     }

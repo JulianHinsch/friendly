@@ -2,7 +2,7 @@ import { API_REQUEST, apiError, apiSuccess } from "../../actions/api.actions";
 import { API_ROOT } from '../../../utils/apiRoot';
 import axios from 'axios';
 
-export default ({dispatch}) => (next) => (action) => {
+export default ({ dispatch }) => (next) => (action) => {
 
     next(action);
 

@@ -3,7 +3,7 @@ import { USERS } from '../../actions/users.actions';
 import { apiRequest } from '../../actions/api.actions';
 import { setLoader } from '../../actions/loaders.actions';
 
-export default () => (next) => (action) => {
+export default ({ dispatch }) => (next) => (action) => {
 
     next(action);
 

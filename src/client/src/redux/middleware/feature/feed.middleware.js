@@ -1,9 +1,11 @@
-import { FETCH_FEED } from '../../actions/feed.actions';
+import { FEED, FETCH_FEED } from '../../actions/feed.actions';
 import { POSTS } from '../../actions/posts.actions';
-import { apiRequest } from '../../actions/api.actions';
+import { FOLLOWS } from '../../actions/follows.actions';
+import { apiRequest, API_SUCCESS, API_ERROR } from '../../actions/api.actions';
+import { normalizeData } from '../../actions/data.actions';
 import { setLoader } from '../../actions/loaders.actions';
 
-export default () => (next) => (action) => {
+export default ({ dispatch }) => (next) => (action) => {
 
     next(action);
 
@@ -11,17 +13,30 @@ export default () => (next) => (action) => {
         case FETCH_FEED:
             const userId = action.payload;
             const { limit, offset } = action.meta;
-            //the actions dispatched here will be intercepted by the posts middleware
-            next(setLoader({ loading: true, feature: POSTS }));
+            next(setLoader({ feature: FEED, loading: false }));            
+            next(setLoader({ feature: POSTS, loading: true }));
+            next(setLoader({ feature: FOLLOWS, loading: true }));            
             next(apiRequest({
-                data: null,
+                data: null, 
                 method: 'GET',
                 url: `/api/feed/${userId}?limit=${limit}&offset=${offset}`,
                 timeout: 3000,
-                feature: POSTS,
+                feature: FEED,
                 redirectTo: null,                
             }));
             break;
+        case `${FEED} ${API_SUCCESS}`: 
+            const { follows, posts } = action.payload;
+            next(normalizeData({ feature: POSTS, data: posts }));
+            next(normalizeData({ feature: FOLLOWS, data: follows }));
+            next(setLoader({ feature: FEED, loading: false }));
+            next(setLoader({ feature: POSTS, loading: false }));
+            next(setLoader({ feature: FOLLOWS, loading: false }));
+            break;
+        case `${FEED} ${API_ERROR}`: 
+            const error = action.payload;
+            console.log(error);
+            next(setLoader({ feature: FEED, loading: false })); 
         default:
             break;
     }

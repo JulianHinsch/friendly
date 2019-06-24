@@ -25,6 +25,7 @@
         margin: 0;
     }
     & li {
+        position: relative;
         display: inline-block;
         margin-left: 10px;
     }
@@ -39,6 +40,19 @@
         margin-top: -2px;
         cursor: pointer;
     }
+}
+
+.active::after {
+    //triangle
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 5px;
+    z-index: 9999;
+    border-top: 7px solid transparent;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid white;
 }
 
 .logo {

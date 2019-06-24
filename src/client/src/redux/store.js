@@ -14,14 +14,14 @@ import profileMiddleware from './middleware/feature/profile.middleware';
 
 import actionSplitterMiddleware from './middleware/core/actionSplitter.middleware';
 import apiMiddleware from './middleware/core/api.middleware';
-import normalizrMiddleware from './middleware/core/normalizr.middleware';
+import normalizeMiddleware from './middleware/core/normalize.middleware';
 import redirectMiddleware from './middleware/core/redirect.middleware';
 
 const featureMiddleware = [
     authMiddleware,
     commentsMiddleware,
     followsMiddleware,
-    postsMiddleware,    
+    postsMiddleware,
     reactionsMiddleware,
     usersMiddleware,
     searchMiddleware,
@@ -31,7 +31,7 @@ const featureMiddleware = [
 
 const coreMiddleware = [
     apiMiddleware,
-    normalizrMiddleware,
+    normalizeMiddleware,
     redirectMiddleware,
     actionSplitterMiddleware, //this should really be first core but it throws errors  
     createLogger({ collapsed: true }),

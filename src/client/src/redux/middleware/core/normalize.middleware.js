@@ -1,19 +1,83 @@
-import { dataNormalizing, setSelectedData } from '../../actions/data.actions';
+import { NORMALIZE_DATA, setSelectedData } from '../../actions/data.actions';
 import { normalize, schema } from 'normalizr';
 import { POSTS } from '../../actions/posts.actions';
 import { USERS } from '../../actions/users.actions';
+import { FOLLOWS } from '../../actions/follows.actions';
 
 const getActionType = (entity) => {
     return `[${entity[0].toUpperCase() + entity.substr(1)}] SET`;
 }
 
-/**
- * Normalize server responses into separate entities
- */
 export default ({ dispatch }) => (next) => (action) => {
 
-    if(action.meta && action.meta.normalize) {
+    if(action.type.includes(NORMALIZE_DATA)) {
 
+        let originalData = action.payload;
+        console.log('Original Data:', originalData);
+
+        let normalizedData;
+        
+        let user, post, comment, reaction, follow;
+
+        comment = new schema.Entity('comments');
+        reaction = new schema.Entity('reactions');
+        follow = new schema.Entity('follow');
+
+        switch(action.meta.feature) {
+            case USERS:
+                post = new schema.Entity('posts');
+                user = new schema.Entity('users', {
+                    posts: [ post ],
+                    comments: [ comment ],
+                    reactions: [ reaction ],
+                });
+                normalizedData = normalize(originalData, [ user ]);
+                console.log('Normalized Data:', normalizedData);
+                next(Object.keys(normalizedData.entities).map(entity => ({
+                    type: getActionType(entity),
+                    payload: normalizedData.entities[entity],
+                })));
+                break;
+            case POSTS:
+                user = new schema.Entity('users');
+                post = new schema.Entity('posts', {
+                    comments: [ comment ],
+                    reactions: [ reaction ],
+                    user: user,
+                });
+                normalizedData = normalize(originalData, [ post ]);
+                console.log('Normalized Data:', normalizedData);
+                next(Object.keys(normalizedData.entities).map(entity => ({
+                    type: getActionType(entity),
+                    payload: normalizedData.entities[entity],
+                })));
+                break;
+            case FOLLOWS:
+                user = new schema.Entity('users');
+                follow = new schema.Entity('follows', {
+                    user: user,
+                });
+                normalizedData = normalize(originalData, [ follow ]);
+                console.log('Normalized Data:', normalizedData);
+                next(Object.keys(normalizedData.entities).map(entity => ({
+                    type: getActionType(entity),
+                    payload: normalizedData.entities[entity],
+                })));
+
+
+                break;
+            default:
+                break;
+        }
+
+
+    } else {
+        next(action);
+    }
+}
+
+
+/*
         let originalData = action.payload;
         console.log('Original Data:', originalData);
 
@@ -23,16 +87,7 @@ export default ({ dispatch }) => (next) => (action) => {
         // }
 
 
-        /*
-            FEED
-            {users: xxx, posts: xxx}
 
-            OR 
-
-            PROFILE
-            {users: xxx, follows: xxx}
-
-        */
 
         console.log(action);
 
@@ -97,3 +152,5 @@ export default ({ dispatch }) => (next) => (action) => {
         next(action);
     }
 }
+
+*/

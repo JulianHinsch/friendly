@@ -16,6 +16,7 @@ class Header extends Component {
 
     state = {
         search: '',
+        showFollowRequests: false,
     }
 
     handleSubmit = (event) => {
@@ -31,10 +32,14 @@ class Header extends Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
+    showFollowRequests = (event) => {
+        this.setState(prevState => ({showFollowRequests: !prevState.showFollowRequests}));
+    }
+
     render() {
         const { auth, logOut } = this.props;
         return (
-            <header className={classNames(styles.header, 'bg-1')}>
+            <header className={styles.header}>
                 <nav>
                     <Link to='/' className={styles.logo} title='Home'>
                         <img 
@@ -45,7 +50,7 @@ class Header extends Component {
                     <form className={styles.search_form} onSubmit={this.handleSubmit}>
                         <label htmlFor='search' style={{display: 'none'}}>Search</label>
                         <input 
-                            name='search' 
+                            name='search'
                             type='text'
                             maxLength={140}
                             onChange={this.handleChange} 
@@ -58,7 +63,7 @@ class Header extends Component {
                     </form>
                     {auth.isAuthenticated ? (
                         <ul>
-                            <li>
+                            <li className={this.state.showFollowRequests && styles.active}>
                                 <img 
                                     onClick={this.showFollowRequests}
                                     src={require('../../assets/inbox.svg')} 

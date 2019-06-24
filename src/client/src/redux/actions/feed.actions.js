@@ -7,5 +7,5 @@ export const fetchFeed = ({ userId, limit, offset }) => ({
     meta: {
         limit,
         offset
-    }
-})
+    },
+});

@@ -8,11 +8,10 @@ export const deleteUser = ({ id }) => ({
     payload: id,
 });
 
-export const setUsers = ({ users, normalize }) => ({
+export const setUsers = ({ users }) => ({
     type: SET_USERS,
     payload: users,
     meta: {
-        normalize,
         feature: USERS,
     }
 })

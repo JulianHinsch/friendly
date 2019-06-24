@@ -3,7 +3,7 @@ import { SET_LOADER } from '../actions/loaders.actions';
 import { SET_SELECTED_DATA } from '../actions/data.actions';
 
 const defaultState = {
-    selectedUserArray: [],
+    selectedUserArr: [],
     loading: false,
     collection: {}
 }
@@ -15,7 +15,7 @@ export default (state = defaultState, action) => {
         case SET_USERS:
             return { ...state, collection: { ...state.collection, ...action.payload }};
         case `${USERS} ${SET_SELECTED_DATA}`:
-            return Object.assign({}, state, { selectedUserArray: action.payload });
+            return Object.assign({}, state, { selectedUserArr: action.payload });
         case DELETE_USER:
             //TODO get the id from the api call?
             const id = action.payload;
