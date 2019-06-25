@@ -25,6 +25,7 @@ const _get = async(req,res,next) => {
         const followIdArr = followArr
             .filter(follow => follow.userId == req.params.userId)
             .map(follow => follow.followsId);
+        followIdArr.push(req.params.userId);
         //get all relevant posts
         const postArr = await Post.findAll({
             limit,

@@ -1,0 +1,33 @@
+@import '../../styles/global.scss';
+
+.search_results {
+    width: 100%;
+    margin: auto;
+}
+
+.search_result {
+    @include card;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    & a {
+        color: $color-link;
+    }
+}
+
+.results_count {
+    width: 90%;
+    max-width: 700px;
+    margin: auto;
+    font-size: 18px;
+    font-weight: normal;
+    padding-bottom: 5%;
+    @media(min-width: 768px) {
+        padding-bottom: 40px;        
+    }
+}
+
+.query {
+    font-weight: bold;
+}
