@@ -39,20 +39,15 @@ const Post = ({ auth, id, userId, user, updatedAt, text, comments, reactions, de
 }
 
 Post.propTypes = {
-    auth: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-    }).isRequired,
+    auth: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,    
     id: PropTypes.number.isRequired,
     userId: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        emailHash: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-    }).isRequired,
+    createdAt: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    comments: PropTypes.array.isRequired,
-    reactions: PropTypes.array.isRequired,
+    comments: PropTypes.arrayOf(PropTypes.object).isRequired,
+    reactions: PropTypes.arrayOf(PropTypes.object).isRequired,
     deletePost: PropTypes.func.isRequired,
 }
 

@@ -63,7 +63,7 @@ class Header extends Component {
                     </form>
                     {auth.isAuthenticated ? (
                         <ul>
-                            <li className={this.state.showFollowRequests && styles.active}>
+                            <li className={classNames({[styles.active]: this.state.showFollowRequests})}>
                                 <img 
                                     onClick={this.showFollowRequests}
                                     src={require('../../assets/inbox.svg')} 

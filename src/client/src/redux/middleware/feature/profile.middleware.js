@@ -1,5 +1,6 @@
 import { PROFILE, FETCH_PROFILE } from '../../actions/profile.actions';
 import { USERS } from '../../actions/users.actions';
+import { POSTS } from '../../actions/posts.actions';
 import { FOLLOWS } from '../../actions/follows.actions';
 import { apiRequest, API_SUCCESS, API_ERROR } from '../../actions/api.actions';
 import { normalizeData } from '../../actions/data.actions';
@@ -28,11 +29,19 @@ export default ({ dispatch }) => (next) => (action) => {
             const { follows, users } = action.payload;
             next(normalizeData({ feature: USERS, data: users }));
             next(normalizeData({ feature: FOLLOWS, data: follows }));
+            next(setLoader({ feature: PROFILE, loading: false }));
+            next(setLoader({ feature: POSTS, loading: false }));
+            next(setLoader({ feature: USERS, loading: false }));
+            next(setLoader({ feature: FOLLOWS, loading: false }));
             break;
         case `${PROFILE} ${API_ERROR}`: 
             const error = action.payload;
             console.log(error);
             next(setLoader({ feature: PROFILE, loading: false })); 
+            next(setLoader({ feature: POSTS, loading: false }));
+            next(setLoader({ feature: USERS, loading: false }));
+            next(setLoader({ feature: FOLLOWS, loading: false }));
+            break;
         default:
             break;
     }

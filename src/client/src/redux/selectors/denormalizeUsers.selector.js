@@ -13,7 +13,7 @@ export default (state) => {
         follows: [ follow ],
     });
 
-    const input = state.users.selectedUserArray;
+    const input = state.users.selectedUserArr;
 
     const usersSchema = [ user ];
     const entities = { 

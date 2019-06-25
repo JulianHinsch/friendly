@@ -7,7 +7,7 @@ export default ({ dispatch }) => (next) => (action) => {
     next(action);
 
     switch(action.type) {
-        case CREATE_POST: 
+        case CREATE_POST:
             const post = action.payload;
             next(apiRequest({
                 data: post, 

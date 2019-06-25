@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import PostList from '../PostList/PostListContainer';
 import PostForm  from '../PostForm/PostFormContainer';
 
 export default class Feed extends Component {
 
     static propTypes = {
-        auth: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-        }).isRequired,
+        auth: PropTypes.object.isRequired,
         fetchFeed: PropTypes.func.isRequired,
+    }
+
+    componentWillMount() {
+        document.title='Friendly';
     }
 
     componentDidMount() {

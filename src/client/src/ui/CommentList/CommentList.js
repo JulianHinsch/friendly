@@ -32,17 +32,7 @@ class CommentList extends Component {
 }
 
 CommentList.propTypes = {
-    comments: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        text: PropTypes.string.isRequired,
-        createdAt: PropTypes.string.isRequired,
-        updatedAt: PropTypes.string.isRequired,
-        user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            emailHash: PropTypes.string.isRequired,
-        }).isRequired,
-    }))
+    comments: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default CommentList;

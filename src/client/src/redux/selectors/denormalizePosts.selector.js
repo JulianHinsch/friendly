@@ -11,7 +11,7 @@ export default (state) => {
         user: user,
     });
 
-    const input = state.posts.selectedPostArray;
+    const input = state.posts.selectedPostArr;
     
     const postsSchema = [ post ];
     const entities = {

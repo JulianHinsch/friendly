@@ -25,11 +25,13 @@ export default ({ dispatch }) => (next) => (action) => {
 
         switch(action.meta.feature) {
             case USERS:
-                post = new schema.Entity('posts');
-                user = new schema.Entity('users', {
-                    posts: [ post ],
+                post = new schema.Entity('posts', {
                     comments: [ comment ],
                     reactions: [ reaction ],
+                    // user: user,
+                });
+                user = new schema.Entity('users', {
+                    posts: [ post ],
                 });
                 normalizedData = normalize(originalData, [ user ]);
                 console.log('Normalized Data:', normalizedData);
@@ -37,6 +39,10 @@ export default ({ dispatch }) => (next) => (action) => {
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],
                 })));
+                next(setSelectedData({ feature: USERS, idArray: normalizedData.result}));
+                if (normalizedData.entities.posts) {
+                    next(setSelectedData({ feature: POSTS, idArray: Object.keys(normalizedData.entities.posts)}));                                    
+                }
                 break;
             case POSTS:
                 user = new schema.Entity('users');
@@ -51,6 +57,7 @@ export default ({ dispatch }) => (next) => (action) => {
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],
                 })));
+                next(setSelectedData({ feature: POSTS, idArray: normalizedData.result}));                
                 break;
             case FOLLOWS:
                 user = new schema.Entity('users');
@@ -63,87 +70,7 @@ export default ({ dispatch }) => (next) => (action) => {
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],
                 })));
-
-
-                break;
-            default:
-                break;
-        }
-
-
-    } else {
-        next(action);
-    }
-}
-
-
-/*
-        let originalData = action.payload;
-        console.log('Original Data:', originalData);
-
-        //normalizr only works with arrays
-        // if(!Array.isArray(originalData)) {
-        //     originalData = [originalData];
-        // }
-
-
-
-
-        console.log(action);
-
-
-        //This middleware intercepts and dispatches the same action
-        //so, in order to avoid the appearance of duplication in our log, we dispatch this action
-        dispatch(dataNormalizing({ feature: action.meta.feature }))
-
-        let normalizedData;
-
-        let user, post, comment, reaction, follow;
-
-        comment = new schema.Entity('comments');
-        reaction = new schema.Entity('reactions');
-        follow = new schema.Entity('follow');
-
-        switch(action.meta.feature) {
-            //app only fetches users and posts, everything else is nested
-            case POSTS:
-                user = new schema.Entity('users');
-                post = new schema.Entity('posts', {
-                    comments: [ comment ],
-                    reactions: [ reaction ],
-                    user: user,
-                });
-                normalizedData = normalize(originalData, [ post ]);
-                console.log('Normalized Data:', normalizedData);
-                //this sets posts, users, comments, reactions, etc..
-                next(Object.keys(normalizedData.entities).map(entity => ({
-                    type: getActionType(entity),
-                    payload: normalizedData.entities[entity],
-                    meta: {
-                        normalize: false,
-                    }
-                })));
-                next(setSelectedData({ feature: POSTS, idArray: normalizedData.result }));
-                break;
-            case USERS:
-                post = new schema.Entity('posts');
-                user = new schema.Entity('users', {
-                    posts: [ post ],
-                    comments: [ comment ],
-                    reactions: [ reaction ],
-                    follows: [ follow ],
-                });
-                normalizedData = normalize(originalData, [ user ]);
-                console.log('Normalized Data:', normalizedData);
-                //this sets users, posts, comments, reactions, follows etc..             
-                next(Object.keys(normalizedData.entities).map(entity => ({
-                    type: getActionType(entity),
-                    payload: normalizedData.entities[entity],
-                    meta: {
-                        normalize: false,
-                    }
-                })));
-                next(setSelectedData({ feature: USERS, idArray: normalizedData.result }));
+                next(setSelectedData({ feature: FOLLOWS, idArray: normalizedData.result}));                
                 break;
             default:
                 break;
@@ -152,5 +79,3 @@ export default ({ dispatch }) => (next) => (action) => {
         next(action);
     }
 }
-
-*/

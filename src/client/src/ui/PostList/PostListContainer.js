@@ -4,8 +4,7 @@ import denormalizePosts from '../../redux/selectors/denormalizePosts.selector';
 
 const mapStateToProps = (state, ownProps) => ({
     loading: state.posts.loading,
-    //posts: denormalizePosts(state, state.selectedPostArray),
-    posts: [],
+    posts: denormalizePosts(state, state.selectedPostArray),
 });
 
 export default connect(mapStateToProps,null)(PostList);

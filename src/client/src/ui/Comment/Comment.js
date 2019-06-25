@@ -30,20 +30,14 @@ const _Comment = ({ auth, id, userId, user, text, updatedAt, deleteComment }) =>
 }
 
 _Comment.propTypes = {
-    auth: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-    }),
     id: PropTypes.number.isRequired,
     userId: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        emailHash: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-    }).isRequired,
     text: PropTypes.string.isRequired,    
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string.isRequired,
     deleteComment: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,    
+    user: PropTypes.object.isRequired,
 }
 
 export default _Comment;

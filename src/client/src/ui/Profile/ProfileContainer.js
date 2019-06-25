@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => {
     const id = url.split('/profile/')[1];
     return ({
         auth: state.auth,
-        loading: state.users.loading || state.posts.loading,
+        loading: state.users.loading,
         user: getUserById(state, id),
     });
 }

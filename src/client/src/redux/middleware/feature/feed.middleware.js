@@ -13,9 +13,9 @@ export default ({ dispatch }) => (next) => (action) => {
         case FETCH_FEED:
             const userId = action.payload;
             const { limit, offset } = action.meta;
-            next(setLoader({ feature: FEED, loading: false }));            
+            next(setLoader({ feature: FEED, loading: false }));
             next(setLoader({ feature: POSTS, loading: true }));
-            next(setLoader({ feature: FOLLOWS, loading: true }));            
+            next(setLoader({ feature: FOLLOWS, loading: true }));
             next(apiRequest({
                 data: null, 
                 method: 'GET',
@@ -37,6 +37,7 @@ export default ({ dispatch }) => (next) => (action) => {
             const error = action.payload;
             console.log(error);
             next(setLoader({ feature: FEED, loading: false })); 
+            break;
         default:
             break;
     }
