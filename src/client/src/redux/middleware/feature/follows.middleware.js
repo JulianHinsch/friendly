@@ -33,10 +33,7 @@ export default ({ dispatch }) => (next) => (action) => {
             //todo
             break;
         case `${FOLLOWS} ${API_SUCCESS}`:
-            //const follow = action.payload;
-            next(setFollows({
-                //TODO
-            }));
+            next(setFollows({follows: { [action.payload.id]: { ...action.payload } }}));
             break;
         case `${FOLLOWS} ${API_ERROR}`:
             const error = action.payload;

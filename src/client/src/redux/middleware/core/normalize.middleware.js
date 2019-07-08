@@ -13,7 +13,7 @@ export default ({ dispatch }) => (next) => (action) => {
     if(action.type.includes(NORMALIZE_DATA)) {
 
         let originalData = action.payload;
-        console.log('Original Data:', originalData);
+        //console.log('Original Data:', originalData);
 
         let normalizedData;
         
@@ -34,7 +34,7 @@ export default ({ dispatch }) => (next) => (action) => {
                     posts: [ post ],
                 });
                 normalizedData = normalize(originalData, [ user ]);
-                console.log('Normalized Data:', normalizedData);
+                //console.log('Normalized Data:', normalizedData);
                 next(Object.keys(normalizedData.entities).map(entity => ({
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],
@@ -52,7 +52,7 @@ export default ({ dispatch }) => (next) => (action) => {
                     user: user,
                 });
                 normalizedData = normalize(originalData, [ post ]);
-                console.log('Normalized Data:', normalizedData);
+                //console.log('Normalized Data:', normalizedData);
                 next(Object.keys(normalizedData.entities).map(entity => ({
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],
@@ -65,7 +65,7 @@ export default ({ dispatch }) => (next) => (action) => {
                     user: user,
                 });
                 normalizedData = normalize(originalData, [ follow ]);
-                console.log('Normalized Data:', normalizedData);
+                //console.log('Normalized Data:', normalizedData);
                 next(Object.keys(normalizedData.entities).map(entity => ({
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],

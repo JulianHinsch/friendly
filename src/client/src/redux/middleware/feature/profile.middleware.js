@@ -22,25 +22,21 @@ export default ({ dispatch }) => (next) => (action) => {
                 url: `/api/profile/${userId}?limit=${limit}&offset=${offset}`,
                 timeout: 3000,
                 feature: PROFILE,
-                redirectTo: null,  
+                redirectTo: null,
             }));
             break;
         case `${PROFILE} ${API_SUCCESS}`:
             const { follows, users } = action.payload;
             next(normalizeData({ feature: USERS, data: users }));
             next(normalizeData({ feature: FOLLOWS, data: follows }));
-            next(setLoader({ feature: PROFILE, loading: false }));
             next(setLoader({ feature: POSTS, loading: false }));
             next(setLoader({ feature: USERS, loading: false }));
-            next(setLoader({ feature: FOLLOWS, loading: false }));
             break;
         case `${PROFILE} ${API_ERROR}`: 
             const error = action.payload;
             console.log(error);
-            next(setLoader({ feature: PROFILE, loading: false })); 
             next(setLoader({ feature: POSTS, loading: false }));
             next(setLoader({ feature: USERS, loading: false }));
-            next(setLoader({ feature: FOLLOWS, loading: false }));
             break;
         default:
             break;

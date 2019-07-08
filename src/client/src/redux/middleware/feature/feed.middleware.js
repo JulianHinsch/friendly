@@ -13,7 +13,6 @@ export default ({ dispatch }) => (next) => (action) => {
         case FETCH_FEED:
             const userId = action.payload;
             const { limit, offset } = action.meta;
-            next(setLoader({ feature: FEED, loading: false }));
             next(setLoader({ feature: POSTS, loading: true }));
             next(setLoader({ feature: FOLLOWS, loading: true }));
             next(apiRequest({
@@ -29,14 +28,12 @@ export default ({ dispatch }) => (next) => (action) => {
             const { follows, posts } = action.payload;
             next(normalizeData({ feature: POSTS, data: posts }));
             next(normalizeData({ feature: FOLLOWS, data: follows }));
-            next(setLoader({ feature: FEED, loading: false }));
             next(setLoader({ feature: POSTS, loading: false }));
             next(setLoader({ feature: FOLLOWS, loading: false }));
             break;
         case `${FEED} ${API_ERROR}`: 
             const error = action.payload;
             console.log(error);
-            next(setLoader({ feature: FEED, loading: false })); 
             break;
         default:
             break;

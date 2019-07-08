@@ -26,7 +26,7 @@ export default (state) => {
 
     const denormalizedData = denormalize(input, usersSchema, entities);
     if(denormalizedData.length > 0) {
-        console.log('Denormalized Data', denormalizedData);        
+        //console.log('Denormalized Data', denormalizedData);        
     }
     
     return denormalizedData;

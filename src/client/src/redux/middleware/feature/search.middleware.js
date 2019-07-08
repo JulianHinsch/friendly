@@ -24,7 +24,6 @@ export default ({ dispatch }) => (next) => (action) => {
             }));
             break;
         case `${SEARCH} ${API_SUCCESS}`:
-            console.log(action.payload);
             const users = action.payload;
             next(normalizeData({ feature: USERS, data: users }));
             next(setLoader({ feature: SEARCH, loading: false }));

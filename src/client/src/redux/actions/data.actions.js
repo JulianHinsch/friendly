@@ -8,10 +8,10 @@ export const normalizeData = ({ feature, data }) => ({
     meta: { feature },
 });
 
-export const setSelectedData = ({ feature, idArray }) => ({
+export const setSelectedData = ({ feature, idArray, operation }) => ({
     type: `${feature} ${SET_SELECTED_DATA}`,
     payload: idArray,
-    meta: { feature },
+    meta: { feature, operation },
 });
 
 export const clearStore = () => ({

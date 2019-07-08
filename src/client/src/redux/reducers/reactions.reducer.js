@@ -8,7 +8,8 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch(action.type) {
         case SET_REACTIONS:
-            return { ...state, collection: { ...state.collection, ...action.payload }};        
+            return Object.assign({}, state, { collection: { ...state.collection, ...action.payload}});
+            //return { ...state, collection: { ...state.collection, ...action.payload }};        
         case DELETE_REACTION:
             //TODO get the id
             const id = action.payload;

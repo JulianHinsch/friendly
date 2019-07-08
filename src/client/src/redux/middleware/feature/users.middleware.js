@@ -19,8 +19,7 @@ export default ({ dispatch }) => (next) => (action) => {
             }));
             break;
         case `${USERS} ${API_SUCCESS}`:
-            const users = action.payload;
-            next(setUsers({ users }));
+            next(setUsers({ users: { [action.payload.id]: { ...action.payload }}}));
             next(setLoader({ feature: USERS, loading: false }));
             break; 
         case `${USERS} ${API_ERROR}`:

@@ -14,7 +14,7 @@ export default ({ dispatch }) => (next) => (action) => {
                 url: '/api/reactions',
                 timeout: 3000,
                 feature: REACTIONS,
-                redirectTo: null,                
+                redirectTo: null,
             }));
             break;
         case DELETE_REACTION:
@@ -29,8 +29,7 @@ export default ({ dispatch }) => (next) => (action) => {
             }));
             break;
         case `${REACTIONS} ${API_SUCCESS}`:
-            const reactions = action.payload;
-            next(setReactions({ reactions }));
+            next(setReactions({reactions: { [action.payload.id]: { ...action.payload } }}));
             break; 
         case `${REACTIONS} ${API_ERROR}`:
             const error = action.payload;

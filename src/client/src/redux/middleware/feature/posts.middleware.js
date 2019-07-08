@@ -1,4 +1,5 @@
 import { POSTS, CREATE_POST, DELETE_POST, setPosts } from '../../actions/posts.actions';
+import { setSelectedData } from '../../actions/data.actions';
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 import { setLoader } from '../../actions/loaders.actions';
 
@@ -26,12 +27,12 @@ export default ({ dispatch }) => (next) => (action) => {
                 url: `/api/posts/${id}`,
                 timeout: 3000,
                 feature: POSTS,
-                redirectTo: null,             
+                redirectTo: null,
             }));
             break;
         case `${POSTS} ${API_SUCCESS}`:
-            const posts = action.payload;
-            next(setPosts({ posts }));
+            next(setPosts({ posts: { [action.payload.id]: { ...action.payload } }}));
+            next(setSelectedData({ feature: POSTS, idArray: [ action.payload.id ], merge: true }));
             next(setLoader({ feature: POSTS, loading: false }));
             break; 
         case `${POSTS} ${API_ERROR}`:

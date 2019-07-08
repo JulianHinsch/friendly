@@ -29,9 +29,7 @@ export default ({ dispatch }) => (next) => (action) => {
             }));
             break;                
         case `${COMMENTS} ${API_SUCCESS}`:
-            next(setComments({
-                //TODO
-            }));
+            next(setComments({ comments: { [action.payload.id]: { ...action.payload }}}));
             break; 
         case `${COMMENTS} ${API_ERROR}`:
             const error = action.payload;

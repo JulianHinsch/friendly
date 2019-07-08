@@ -3,7 +3,6 @@ import { SET_SELECTED_DATA } from '../actions/data.actions';
 
 const defaultState = {
     selectedFollowArr: [],
-    loading: false,
     collection: {},
 }
 
