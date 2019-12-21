@@ -1,0 +1,83 @@
+{
+    "root": true,
+    "extends": [
+      "airbnb-base"
+    ],
+    "parser": "babel-eslint",
+    "env": {
+      "es6": true
+    },
+    "globals": {
+      "_": true,
+      "validator": true,
+      "$": true,
+      "numbro": true,
+      "Swiper": true
+    },
+    "parserOptions": {
+      "ecmaVersion": "6"
+    },
+    "rules": {
+      "indent": ["error", 4],
+      "max-len": ["warn", 100, {
+        "ignoreStrings": true,
+        "ignoreComments": false,
+        "ignoreRegExpLiterals": true
+      }],
+      "arrow-parens": [
+        2,
+        "as-needed"
+      ],
+      "prefer-arrow-callback": "warn",
+      "no-restricted-properties": [ "error",
+          {
+              "object": "_",
+              "property": "filter",
+              "message": "Please use ES6 equivalent instead."
+          },
+          {
+              "object": "_",
+              "property": "map",
+              "message": "Please use ES6 equivalent instead."
+          },
+          {
+              "object": "_",
+              "property": "reduce",
+              "message": "Please use ES6 equivalent instead."
+          }
+      ],
+      "no-use-before-define": [ "error", { "functions": false } ],
+      "no-useless-concat": "error",
+      "no-throw-literal": "error",
+      "vars-on-top": "off",
+      "func-names": "off",
+      "no-var": "off",
+      "no-underscore-dangle": "off",
+      "no-param-reassign": "off",
+      "consistent-return": "off",
+      "prefer-arrow-callback": "off",
+      "prefer-template": "off",
+      "object-shorthand": "off",
+      "radix": "off",
+      "no-shadow": "off",
+      "comma-dangle": ["error", "only-multiline"],
+      "guard-for-in": "off",
+      "no-mixed-operators": "off",
+      "no-restricted-syntax": "off",
+      "block-scoped-var": "off",
+      "no-unused-vars": "error",
+      "import/no-unresolved": "off",
+      "import/no-extraneous-dependencies": "off",
+      "angular-header-interface/name-return-after-class": "warn",
+      "eqeqeq": "error",
+      "arrow-body-style": "off",
+      "no-plusplus": ["warn", {
+        "allowForLoopAfterthoughts": true
+      }],
+      "no-useless-escape": "error",
+      "no-console": "warn",
+      "no-magic-numbers": ["warn", {
+        "ignore": [0, 1, -1, 100, 101, 102, 200, 201, 202, 203, 204, 205, 206, 207, 208, 226, 300, 301, 302, 303, 304, 305, 307, 308, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 421, 422, 423, 424, 426, 428, 429, 431, 444, 451, 499, 500, 501, 502, 503, 504, 505, 506, 507, 508, 510, 511, 599]
+      }]
+    }
+}
