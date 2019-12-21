@@ -16,7 +16,7 @@ export default ({ dispatch }) => (next) => (action) => {
         //console.log('Original Data:', originalData);
 
         let normalizedData;
-        
+
         let user, post, comment, reaction, follow;
 
         comment = new schema.Entity('comments');

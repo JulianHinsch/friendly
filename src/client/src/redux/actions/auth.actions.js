@@ -30,7 +30,7 @@ export const getAuth = () => ({
 export const setAuth = ({ auth }) => ({
     type: SET_AUTH,
     payload: auth,
-    meta: { 
+    meta: {
         feature: AUTH,
     }
 });

@@ -7,7 +7,7 @@ export default ({ dispatch }) => (next) => (action) => {
     next(action);
 
     if (action.type.includes(API_REQUEST)) {
-        
+
         const { url, method, timeout, feature, redirectTo } = action.meta;
         const data = action.payload;
 
@@ -17,7 +17,7 @@ export default ({ dispatch }) => (next) => (action) => {
                 'Content-Type': 'application/json',
             },
             withCredentials: process.env.NODE_ENV === 'development',
-            timeout,            
+            timeout,
             data,
         })
         .then(response => dispatch(apiSuccess({ response: response.data, feature, redirectTo })))
