@@ -13,7 +13,7 @@ import NotFound from '../NotFound/NotFound';
 
 const ProtectedRoute = ({ auth, component: Component, ...rest }) => (
     <Route {...rest} render={props => {
-        if(auth.isAuthenticated) {
+        if (auth.isAuthenticated) {
             return <Component {...props}/>
         } else {
             return <Redirect to={{ pathname: "/login", state: { from: props.location }}}/>

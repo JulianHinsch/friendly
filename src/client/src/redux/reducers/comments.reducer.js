@@ -10,7 +10,7 @@ export default (state = defaultState, action) => {
         case SET_COMMENTS:
             return { ...state, collection: { ...state.collection, ...action.payload }};
         case DELETE_COMMENT:
-            //TODO get the id
+            // TODO get the id
             const id = action.payload;
             const nextCollection = { ...state.collection };
             delete nextCollection[id];

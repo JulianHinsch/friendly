@@ -10,8 +10,19 @@ import CommentForm from '../CommentForm/CommentFormContainer';
 
 import styles from './Post.module.scss';
 
-const Post = ({ auth, id, userId, user, updatedAt, text, comments, reactions, deletePost }) => {
+const Post = ({
+    auth,
+    id,
+    userId,
+    user,
+    updatedAt,
+    text,
+    comments,
+    reactions,
+    deletePost
+}) => {
     const { emailHash, name } = user;
+
     return (
         <article className={styles.post}>
             <header className={styles.post_header}>
@@ -21,7 +32,7 @@ const Post = ({ auth, id, userId, user, updatedAt, text, comments, reactions, de
                     <span className={styles.time}>{displayDate(updatedAt)}</span>
                 </div>
                 {auth.id === userId && (
-                    <img 
+                    <img
                         src={require('../../../assets/x_grey.svg')}
                         className={styles.delete}
                         alt='Delete'
@@ -31,7 +42,7 @@ const Post = ({ auth, id, userId, user, updatedAt, text, comments, reactions, de
             <p className={styles.post_body} dangerouslySetInnerHTML={{__html: text}}/>
             <Reactions postId={id} reactions={reactions}/>
             {comments.length > 0 && (
-                <CommentList comments={comments}/>    
+                <CommentList comments={comments}/>
             )}
             <CommentForm/>
         </article>
@@ -40,7 +51,7 @@ const Post = ({ auth, id, userId, user, updatedAt, text, comments, reactions, de
 
 Post.propTypes = {
     auth: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,    
+    user: PropTypes.object.isRequired,
     id: PropTypes.number.isRequired,
     userId: PropTypes.number.isRequired,
     createdAt: PropTypes.string.isRequired,

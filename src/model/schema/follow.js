@@ -8,14 +8,12 @@ module.exports = (database, DataTypes) => {
             autoIncrement: true,
         },
         userId: {
-            //if Jane follows Jerry, this is Jane's id
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: false,
             foreignKey: true,
         },
         followsId: {
-            //if Jane follows Jerry, this is Jerry's id
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: false,

@@ -17,9 +17,7 @@ class CommentList extends Component {
         return (
             <div className={styles.comment_list}>
                 <div className={styles.comment_list_toggle}>
-                    <span onClick={() => this.setState(prevState => ({ 
-                        expanded: !prevState.expanded 
-                    }))}>
+                    <span onClick={() => this.setState(prevState => ({ expanded: !prevState.expanded }))}>
                         {comments.length} comment{comments.length === 1 ? '' : 's'}
                     </span>
                 </div>

@@ -33,12 +33,12 @@ export default class Profile extends Component {
 
     componentDidUpdate() {
         const { user } = this.props;
-        document.title = user ? user.name : 'Friendly';                
+        document.title = user ? user.name : 'Friendly';
     }
 
     render() {
-        const { auth, user, loading } = this.props;  
-        if(!user || loading) {
+        const { auth, user, loading } = this.props;
+        if (!user || loading) {
             return <Loader/>;
         }
         const isOwnProfile = user.id === auth.id;

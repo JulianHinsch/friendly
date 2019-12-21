@@ -6,25 +6,32 @@ import styles from './Comment.module.scss';
 
 import Avatar from '../Avatar/Avatar';
 
-const _Comment = ({ auth, id, userId, user, text, updatedAt, deleteComment }) => {
+const _Comment = ({
+    auth,
+    id,
+    userId,
+    user,
+    text,
+    updatedAt,
+    deleteComment
+ }) => {
     const { emailHash, name } = user;
     return (
         <div className={styles.comment}>
             <Avatar id={userId} emailHash={emailHash}/>
-            <div className={styles.comment_body}>
+            <div className="body">
                 <Link to={`/profile/${userId}`}>{name}</Link>
                 &nbsp;
                 <span>{text}</span>
                 {auth.id === userId && (
-                    <img 
+                    <img
                         src={require('../../../assets/x_grey.svg')}
-                        className={styles.delete}
+                        className="delete"
                         alt='Delete'
                         onClick={() => deleteComment(id)}/>
                 )}
-                <span className={styles.time}>{displayDate(updatedAt)}</span>
+                <span className="time">{displayDate(updatedAt)}</span>
             </div>
-            
         </div>
     )
 }
@@ -32,11 +39,11 @@ const _Comment = ({ auth, id, userId, user, text, updatedAt, deleteComment }) =>
 _Comment.propTypes = {
     id: PropTypes.number.isRequired,
     userId: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,    
+    text: PropTypes.string.isRequired,
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string.isRequired,
     deleteComment: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,    
+    auth: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
 }
 

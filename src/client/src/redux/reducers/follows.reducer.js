@@ -9,7 +9,12 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch(action.type) {
         case SET_FOLLOWS:
-            return { ...state, collection: { ...state.collection, ...action.payload }}; 
+            return {
+                ...state,
+                collection: {
+                    ...state.collection,
+                    ...action.payload
+                }};
         case `${FOLLOWS} ${SET_SELECTED_DATA}`:
             return Object.assign({}, state, { selectedFollowArr: action.payload });
         case DELETE_FOLLOW:

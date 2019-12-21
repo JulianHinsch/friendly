@@ -5,7 +5,7 @@ import Avatar from '../Avatar/Avatar';
 
 import styles from './ProfileHeader.module.scss';
 
-const ProfileHeader = ({ 
+const ProfileHeader = ({
     auth,
     user,
     ownFollow,
@@ -15,15 +15,14 @@ const ProfileHeader = ({
     createFollow,
     deleteFollow,
 }) => {
-
     const getFollowButtonText = () => {
-        if(!ownFollow) return 'Follow';
-        if(!ownFollow.isApproved) return 'Request Sent';
+        if (!ownFollow) return 'Follow';
+        if (!ownFollow.isApproved) return 'Request Sent';
         return 'Unfollow'
     }
-    
+
     const handleFollowButtonClick = () => {
-        if(!ownFollow) {
+        if (!ownFollow) {
             createFollow({ followerId: auth.id, followingId: user.id });
         } else {
             deleteFollow({ id: ownFollow.id });
@@ -42,7 +41,7 @@ const ProfileHeader = ({
             </div>
             {!isOwnProfile && (
                 <button
-                    onClick={handleFollowButtonClick} 
+                    onClick={handleFollowButtonClick}
                     disabled={ownFollow && !ownFollow.isApproved}>
                     {getFollowButtonText()}
                 </button>

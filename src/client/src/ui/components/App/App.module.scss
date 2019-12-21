@@ -1,6 +1,7 @@
 .app {
     padding-top: calc(40px + 5%);
+
     @media(min-width: 768px) {
-        padding-top: 80px;                
+        padding-top: 80px;
     }
 }

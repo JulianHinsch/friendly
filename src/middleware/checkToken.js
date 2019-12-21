@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-
     const { jwt_header, jwt_payload, jwt_signature } = req.cookies;
 
     if (jwt_header && jwt_payload && jwt_signature) {
         const token = `${jwt_header}.${jwt_payload}.${jwt_signature}`;
+
         jwt.verify(token, process.env.SECRET_KEY, {
             algorithms: ['HS256'],
             audience: 'node-token-auth-client',

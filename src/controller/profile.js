@@ -5,7 +5,7 @@ const _get = async(req,res,next) => {
     const limit = req.query.limit === 'null' || req.query.limit === 'undefined' ? null : req.query.limit;
     const offset = req.query.offset === 'null' || req.query.offset === 'undefined' ? null : req.query.offset;
     try {
-        //get all follows/followers
+        // get all follows/followers
         const followArr = await Follow.findAll({
             where: {
                     [Op.or]: {
@@ -21,11 +21,11 @@ const _get = async(req,res,next) => {
                 },
             ],
         });
-        //get user and posts
+        // get user and posts
         const users = await User.findByPk(req.params.userId, {
             attributes: ['id', 'name', 'emailHash'],
             include: [
-                { 
+                {
                     model: Post,
                     as: 'posts',
                     limit,
@@ -40,7 +40,7 @@ const _get = async(req,res,next) => {
                                 attributes: [ 'id', 'name', 'emailHash'],
                             },
                         },
-                        { 
+                        {
                             model: Reaction,
                             as: 'reactions',
                             include: {
@@ -52,11 +52,11 @@ const _get = async(req,res,next) => {
                         {
                             model: User,
                             as: 'user',
-                            attributes: ['id', 'name', 'emailHash']                            
+                            attributes: ['id', 'name', 'emailHash']
                         }
                     ]
                 },
-                { 
+                {
                     model: Follow,
                     as: 'follows',
                     include: {
@@ -74,7 +74,7 @@ const _get = async(req,res,next) => {
                 }
             ],
         });
-        return res.status(200).send({ users: [users], follows: followArr });
+        return res.status(200).send({ users: [ users ], follows: followArr });
     } catch (err) {
         next(err);
     }

@@ -3,7 +3,7 @@ const Follow = require('../model/database.js').models.Follow;
 const _create = async (req, res, next) => {
     try {
         let result = await Follow.create(req.body);
-        return res.status(201).send(result);      
+        return res.status(201).send(result);
     } catch (err) {
         next(err);
     }

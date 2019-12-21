@@ -35,8 +35,8 @@ class CommentForm extends Component {
                 className={styles.comment_form}
                 onSubmit={this.handleSubmit}>
                 <Avatar id={id} emailHash={emailHash}/>
-                <input 
-                    type='text' 
+                <input
+                    type='text'
                     name='comment'
                     maxLength={1120}
                     onChange={this.handleChange}

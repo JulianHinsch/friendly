@@ -41,7 +41,7 @@ module.exports = (database, DataTypes) => {
                     reject(err);
                 } else {
                     bcrypt.hash(password, salt, function(err, hash) {
-                        if(err) {
+                        if (err) {
                             reject(err);
                         } else {
                             resolve(hash);
@@ -52,7 +52,6 @@ module.exports = (database, DataTypes) => {
         });
     }
 
-    //this hashing algorithm can be used syncronously because its very fast
     User.prototype.generateEmailHash = function(email) {
         return md5(email);
     }
@@ -61,7 +60,7 @@ module.exports = (database, DataTypes) => {
         const passwordHash = this.passwordHash;
         return new Promise(function(resolve, reject) {
             bcrypt.compare(password, passwordHash, (err, success) => {
-                if(err) {
+                if (err) {
                     reject(err);
                 } else {
                     resolve(success);

@@ -10,7 +10,7 @@ const getActionType = (entity) => {
 
 export default ({ dispatch }) => (next) => (action) => {
 
-    if(action.type.includes(NORMALIZE_DATA)) {
+    if (action.type.includes(NORMALIZE_DATA)) {
 
         let originalData = action.payload;
         //console.log('Original Data:', originalData);
@@ -41,7 +41,7 @@ export default ({ dispatch }) => (next) => (action) => {
                 })));
                 next(setSelectedData({ feature: USERS, idArray: normalizedData.result}));
                 if (normalizedData.entities.posts) {
-                    next(setSelectedData({ feature: POSTS, idArray: Object.keys(normalizedData.entities.posts)}));                                    
+                    next(setSelectedData({ feature: POSTS, idArray: Object.keys(normalizedData.entities.posts)}));
                 }
                 break;
             case POSTS:
@@ -57,7 +57,7 @@ export default ({ dispatch }) => (next) => (action) => {
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],
                 })));
-                next(setSelectedData({ feature: POSTS, idArray: normalizedData.result}));                
+                next(setSelectedData({ feature: POSTS, idArray: normalizedData.result}));
                 break;
             case FOLLOWS:
                 user = new schema.Entity('users');
@@ -70,7 +70,7 @@ export default ({ dispatch }) => (next) => (action) => {
                     type: getActionType(entity),
                     payload: normalizedData.entities[entity],
                 })));
-                next(setSelectedData({ feature: FOLLOWS, idArray: normalizedData.result}));                
+                next(setSelectedData({ feature: FOLLOWS, idArray: normalizedData.result}));
                 break;
             default:
                 break;

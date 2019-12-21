@@ -5,7 +5,13 @@ import Avatar from '../Avatar/Avatar';
 
 import styles from './FollowRequest.module.scss';
 
-const FollowRequest = ({ id, user, auth, updateFollow, deleteFollow }) => {
+const FollowRequest = ({
+    id,
+    user,
+    auth,
+    updateFollow,
+    deleteFollow
+}) => {
     return (
         <li className={styles.follow_request}>
             <Avatar id={user.id} emailHash={user.emailHash} diameter={20}/>

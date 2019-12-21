@@ -4,7 +4,7 @@ import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 import { clearStore } from '../../actions/data.actions';
 
 export default ({ dispatch }) => (next) => (action) => {
-    
+
     next(action);
 
     switch(action.type) {
@@ -12,7 +12,7 @@ export default ({ dispatch }) => (next) => (action) => {
             const credentials = action.payload;
             const { redirectTo } = action.meta;
             next(apiRequest({
-                data: credentials, 
+                data: credentials,
                 method: 'POST',
                 url: '/login',
                 timeout: 3000,
@@ -22,39 +22,39 @@ export default ({ dispatch }) => (next) => (action) => {
             break;
         case SIGN_UP:
             const user = action.payload;
-            next(apiRequest({ 
-                    data: user, 
-                    method: 'POST', 
-                    url: '/signup', 
+            next(apiRequest({
+                    data: user,
+                    method: 'POST',
+                    url: '/signup',
                     timeout: 3000,
                     feature: AUTH,
-                    redirectTo: null,                    
+                    redirectTo: null,
             }));
             break;
         case LOG_OUT:
-            next(apiRequest({ 
-                    data: null, 
+            next(apiRequest({
+                    data: null,
                     method: 'POST',
-                    url: '/logout', 
+                    url: '/logout',
                     timeout: 3000,
                     feature: AUTH,
-                    redirectTo: null,                    
+                    redirectTo: null,
             }));
             break;
         case `${AUTH} ${API_ERROR}`:
-            //safe getter function, since we don't know if these properties will exist
+            // safe getter function, since we don't know if these properties will exist
             const get = (obj, path) => path.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, obj);
-            const message = get(action, ['payload','response', 'data', 'message']);   
+            const message = get(action, ['payload','response', 'data', 'message']);
             next(setAuth({ auth: { message }}));
             break;
         case `${AUTH} ${API_SUCCESS}`:
         case GET_AUTH:
-            //read the cookie
-            const jwtPayload = cookies.get('jwt_payload');        
-            if(jwtPayload) {
+            // read the cookie
+            const jwtPayload = cookies.get('jwt_payload');
+            if (jwtPayload) {
                 const { id, name, emailHash, exp } = JSON.parse(window.atob(jwtPayload));
-                //exp is in seconds not milliseconds
-                if(exp*1000 > new Date().getTime()) {
+                // exp is in seconds not milliseconds
+                if (exp*1000 > new Date().getTime()) {
                     const auth = {
                         id,
                         name,
@@ -66,11 +66,10 @@ export default ({ dispatch }) => (next) => (action) => {
                     break;
                 }
             }
-            //clear the store when the user logs out
-            next(clearStore());            
+            // clear the store when the user logs out
+            next(clearStore());
             break;
         default:
             break;
     }
 }
-    

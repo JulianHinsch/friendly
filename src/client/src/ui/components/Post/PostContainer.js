@@ -8,13 +8,13 @@ import * as actions from '../../../redux/actions/posts.actions';
 const mapStateToProps = (state, ownProps) => ({
     auth: state.auth,
     reactions: ownProps.reactions.map(reaction => {
-        if(!reaction.user) {
+        if (!reaction.user) {
             reaction.user = getUserById(state, reaction.userId)
         }
         return reaction;
     }),
     comments: ownProps.comments.map(comment => {
-        if(!comment.user) {
+        if (!comment.user) {
             comment.user = getUserById(state, comment.userId)
         }
         return comment;

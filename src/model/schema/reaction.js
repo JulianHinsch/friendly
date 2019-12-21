@@ -20,7 +20,8 @@ module.exports = (database, DataTypes) => {
             foreignKey: true,
         },
         type: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM,
+            values: ['LIKE'],
             allowNull: false,
             unique: false,
             defaultValue: 'LIKE',

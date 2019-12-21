@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 const database = new Sequelize(process.env.DATABASE_URL, {
-    operatorsAliases: false, //fixes https://github.com/sequelize/sequelize/issues/8417 
+    operatorsAliases: false, // fixes https://github.com/sequelize/sequelize/issues/8417
 });
 
 const User = require('./schema/user')(database, Sequelize);
@@ -11,6 +11,8 @@ const Reaction = require('./schema/Reaction')(database, Sequelize);
 const Follow = require('./schema/follow')(database, Sequelize);
 // const Message = require('./schema/message')(database, Sequelize);
 // const Conversation = require('./schema/conversation')(database, Sequelize);
+
+const seedData = require('./seed');
 
 User.hasMany(Post, { as: 'posts', foreignKey: 'userId', targetKey: 'id' });
 User.hasMany(_Comment, { as: 'comments', foreignKey: 'userId', targetKey: 'id' });
@@ -41,204 +43,43 @@ Follow.belongsTo(User, { onDelete: 'CASCADE' });
 
 const sync = () => database.sync({ force: true });
 
-
 const seed = () => {
     return sync()
-    .then(async () => {
-        const users = [
-            {
-                email: 'jhinsch799@gmail.com',
-                password: 'temp',
-                name: 'Julian Hinsch',
-            },
-            {
-                email: 'jane.doe@gmail.com',
-                password: 'temp',
-                name: 'Jane Doe',
-            },
-            {
-                email: 'john.doe@gmail.com',
-                password: 'temp',
-                name: 'John Doe',
-            },
-        ];
-        const seedUsers = users.map(async user => {
-            const emailHash = await User.prototype.generateEmailHash(user.email) 
-            const passwordHash = await User.prototype.generatePasswordHash(user.password);            
-            User.create({
-                email: user.email,
-                emailHash: emailHash,
-                name: user.name,
-                passwordHash: passwordHash,
-            });
-        });
-        return Promise.all(seedUsers);
-    })
-    .then(() => {
-        const posts = [
-            {
-                userId: 1,
-                text: "Hi, I'm Julian!",
-            },
-            {
-                userId: 1,
-                text: "This is my second post!",
-            },
-            {
-                userId: 2,
-                text: "Hi, I'm Jane!",
-            },
-            {
-                userId: 2,
-                text: "Check out this <a href='https://nytimes.com' target='_blank' rel='noopener noreferrer'>cool article</a>!",
-            },
-            {
-                userId: 3,
-                text: "Hi, I'm John!",
-            },
-        ]
-        const seedPosts = posts.map(post => {
-            Post.create(post)
-        });
-        return Promise.all(seedPosts);
-    })
-    .then(() => {
-        const comments = [
-            {
-                postId: 1,                
-                userId: 2,
-                text: "Hi Julian!",
-            },
-            {
-                postId: 1,
-                userId: 1,
-                text: "Hey Jane!",
-            },
-            {
-                postId: 2,                
-                userId: 1,
-                text: "Killin it!",
-            },
-            {
-                postId: 3,                
-                userId: 1,
-                text: "Hey Jane!",
-            },
-            {
-                postId: 3,                
-                userId: 3,
-                text: "What's up Jane!",
-            },
-            {
-                postId: 4,                
-                userId: 1,
-                text: "This sucks!",
-            },
-            {
-                postId: 5,     
-                userId: 2,
-                text: "Hi John!",
-            },
-        ]
-        const seedComments = comments.map(comment => {
-            _Comment.create(comment)
-        });
-        return Promise.all(seedComments)
-    })
-    .then(() => {
-        const reactions = [
-            {
-                userId: 2,
-                postId: 1,
-            },
-            {
-                userId: 3,
-                postId: 1,
-            },
-            {
-                userId: 1,
-                postId: 3,
-            },
-            {
-                userId: 1,
-                postId: 4,
-            },
-            {
-                userId: 3,
-                postId: 2,
-            },
-            {
-                userId: 3,
-                postId: 3,
-            },
-            {
-                userId: 3,
-                postId: 4,
-            },
-        ]
-        const seedReactions = reactions.map(reaction => {
-            Reaction.create(reaction)
-        });
-        return Promise.all(seedReactions)
-    })
-    .then(() => {
-        const follows = [
-            {
-                userId: 1,
-                followsId: 2,
-                isApproved: true,
-            },
-            {
-                userId: 1,
-                followsId: 3,
-                isApproved: true,
-            },
-            {
-                userId: 2,
-                followsId: 1,
-                isApproved: true,
-            },
-            {
-                userId: 3,
-                followsId: 1,
-                isApproved: false,
-            },
-            {
-                userId: 3,
-                followsId: 2,
-                isApproved: true,
-            },
-        ]
-        const seedFollows = follows.map(follow => {
-            Follow.create(follow);
-        });
-        return Promise.all(seedFollows);
-    })
-
-    // .then(() => {
-    //     const conversations = [
-
-    //     ]
-    //     const seedConversations = conversations.map(conversation => {
-    //         Conversation.create({
-                
-    //         });
-    //     })
-    //     return Promise.all(seedConversations);
-    // })
-    // .then(() => {
-    //     const messages = [
-
-    //     ]
-    //     const seedMessages = messages.map(message => {
-    //         Message.create({
-                
-    //         });
-    //     });
-    //     return Promise.all(seedMessages);
-    // })
+        .then(async () => {
+            return Promise.all(seedData.users.map(async user => {
+                const emailHash = await User.prototype.generateEmailHash(user.email)
+                const passwordHash = await User.prototype.generatePasswordHash(user.password);
+                User.create({
+                    email: user.email,
+                    emailHash: emailHash,
+                    name: user.name,
+                    passwordHash: passwordHash,
+                });
+            }));
+        })
+        .then(() => {
+            return Promise.all([
+                ...seedData.posts.map(post => {
+                    Post.create(post);
+                }),
+                ...seedData.comments.map(comment => {
+                    _Comment.create(comment);
+                }),
+                ...seedData.reactions.map(reaction => {
+                    Reaction.create(reaction);
+                }),
+                ...seedFollows.map(follow => {
+                    Follow.create(follow);
+                }),
+                // ...seedMessages.map(message => {
+                //     Message.create(message);
+                // }),
+                // ...seedConversations.map(conversation => {
+                //     conversation.create(Conversation);
+                // }),
+            ])
+        })
 }
-
 
 module.exports = {
     models: {

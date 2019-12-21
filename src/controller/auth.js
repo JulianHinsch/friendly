@@ -9,7 +9,7 @@ const authSuccess = (res, token) => {
     const tokenArr = token.split('.');
     const options = {
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        secure: process.env.NODE_ENV !== 'development',        
+        secure: process.env.NODE_ENV !== 'development',
     }
     return res
         .status(200)
@@ -22,14 +22,14 @@ const authSuccess = (res, token) => {
 }
 
 const createToken = (user) => jwt.sign(
-    { 
+    {
         id: user.id,
         name: user.name,
         emailHash: user.emailHash,
         role: user.role,
     },
     process.env.SECRET_KEY,
-    { 
+    {
         expiresIn: '7d',
         audience: 'node-token-auth-client',
         issuer: 'node-token-auth-server',
@@ -39,20 +39,20 @@ const createToken = (user) => jwt.sign(
 
 const logout = (req, res, next) => {
     const options = { maxAge: 0, overwrite: true }
+
     return res
         .status(200)
         .cookie('jwt_header', null, options)
         .cookie('jwt_payload', null, options)
         .cookie('jwt_signature', null, options)
         .json({ success: true })
-    next();
 }
 
 const login = async (req, res, next) => {
 
     const { email, password } = req.body;
 
-    if(!email || !password) {
+    if (!email || !password) {
         return res.status(400).json({
             success: false,
             message: 'Authentication failed! Please check the request',
@@ -60,10 +60,8 @@ const login = async (req, res, next) => {
     }
 
     try {
-
         const user = await User.findOne({ where: { email: email }});
-
-        if(!user) {
+        if (!user) {
             return res.status(403).json({
                 success: false,
                 message: 'Invalid email or password',
@@ -71,8 +69,7 @@ const login = async (req, res, next) => {
         }
 
         const isValid = await user.checkPassword(password);
-
-        if(!isValid) {
+        if (!isValid) {
             return res.status(403).json({
                 success: false,
                 message: 'Invalid email or password',
@@ -87,18 +84,18 @@ const login = async (req, res, next) => {
 }
 
 const signup = async (req, res, next)  => {
-    
+
     const { name, email, password } = req.body;
 
-    if(!name || !email || !password) {
+    if (!name || !email || !password) {
         return res.status(400).json({
             success: false,
             message: 'Authentication failed! Please check the request',
         });
     }
 
-    if( !validateName(name) ||
-        !validateEmail(email) ||    
+    if (!validateName(name) ||
+        !validateEmail(email) ||
         !validatePassword(password)
     ) {
         return res.status(403).json({
@@ -109,19 +106,19 @@ const signup = async (req, res, next)  => {
 
     try {
         const emailHash = User.prototype.generateEmailHash(email);
-        const passwordHash = await User.prototype.generatePasswordHash(password);              
-        //dont allow duplicate emails
+        const passwordHash = await User.prototype.generatePasswordHash(password);
+        // dont allow duplicate emails
         const [ user, created ] = await User.findOrCreate({
             where: {
                 email,
             },
             defaults: {
                 name,
-                passwordHash, 
+                passwordHash,
                 emailHash,
             }
         })
-        if(!created) {
+        if (!created) {
             return res.status(409).json({
                 success: false,
                 message: 'There is already an account associated with this email.',

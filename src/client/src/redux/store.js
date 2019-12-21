@@ -33,7 +33,7 @@ const coreMiddleware = [
     apiMiddleware,
     normalizeMiddleware,
     redirectMiddleware,
-    actionSplitterMiddleware, //this should really be first core but it throws errors  
+    actionSplitterMiddleware,
     createLogger({ collapsed: true }),
 ]
 

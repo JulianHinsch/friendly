@@ -5,7 +5,7 @@ const _get = async(req,res,next) => {
     const limit = req.query.limit === 'null' || req.query.limit === 'undefined' ? null : req.query.limit;
     const offset = req.query.offset === 'null' || req.query.offset === 'undefined' ? null : req.query.offset;
     try {
-        //get all follows/followers
+        // get all follows/followers
         const followArr = await Follow.findAll({
             where: {
                     [Op.or]: {
@@ -21,12 +21,14 @@ const _get = async(req,res,next) => {
                 },
             ],
         });
-        //get the ids of users we need posts from
+
+        // get the ids of users we need posts from
         const followIdArr = followArr
             .filter(follow => follow.userId == req.params.userId)
             .map(follow => follow.followsId);
         followIdArr.push(req.params.userId);
-        //get all relevant posts
+
+        // get all relevant posts
         const postArr = await Post.findAll({
             limit,
             offset,
@@ -39,7 +41,7 @@ const _get = async(req,res,next) => {
                     as: 'user',
                     attributes: ['id', 'name', 'emailHash']
                 },
-                { 
+                {
                     model: Reaction,
                     as: 'reactions',
                     include: {
@@ -62,7 +64,6 @@ const _get = async(req,res,next) => {
                 ['updatedAt', 'DESC'],
             ],
         });
-        //combine
         return res.status(200).send({ follows: followArr, posts: postArr });
     } catch (err) {
         next(err);

@@ -13,7 +13,7 @@ export default (state = defaultState, action) => {
     switch (action.type) {
         case SET_AUTH:
             const auth = action.payload;
-            return { ...state, ...auth };            
+            return { ...state, ...auth };
         default:
             return state;
     }

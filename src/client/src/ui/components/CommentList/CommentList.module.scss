@@ -1,11 +1,14 @@
 @import '../../styles/global.scss';
 
-.comment_list_toggle {
-    padding: 10px;
-    color: $color-text-light;
-    font-size: 12px;
-    & span:hover {
-        cursor: pointer;        
-        text-decoration: underline;        
+.comment_list {
+    > .comment_list_toggle {
+        padding: 10px;
+        color: $color-text-light;
+        font-size: 12px;
+
+        & span:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
     }
 }

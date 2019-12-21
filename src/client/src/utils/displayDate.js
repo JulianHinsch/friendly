@@ -7,7 +7,7 @@ export default (dateString) => {
         //date is this hour
         //a few seconds ago
         return date.fromNow();
-    } else if(date.isSame(now, 'day')) {
+    } else if (date.isSame(now, 'day')) {
         //date is today
         //1:23 pm
         return date.format('h:mm a')

@@ -8,22 +8,22 @@ const Reactions = ({ postId, auth, reactions, createReaction, deleteReaction }) 
     return (
         <div className={styles.reactions}>
             <img
-                src={ownReaction ? 
-                    require('../../../assets/thumbs_up_fill.svg') 
+                src={ownReaction ?
+                    require('../../../assets/thumbs_up_fill.svg')
                     :
                     require('../../../assets/thumbs_up.svg'
-                )} 
+                )}
                 alt={'Thumbs Up'}
                 onClick={() => {
-                    if(ownReaction) {
-                        deleteReaction(ownReaction.id);                     
+                    if (ownReaction) {
+                        deleteReaction(ownReaction.id);
                     } else {
-                        createReaction({ 
+                        createReaction({
                             userId: auth.id,
                             type: 'LIKE',
                             postId
                         });
-                    }    
+                    }
                 }}/>
             {reactions.length > 0 && (
                 <p>

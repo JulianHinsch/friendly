@@ -13,7 +13,7 @@ export default (state = defaultState, action) => {
         case `${POSTS} ${SET_LOADER}`:
             return Object.assign({}, state, { loading: action.payload });
         case SET_POSTS:
-            return { ...state, collection: { ...state.collection, ...action.payload }};         
+            return { ...state, collection: { ...state.collection, ...action.payload }};
         case `${POSTS} ${SET_SELECTED_DATA}`:
 
 

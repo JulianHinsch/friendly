@@ -22,7 +22,7 @@ class Header extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const query = this.state.search.trim();
-        if(query!=='') {
+        if (query!=='') {
             history.push(`/search/?q=${query}`);
             this.setState({ search: '' });
         }

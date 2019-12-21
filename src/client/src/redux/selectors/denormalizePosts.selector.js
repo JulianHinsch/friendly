@@ -1,7 +1,7 @@
 import { schema, denormalize } from 'normalizr';
 
 export default (state) => {
-    
+
     const user = new schema.Entity('users');
     const comment = new schema.Entity('comments');
     const reaction = new schema.Entity('reactions');
@@ -12,7 +12,7 @@ export default (state) => {
     });
 
     const input = state.posts.selectedPostArr;
-    
+
     const postsSchema = [ post ];
     const entities = {
         posts: state.posts.collection,
@@ -22,8 +22,8 @@ export default (state) => {
     };
 
     const denormalizedData = denormalize(input, postsSchema, entities);
-    if(denormalizedData.length > 0) {
-        //console.log('Denormalized Data', denormalizedData);        
+    if (denormalizedData.length > 0) {
+        //console.log('Denormalized Data', denormalizedData);
     }
 
     return denormalizedData;

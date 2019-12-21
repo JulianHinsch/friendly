@@ -58,7 +58,7 @@ class Signup extends Component {
             password: validators.validatePassword,
         }
         const validator = validatorMap[field];
-        if(validator) {
+        if (validator) {
             return validator(userInput);
         }
         return '';

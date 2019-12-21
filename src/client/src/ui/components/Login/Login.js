@@ -25,7 +25,6 @@ class Login extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const { email, password } = this.state;
-        //safe getter function, since we don't know if these properties will exist
         const get = (obj, path) => path.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, obj);
         const redirectTo = get(this.props, ['location','state','from','pathname']);
         this.props.logIn({ email, password }, redirectTo);

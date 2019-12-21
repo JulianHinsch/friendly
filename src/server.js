@@ -1,17 +1,20 @@
 require('dotenv').config();
-const Express = require('express');
-const morgan = require('morgan');
-const path = require('path');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
+
+const   Express = require('express'),
+        morgan = require('morgan'),
+        path = require('path'),
+        bodyParser = require('body-parser'),
+        cookieParser = require('cookie-parser'),
+        cors = require('cors'),
+        expressWs = require('express-ws')
+
 const handleWebSocketRequest = require('./controller/chat');
-const expressWs = require('express-ws')
+
 const database = require('./model/database');
 
 const app = new Express();
 
-if(process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
     app.use(cors({
         credentials: true,
         origin: 'http://localhost:3000',
@@ -23,20 +26,26 @@ app.use(bodyParser.urlencoded({
     extended: true,
 }));
 app.use(bodyParser.json());
-app.use(cookieParser()); //you can provide a secret here to sign cookies if you wish
+app.use(cookieParser()); // you can provide a secret here to sign cookies if you wish
 
 expressWs(app);
 
 const router = require('./routes');
 app.use(router);
 
-if(process.env.NODE_ENV !== 'development') {
-    app.use(Express.static(path.join(__dirname, 'src/client/build')));    
+if (process.env.NODE_ENV !== 'development') {
+    app.use(Express.static(path.join(__dirname, 'src/client/build')));
+}
+
+if (process.env.NODE_ENV === 'development') {
+    database.seed();
+} else {
+    database.sync();
 }
 
 // general error handling
 app.use((err, req, res, next) => {
-    if(err) {
+    if (err) {
         console.log(err);
         res.sendStatus(err.status);
         res.sendStatus(500);
@@ -46,13 +55,6 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 3001;
 
-if(process.env.NODE_ENV === 'development') {
-    database.seed();
-} else {
-    database.sync();
-}
-
 app.listen(port, () => {
     console.log('Listening on', port);
 });
-    
