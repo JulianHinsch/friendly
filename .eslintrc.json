@@ -15,7 +15,7 @@
       "Swiper": true
     },
     "parserOptions": {
-      "ecmaVersion": "6"
+      "ecmaVersion": 6
     },
     "rules": {
       "indent": ["error", 4],
@@ -55,7 +55,6 @@
       "no-underscore-dangle": "off",
       "no-param-reassign": "off",
       "consistent-return": "off",
-      "prefer-arrow-callback": "off",
       "prefer-template": "off",
       "object-shorthand": "off",
       "radix": "off",
