@@ -11,13 +11,14 @@ export default class PostList extends Component {
         loading: PropTypes.bool.isRequired,
         posts: PropTypes.arrayOf(PropTypes.object).isRequired,
     }
-    
+
     render() {
         const { loading, posts } = this.props;
+        console.log(posts);
         return (
             <div className={styles.post_list} id='post_list'>
                 {loading ? <Loader/> : (
-                    posts.sort((p1,p2) => {
+                    posts.sort((p1, p2) => {
                         return moment(p2.updatedAt) - moment(p1.updatedAt);
                     }).map(post => <Post key={post.id} {...post}/>)
                 )}

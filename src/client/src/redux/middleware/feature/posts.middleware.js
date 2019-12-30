@@ -4,18 +4,18 @@ import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 import { setLoader } from '../../actions/loaders.actions';
 
 export default ({ dispatch }) => (next) => (action) => {
-    
+
     next(action);
 
     switch(action.type) {
         case CREATE_POST:
             const post = action.payload;
             next(apiRequest({
-                data: post, 
-                method: 'POST', 
-                url: '/api/posts', 
+                data: post,
+                method: 'POST',
+                url: '/api/posts',
                 timeout: 3000,
-                feature: POSTS, 
+                feature: POSTS,
                 redirectTo: null,
             }));
             break;
@@ -34,14 +34,13 @@ export default ({ dispatch }) => (next) => (action) => {
             next(setPosts({ posts: { [action.payload.id]: { ...action.payload } }}));
             next(setSelectedData({ feature: POSTS, idArray: [ action.payload.id ], merge: true }));
             next(setLoader({ feature: POSTS, loading: false }));
-            break; 
+            break;
         case `${POSTS} ${API_ERROR}`:
             const error = action.payload;
             console.log(error);
-            next(setLoader({ feature: POSTS, loading: false }));            
+            next(setLoader({ feature: POSTS, loading: false }));
             break;
         default:
             break;
     }
 }
-    

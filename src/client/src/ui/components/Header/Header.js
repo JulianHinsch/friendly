@@ -42,20 +42,20 @@ class Header extends Component {
             <header className={styles.header}>
                 <nav>
                     <Link to='/' className={styles.logo} title='Home'>
-                        <img 
-                            src={require('../../../assets/logo_white.svg')} 
+                        <img
+                            src={require('../../../assets/logo_white.svg')}
                             alt='Home'/>
                         <span className={styles.logo_text}> friendly</span>
                     </Link>
                     <form className={styles.search_form} onSubmit={this.handleSubmit}>
                         <label htmlFor='search' style={{display: 'none'}}>Search</label>
-                        <input 
+                        <input
                             name='search'
                             type='text'
                             maxLength={140}
-                            onChange={this.handleChange} 
+                            onChange={this.handleChange}
                             placeholder='Search for people...'/>
-                        <img 
+                        <img
                             src={require('../../../assets/search.svg')}
                             alt='Search'
                             title='Search'
@@ -64,10 +64,10 @@ class Header extends Component {
                     {auth.isAuthenticated ? (
                         <ul>
                             <li className={classNames({[styles.active]: this.state.showFollowRequests})}>
-                                <img 
+                                <img
                                     onClick={this.showFollowRequests}
-                                    src={require('../../../assets/inbox.svg')} 
-                                    alt='Follow Requests' 
+                                    src={require('../../../assets/inbox.svg')}
+                                    alt='Follow Requests'
                                     title='Follow Requests'/>
                                 {this.state.showFollowRequests && (
                                     <FollowRequestList/>
@@ -75,19 +75,19 @@ class Header extends Component {
                             </li>
                             <li>
                                 <Link to={`/profile/${auth.id}`} title='Profile'>
-                                    <img 
-                                        src={require('../../../assets/profile.svg')} 
+                                    <img
+                                        src={require('../../../assets/profile.svg')}
                                         alt='My Profile'/>
-                                </Link>   
+                                </Link>
                             </li>
-                            <li> 
-                                <img 
-                                    onClick={logOut} 
-                                    src={require('../../../assets/logout.svg')} 
-                                    alt='Log Out' 
+                            <li>
+                                <img
+                                    onClick={logOut}
+                                    src={require('../../../assets/logout.svg')}
+                                    alt='Log Out'
                                     title='Log Out'/>
                             </li>
-                        </ul>   
+                        </ul>
                     ) : (
                         <ul>
                             <li><Link to='/signup'>Sign Up</Link></li>

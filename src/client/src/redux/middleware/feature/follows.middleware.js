@@ -2,7 +2,7 @@ import { FOLLOWS, CREATE_FOLLOW, DELETE_FOLLOW, UPDATE_FOLLOW, setFollows } from
 import { API_SUCCESS, API_ERROR, apiRequest } from '../../actions/api.actions';
 
 export default ({ dispatch }) => (next) => (action) => {
-    
+
     next(action);
 
     switch(action.type) {
@@ -14,7 +14,7 @@ export default ({ dispatch }) => (next) => (action) => {
                 url: '/api/follows',
                 timeout: 3000,
                 feature: FOLLOWS,
-                redirectTo: null,                
+                redirectTo: null,
             }))
             break;
         case DELETE_FOLLOW:
@@ -25,7 +25,7 @@ export default ({ dispatch }) => (next) => (action) => {
                 url: `/api/follows/${id}`,
                 timeout: 3000,
                 feature: FOLLOWS,
-                redirectTo: null,                
+                redirectTo: null,
             }));
             break;
         case UPDATE_FOLLOW:
@@ -43,4 +43,3 @@ export default ({ dispatch }) => (next) => (action) => {
             break;
     }
 }
-    

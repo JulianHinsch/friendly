@@ -64,7 +64,7 @@ const _get = async(req,res,next) => {
                 ['updatedAt', 'DESC'],
             ],
         });
-        return res.status(200).send({ follows: followArr, posts: postArr });
+        return res.status(200).send({ posts: postArr });
     } catch (err) {
         next(err);
     }

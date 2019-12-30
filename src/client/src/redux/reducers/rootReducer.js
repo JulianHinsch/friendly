@@ -9,6 +9,9 @@ import commentsReducer from './comments.reducer';
 import followsReducer from './follows.reducer';
 // import conversationsReducer from './conversations.reducer';
 // import messagesReducer from './messages.reducer';
+import feedReducer from './feed.reducer';
+import profileReducer from './profile.reducer';
+import searchReducer from './search.reducer';
 
 
 const rootReducer = (state, action) => {
@@ -24,6 +27,9 @@ const rootReducer = (state, action) => {
         reactions: reactionsReducer,
         comments: commentsReducer,
         follows: followsReducer,
+        feed: feedReducer,
+        profile: profileReducer,
+        search: searchReducer,
         // conversations: conversationsReducer,
         // messages: messagesReducer,
     })(state, action);
